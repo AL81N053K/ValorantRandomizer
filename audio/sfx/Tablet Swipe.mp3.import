@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://sapqh3dd0bwv"
+path="res://.godot/imported/Tablet Swipe.mp3-5ba29f7d1bce8228d686d83f5c03483b.mp3str"
+
+[deps]
+
+source_file="res://audio/sfx/Tablet Swipe.mp3"
+dest_files=["res://.godot/imported/Tablet Swipe.mp3-5ba29f7d1bce8228d686d83f5c03483b.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

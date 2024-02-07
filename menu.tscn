@@ -1,0 +1,1160 @@
+[gd_scene load_steps=31 format=3 uid="uid://chqxp15gq40rr"]
+
+[ext_resource type="Theme" uid="uid://4brdb7s7jq0f" path="res://main_theme.tres" id="1_qgaiu"]
+[ext_resource type="Script" path="res://menu.gd" id="2_pp5pq"]
+[ext_resource type="Texture2D" uid="uid://cc4kmu307fgn3" path="res://maps/Range.png" id="3_ahnqv"]
+[ext_resource type="Script" path="res://class_scripts/BoxMenu.gd" id="5_qirl7"]
+[ext_resource type="Script" path="res://scripts/MapRandom.gd" id="6_mm4lw"]
+[ext_resource type="Script" path="res://scripts/AgentRandom.gd" id="7_gdmon"]
+[ext_resource type="Script" path="res://scripts/WeaponRandom.gd" id="8_jgdmc"]
+[ext_resource type="Script" path="res://class_scripts/BoxLinkButton.gd" id="10_et5cv"]
+[ext_resource type="Texture2D" uid="uid://bictvqq80neby" path="res://svg/speakeron.png" id="11_ka7m5"]
+[ext_resource type="Texture2D" uid="uid://c8jy683h07gpv" path="res://svg/speakerond.png" id="12_g5wtx"]
+[ext_resource type="Texture2D" uid="uid://dymwe6n2sltat" path="res://svg/speakeroff.png" id="13_b5oxb"]
+[ext_resource type="Texture2D" uid="uid://durxmm6et3xa6" path="res://svg/speakeroffd.png" id="14_tlmfr"]
+
+[sub_resource type="Shader" id="Shader_3jofm"]
+code = "shader_type canvas_item;
+
+uniform int strength: hint_range(1, 512) = 2;
+
+vec4 blur_size(sampler2D tex,vec2 fragCoord, vec2 pixelSize) {
+    
+    vec4 color = vec4(0.,0.,0.,0.);
+    float strengthFloat = float(strength);	
+
+    vec2 pixel = fragCoord/pixelSize;
+    int x_min = max(int(pixel.x-strengthFloat), 0);
+    int x_max = min(int(pixel.x+strengthFloat), int(1./pixelSize.x));
+    int y_min = max(int(pixel.y-strengthFloat), 0);
+    int y_max = min(int(pixel.y+strengthFloat), int(1./pixelSize.y));
+
+    int count =0;
+
+    // Sum the pixels colors
+    for(int x=x_min; x <= x_max; x++) {
+        for(int y = y_min; y <= y_max; y++) {           
+            color += texture(tex, vec2(float(x), float(y)) * pixelSize);
+            count++;
+        }
+    }
+    
+    // Divide the color by the number of colors you summed up
+    color /= float(count);
+    
+    return color;
+}
+
+void fragment() {	
+    COLOR = blur_size(TEXTURE,UV,TEXTURE_PIXEL_SIZE);
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1xd4i"]
+shader = SubResource("Shader_3jofm")
+shader_parameter/strength = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fr8a7"]
+bg_color = Color(0.0784314, 0.0784314, 0.0784314, 0.156863)
+border_width_bottom = 2
+border_color = Color(0.443137, 0.8, 0.8, 1)
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="Theme" id="Theme_e1hma"]
+default_font_size = 26
+Button/colors/icon_focus_color = Color(1, 1, 1, 0.74902)
+Button/colors/icon_hover_color = Color(1, 1, 1, 0.74902)
+Button/colors/icon_hover_pressed_color = Color(1, 1, 1, 0.74902)
+Button/colors/icon_normal_color = Color(1, 1, 1, 0.470588)
+Button/font_sizes/font_size = 26
+Button/styles/focus = SubResource("StyleBoxFlat_fr8a7")
+
+[sub_resource type="LabelSettings" id="LabelSettings_fb0tp"]
+font_size = 64
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_j828l"]
+load_path = "res://.godot/imported/Range.webp-7a71663d9cc5a7fb674eaa7d617656da.ctex"
+
+[sub_resource type="LabelSettings" id="LabelSettings_vy2xm"]
+font_size = 64
+
+[sub_resource type="Animation" id="Animation_20j35"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_7m3en"]
+resource_name = "toggle"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0001, 0.01),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [true, false, true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(2, 0.5),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_kygjm"]
+_data = {
+"RESET": SubResource("Animation_20j35"),
+"toggle": SubResource("Animation_7m3en")
+}
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_ulfkw"]
+load_path = "res://.godot/imported/GoldenGun.webp-10c4e9bd21c49061723aaa1a5323d1e6.ctex"
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qoe3g"]
+bg_color = Color(0.0784314, 0.0784314, 0.0784314, 0.156863)
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kavgn"]
+bg_color = Color(0.0784314, 0.0784314, 0.0784314, 0.156863)
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8wbuo"]
+bg_color = Color(0.0784314, 0.0784314, 0.0784314, 0.156863)
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ipnns"]
+bg_color = Color(0.0784314, 0.0784314, 0.0784314, 0.156863)
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mlpe8"]
+bg_color = Color(0.0784314, 0.0784314, 0.0784314, 0.156863)
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="Theme" id="Theme_dmvd3"]
+Button/styles/disabled = SubResource("StyleBoxFlat_qoe3g")
+Button/styles/focus = SubResource("StyleBoxFlat_kavgn")
+Button/styles/hover = SubResource("StyleBoxFlat_8wbuo")
+Button/styles/normal = SubResource("StyleBoxFlat_ipnns")
+Button/styles/pressed = SubResource("StyleBoxFlat_mlpe8")
+
+[sub_resource type="Theme" id="Theme_brai7"]
+CheckButton/icons/checked = ExtResource("11_ka7m5")
+CheckButton/icons/checked_disabled = ExtResource("12_g5wtx")
+CheckButton/icons/checked_disabled_mirrored = ExtResource("12_g5wtx")
+CheckButton/icons/checked_mirrored = ExtResource("11_ka7m5")
+CheckButton/icons/unchecked = ExtResource("13_b5oxb")
+CheckButton/icons/unchecked_disabled = ExtResource("14_tlmfr")
+CheckButton/icons/unchecked_disabled_mirrored = ExtResource("14_tlmfr")
+CheckButton/icons/unchecked_mirrored = ExtResource("13_b5oxb")
+
+[node name="Menu" type="Control" node_paths=PackedStringArray("currentlyVisible")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_qgaiu")
+script = ExtResource("2_pp5pq")
+currentlyVisible = NodePath("MenuBoxes/IntroPanel")
+
+[node name="MapBackground" type="TextureRect" parent="."]
+material = SubResource("ShaderMaterial_1xd4i")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_ahnqv")
+
+[node name="ColorEffect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0313726, 0.0901961, 0.258824, 0.392157)
+
+[node name="MenuBoxes" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="IntroPanel" type="Control" parent="MenuBoxes"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("5_qirl7")
+ignore_start_rest = true
+
+[node name="BG" type="ColorRect" parent="MenuBoxes/IntroPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.815686, 0.380392, 0.717647, 0.156863)
+
+[node name="Label" type="Label" parent="MenuBoxes/IntroPanel/BG"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -686.5
+offset_top = -140.0
+offset_right = 686.5
+offset_bottom = -12.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 128
+text = "Select Randomizer"
+
+[node name="Label" type="Label" parent="MenuBoxes/IntroPanel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -684.5
+offset_top = 60.0
+offset_right = 684.5
+offset_bottom = 124.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 64
+text = "Click the left side to reveal the menu"
+
+[node name="MapBox" type="Control" parent="MenuBoxes"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("5_qirl7")
+
+[node name="BG" type="ColorRect" parent="MenuBoxes/MapBox"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0.392157, 0.392157)
+
+[node name="Content" type="Control" parent="MenuBoxes/MapBox"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("6_mm4lw")
+
+[node name="ToolBox" type="MarginContainer" parent="MenuBoxes/MapBox/Content"]
+custom_minimum_size = Vector2(1760, 60)
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 80.0
+offset_top = 20.0
+offset_right = -80.0
+offset_bottom = 80.0
+grow_horizontal = 2
+
+[node name="H" type="HBoxContainer" parent="MenuBoxes/MapBox/Content/ToolBox"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="ToggleSelection" type="Button" parent="MenuBoxes/MapBox/Content/ToolBox/H"]
+custom_minimum_size = Vector2(340, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+text = "Toggle selection"
+
+[node name="EnableAll" type="Button" parent="MenuBoxes/MapBox/Content/ToolBox/H"]
+custom_minimum_size = Vector2(260, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+text = "Enable All"
+
+[node name="DisableAll" type="Button" parent="MenuBoxes/MapBox/Content/ToolBox/H"]
+custom_minimum_size = Vector2(260, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+text = "Disable All"
+
+[node name="Save" type="Button" parent="MenuBoxes/MapBox/Content/ToolBox/H"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+disabled = true
+text = "Save selection"
+
+[node name="Load" type="Button" parent="MenuBoxes/MapBox/Content/ToolBox/H"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+disabled = true
+text = "Load selection"
+
+[node name="Scale" type="HSlider" parent="MenuBoxes/MapBox/Content/ToolBox/H"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_vertical = 4
+min_value = 1.0
+max_value = 6.0
+value = 5.0
+rounded = true
+tick_count = 6
+ticks_on_borders = true
+
+[node name="MapSelection" type="ScrollContainer" parent="MenuBoxes/MapBox/Content"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 80.0
+offset_top = 100.0
+offset_right = -80.0
+offset_bottom = -100.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Grid" type="GridContainer" parent="MenuBoxes/MapBox/Content/MapSelection"]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+theme = SubResource("Theme_e1hma")
+columns = 3
+
+[node name="ToolBox2" type="MarginContainer" parent="MenuBoxes/MapBox/Content"]
+custom_minimum_size = Vector2(1760, 60)
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 80.0
+offset_top = -80.0
+offset_right = -80.0
+offset_bottom = -20.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="H" type="HBoxContainer" parent="MenuBoxes/MapBox/Content/ToolBox2"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="Randomize" type="Button" parent="MenuBoxes/MapBox/Content/ToolBox2/H"]
+custom_minimum_size = Vector2(600, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+text = "Randomize"
+
+[node name="RandomGeneratorPanel" type="Control" parent="MenuBoxes/MapBox/Content"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1e-05, 1e-05)
+pivot_offset = Vector2(960, 540)
+
+[node name="ColorRect" type="ColorRect" parent="MenuBoxes/MapBox/Content/RandomGeneratorPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.686275)
+
+[node name="Content" type="MarginContainer" parent="MenuBoxes/MapBox/Content/RandomGeneratorPanel"]
+custom_minimum_size = Vector2(1520, 880)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="List" type="VBoxContainer" parent="MenuBoxes/MapBox/Content/RandomGeneratorPanel/Content"]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="MenuBoxes/MapBox/Content/RandomGeneratorPanel/Content/List"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+text = "Your today's lucky map is..."
+label_settings = SubResource("LabelSettings_fb0tp")
+horizontal_alignment = 1
+
+[node name="MapTexture" type="TextureRect" parent="MenuBoxes/MapBox/Content/RandomGeneratorPanel/Content/List"]
+custom_minimum_size = Vector2(0, 600)
+layout_mode = 2
+texture = SubResource("CompressedTexture2D_j828l")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="MapName" type="Label" parent="MenuBoxes/MapBox/Content/RandomGeneratorPanel/Content/List"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+text = "Test"
+label_settings = SubResource("LabelSettings_vy2xm")
+horizontal_alignment = 1
+vertical_alignment = 2
+
+[node name="Exit" type="Button" parent="MenuBoxes/MapBox/Content/RandomGeneratorPanel"]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -100.0
+offset_top = 40.0
+offset_right = -40.0
+offset_bottom = 100.0
+grow_horizontal = 0
+theme_override_font_sizes/font_size = 34
+text = "X"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="MenuBoxes/MapBox/Content/RandomGeneratorPanel"]
+libraries = {
+"": SubResource("AnimationLibrary_kygjm")
+}
+
+[node name="AgentBox" type="Control" parent="MenuBoxes"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("5_qirl7")
+
+[node name="ColorRect" type="ColorRect" parent="MenuBoxes/AgentBox"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0705882, 0.266667, 0.266667, 0.392157)
+
+[node name="Content" type="Control" parent="MenuBoxes/AgentBox"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("7_gdmon")
+
+[node name="ToolBox" type="MarginContainer" parent="MenuBoxes/AgentBox/Content"]
+custom_minimum_size = Vector2(1760, 60)
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 80.0
+offset_top = 20.0
+offset_right = -80.0
+offset_bottom = 80.0
+grow_horizontal = 2
+
+[node name="H" type="HBoxContainer" parent="MenuBoxes/AgentBox/Content/ToolBox"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="ToggleSelection" type="Button" parent="MenuBoxes/AgentBox/Content/ToolBox/H"]
+custom_minimum_size = Vector2(340, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+text = "Toggle selection"
+
+[node name="EnableAll" type="Button" parent="MenuBoxes/AgentBox/Content/ToolBox/H"]
+custom_minimum_size = Vector2(260, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+text = "Enable All"
+
+[node name="DisableAll" type="Button" parent="MenuBoxes/AgentBox/Content/ToolBox/H"]
+custom_minimum_size = Vector2(260, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+text = "Disable All"
+
+[node name="Save" type="Button" parent="MenuBoxes/AgentBox/Content/ToolBox/H"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+disabled = true
+text = "Save selection"
+
+[node name="Load" type="Button" parent="MenuBoxes/AgentBox/Content/ToolBox/H"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+disabled = true
+text = "Load selection"
+
+[node name="Scale" type="HSlider" parent="MenuBoxes/AgentBox/Content/ToolBox/H"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_vertical = 4
+min_value = 1.0
+max_value = 10.0
+value = 7.0
+rounded = true
+tick_count = 6
+ticks_on_borders = true
+
+[node name="AgentSelection" type="ScrollContainer" parent="MenuBoxes/AgentBox/Content"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 80.0
+offset_top = 100.0
+offset_right = -80.0
+offset_bottom = -100.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Grid" type="GridContainer" parent="MenuBoxes/AgentBox/Content/AgentSelection"]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+theme = SubResource("Theme_e1hma")
+columns = 3
+
+[node name="ToolBox2" type="MarginContainer" parent="MenuBoxes/AgentBox/Content"]
+custom_minimum_size = Vector2(1760, 60)
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 80.0
+offset_top = -80.0
+offset_right = -80.0
+offset_bottom = -20.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="H" type="HBoxContainer" parent="MenuBoxes/AgentBox/Content/ToolBox2"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="Randomize" type="Button" parent="MenuBoxes/AgentBox/Content/ToolBox2/H"]
+custom_minimum_size = Vector2(600, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+text = "Randomize"
+
+[node name="RandomGeneratorPanel" type="Control" parent="MenuBoxes/AgentBox/Content"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1e-05, 1e-05)
+pivot_offset = Vector2(960, 540)
+
+[node name="ColorRect" type="ColorRect" parent="MenuBoxes/AgentBox/Content/RandomGeneratorPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.686275)
+
+[node name="Content" type="MarginContainer" parent="MenuBoxes/AgentBox/Content/RandomGeneratorPanel"]
+custom_minimum_size = Vector2(1520, 880)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="List" type="VBoxContainer" parent="MenuBoxes/AgentBox/Content/RandomGeneratorPanel/Content"]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="MenuBoxes/AgentBox/Content/RandomGeneratorPanel/Content/List"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+text = "Your today's lucky agent is..."
+label_settings = SubResource("LabelSettings_fb0tp")
+horizontal_alignment = 1
+
+[node name="AgentTexture" type="TextureRect" parent="MenuBoxes/AgentBox/Content/RandomGeneratorPanel/Content/List"]
+custom_minimum_size = Vector2(0, 600)
+layout_mode = 2
+texture = SubResource("CompressedTexture2D_j828l")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="AgentName" type="Label" parent="MenuBoxes/AgentBox/Content/RandomGeneratorPanel/Content/List"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+text = "Test"
+label_settings = SubResource("LabelSettings_vy2xm")
+horizontal_alignment = 1
+vertical_alignment = 2
+
+[node name="Exit" type="Button" parent="MenuBoxes/AgentBox/Content/RandomGeneratorPanel"]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -100.0
+offset_top = 40.0
+offset_right = -40.0
+offset_bottom = 100.0
+grow_horizontal = 0
+theme_override_font_sizes/font_size = 34
+text = "X"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="MenuBoxes/AgentBox/Content/RandomGeneratorPanel"]
+libraries = {
+"": SubResource("AnimationLibrary_kygjm")
+}
+
+[node name="WeaponBox" type="Control" parent="MenuBoxes"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("5_qirl7")
+
+[node name="ColorRect" type="ColorRect" parent="MenuBoxes/WeaponBox"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.341176, 0.137255, 0.0784314, 0.392157)
+
+[node name="Content" type="Control" parent="MenuBoxes/WeaponBox"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("8_jgdmc")
+
+[node name="ToolBox" type="MarginContainer" parent="MenuBoxes/WeaponBox/Content"]
+custom_minimum_size = Vector2(1760, 60)
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 80.0
+offset_top = 20.0
+offset_right = -80.0
+offset_bottom = 80.0
+grow_horizontal = 2
+
+[node name="H" type="HBoxContainer" parent="MenuBoxes/WeaponBox/Content/ToolBox"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="ToggleSelection" type="Button" parent="MenuBoxes/WeaponBox/Content/ToolBox/H"]
+custom_minimum_size = Vector2(340, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+text = "Toggle selection"
+
+[node name="EnableAll" type="Button" parent="MenuBoxes/WeaponBox/Content/ToolBox/H"]
+custom_minimum_size = Vector2(260, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+text = "Enable All"
+
+[node name="DisableAll" type="Button" parent="MenuBoxes/WeaponBox/Content/ToolBox/H"]
+custom_minimum_size = Vector2(260, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+text = "Disable All"
+
+[node name="Save" type="Button" parent="MenuBoxes/WeaponBox/Content/ToolBox/H"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+disabled = true
+text = "Save selection"
+
+[node name="Load" type="Button" parent="MenuBoxes/WeaponBox/Content/ToolBox/H"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+disabled = true
+text = "Load selection"
+
+[node name="WeaponSelection" type="HBoxContainer" parent="MenuBoxes/WeaponBox/Content"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 80.0
+offset_top = 100.0
+offset_right = -80.0
+offset_bottom = -100.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 20
+
+[node name="Options" type="VBoxContainer" parent="MenuBoxes/WeaponBox/Content/WeaponSelection"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="MenuBoxes/WeaponBox/Content/WeaponSelection/Options"]
+layout_mode = 2
+text = "Options"
+horizontal_alignment = 1
+
+[node name="Scroll" type="ScrollContainer" parent="MenuBoxes/WeaponBox/Content/WeaponSelection/Options"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="List" type="VBoxContainer" parent="MenuBoxes/WeaponBox/Content/WeaponSelection/Options/Scroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="PrimaryWeapons" type="VBoxContainer" parent="MenuBoxes/WeaponBox/Content/WeaponSelection"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="MenuBoxes/WeaponBox/Content/WeaponSelection/PrimaryWeapons"]
+layout_mode = 2
+text = "Primary"
+horizontal_alignment = 1
+
+[node name="Scroll" type="ScrollContainer" parent="MenuBoxes/WeaponBox/Content/WeaponSelection/PrimaryWeapons"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="List" type="VBoxContainer" parent="MenuBoxes/WeaponBox/Content/WeaponSelection/PrimaryWeapons/Scroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="SecondaryWeapons" type="VBoxContainer" parent="MenuBoxes/WeaponBox/Content/WeaponSelection"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="MenuBoxes/WeaponBox/Content/WeaponSelection/SecondaryWeapons"]
+layout_mode = 2
+text = "Sidearms"
+horizontal_alignment = 1
+
+[node name="Scroll" type="ScrollContainer" parent="MenuBoxes/WeaponBox/Content/WeaponSelection/SecondaryWeapons"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="List" type="VBoxContainer" parent="MenuBoxes/WeaponBox/Content/WeaponSelection/SecondaryWeapons/Scroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="ToolBox2" type="MarginContainer" parent="MenuBoxes/WeaponBox/Content"]
+custom_minimum_size = Vector2(1760, 60)
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 80.0
+offset_top = -80.0
+offset_right = -80.0
+offset_bottom = -20.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="H" type="HBoxContainer" parent="MenuBoxes/WeaponBox/Content/ToolBox2"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="Randomize" type="Button" parent="MenuBoxes/WeaponBox/Content/ToolBox2/H"]
+custom_minimum_size = Vector2(600, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+text = "Randomize"
+
+[node name="RandomGeneratorPanel" type="Control" parent="MenuBoxes/WeaponBox/Content"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1e-05, 1e-05)
+pivot_offset = Vector2(960, 540)
+
+[node name="ColorRect" type="ColorRect" parent="MenuBoxes/WeaponBox/Content/RandomGeneratorPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.686275)
+
+[node name="Content" type="MarginContainer" parent="MenuBoxes/WeaponBox/Content/RandomGeneratorPanel"]
+custom_minimum_size = Vector2(1520, 880)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="List" type="VBoxContainer" parent="MenuBoxes/WeaponBox/Content/RandomGeneratorPanel/Content"]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="MenuBoxes/WeaponBox/Content/RandomGeneratorPanel/Content/List"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+text = "Your loadout is..."
+label_settings = SubResource("LabelSettings_fb0tp")
+horizontal_alignment = 1
+
+[node name="H" type="HBoxContainer" parent="MenuBoxes/WeaponBox/Content/RandomGeneratorPanel/Content/List"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="PrimaryWeapon" type="VBoxContainer" parent="MenuBoxes/WeaponBox/Content/RandomGeneratorPanel/Content/List/H"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+
+[node name="Image" type="TextureRect" parent="MenuBoxes/WeaponBox/Content/RandomGeneratorPanel/Content/List/H/PrimaryWeapon"]
+custom_minimum_size = Vector2(0, 400)
+layout_mode = 2
+texture = SubResource("CompressedTexture2D_ulfkw")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="MenuBoxes/WeaponBox/Content/RandomGeneratorPanel/Content/List/H/PrimaryWeapon"]
+layout_mode = 2
+text = "Golden Gun"
+horizontal_alignment = 1
+
+[node name="V" type="VBoxContainer" parent="MenuBoxes/WeaponBox/Content/RandomGeneratorPanel/Content/List/H"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="SecondaryWeapon" type="VBoxContainer" parent="MenuBoxes/WeaponBox/Content/RandomGeneratorPanel/Content/List/H/V"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Image" type="TextureRect" parent="MenuBoxes/WeaponBox/Content/RandomGeneratorPanel/Content/List/H/V/SecondaryWeapon"]
+custom_minimum_size = Vector2(0, 200)
+layout_mode = 2
+texture = SubResource("CompressedTexture2D_ulfkw")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="MenuBoxes/WeaponBox/Content/RandomGeneratorPanel/Content/List/H/V/SecondaryWeapon"]
+layout_mode = 2
+text = "Golden Gun"
+horizontal_alignment = 1
+
+[node name="Shield" type="VBoxContainer" parent="MenuBoxes/WeaponBox/Content/RandomGeneratorPanel/Content/List/H/V"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Image" type="TextureRect" parent="MenuBoxes/WeaponBox/Content/RandomGeneratorPanel/Content/List/H/V/Shield"]
+custom_minimum_size = Vector2(0, 200)
+layout_mode = 2
+texture = SubResource("CompressedTexture2D_ulfkw")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="MenuBoxes/WeaponBox/Content/RandomGeneratorPanel/Content/List/H/V/Shield"]
+layout_mode = 2
+text = "Golden Gun"
+horizontal_alignment = 1
+
+[node name="Exit" type="Button" parent="MenuBoxes/WeaponBox/Content/RandomGeneratorPanel"]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -100.0
+offset_top = 40.0
+offset_right = -40.0
+offset_bottom = 100.0
+grow_horizontal = 0
+theme_override_font_sizes/font_size = 34
+text = "X"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="MenuBoxes/WeaponBox/Content/RandomGeneratorPanel"]
+libraries = {
+"": SubResource("AnimationLibrary_kygjm")
+}
+
+[node name="ColorEffect2" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0)
+
+[node name="HoverMenu" type="ColorRect" parent="."]
+custom_minimum_size = Vector2(500, 0)
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_left = -440.0
+offset_right = 60.0
+grow_vertical = 2
+mouse_default_cursor_shape = 2
+color = Color(0.0745098, 0.0745098, 0.0745098, 0.882353)
+
+[node name="Button" type="Button" parent="HoverMenu"]
+custom_minimum_size = Vector2(60, 1090)
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -8.0
+grow_horizontal = 0
+grow_vertical = 2
+theme = SubResource("Theme_dmvd3")
+theme_override_font_sizes/font_size = 64
+toggle_mode = true
+text = ">
+
+>
+
+>
+
+>
+
+>"
+
+[node name="Container" type="MarginContainer" parent="HoverMenu"]
+custom_minimum_size = Vector2(360, 1000)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 40.0
+offset_top = 40.0
+offset_right = -100.0
+offset_bottom = -40.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="List" type="VBoxContainer" parent="HoverMenu/Container"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Label" type="Label" parent="HoverMenu/Container/List"]
+layout_mode = 2
+text = "Select
+Randomizer"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ButtonList" type="VBoxContainer" parent="HoverMenu/Container/List"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 20
+
+[node name="Map" type="Button" parent="HoverMenu/Container/List/ButtonList" node_paths=PackedStringArray("box_to_link")]
+layout_mode = 2
+theme_override_font_sizes/font_size = 38
+text = "Map 
+Randomizer"
+script = ExtResource("10_et5cv")
+box_to_link = NodePath("../../../../../MenuBoxes/MapBox")
+
+[node name="Agent" type="Button" parent="HoverMenu/Container/List/ButtonList" node_paths=PackedStringArray("box_to_link")]
+layout_mode = 2
+theme_override_font_sizes/font_size = 38
+text = "Agent 
+Randomizer"
+script = ExtResource("10_et5cv")
+box_to_link = NodePath("../../../../../MenuBoxes/AgentBox")
+
+[node name="Weapon" type="Button" parent="HoverMenu/Container/List/ButtonList" node_paths=PackedStringArray("box_to_link")]
+layout_mode = 2
+theme_override_font_sizes/font_size = 38
+text = "Weapon 
+Randomizer"
+script = ExtResource("10_et5cv")
+box_to_link = NodePath("../../../../../MenuBoxes/WeaponBox")
+
+[node name="VolumeList" type="VBoxContainer" parent="HoverMenu/Container/List"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Music" type="HBoxContainer" parent="HoverMenu/Container/List/VolumeList"]
+custom_minimum_size = Vector2(0, 80)
+layout_mode = 2
+
+[node name="ToggleAudio" type="CheckButton" parent="HoverMenu/Container/List/VolumeList/Music"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+theme = SubResource("Theme_brai7")
+button_pressed = true
+
+[node name="V" type="VBoxContainer" parent="HoverMenu/Container/List/VolumeList/Music"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Indicator" type="Label" parent="HoverMenu/Container/List/VolumeList/Music/V"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+text = "Music %s%"
+
+[node name="Slider" type="HSlider" parent="HoverMenu/Container/List/VolumeList/Music/V"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+value = 100.0
+ticks_on_borders = true
+
+[node name="SFX" type="HBoxContainer" parent="HoverMenu/Container/List/VolumeList"]
+custom_minimum_size = Vector2(0, 80)
+layout_mode = 2
+
+[node name="ToggleAudio" type="CheckButton" parent="HoverMenu/Container/List/VolumeList/SFX"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+theme = SubResource("Theme_brai7")
+button_pressed = true
+
+[node name="V" type="VBoxContainer" parent="HoverMenu/Container/List/VolumeList/SFX"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Indicator" type="Label" parent="HoverMenu/Container/List/VolumeList/SFX/V"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+text = "Sound FX %s%"
+
+[node name="Slider" type="HSlider" parent="HoverMenu/Container/List/VolumeList/SFX/V"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+value = 100.0
+ticks_on_borders = true
+
+[connection signal="pressed" from="MenuBoxes/MapBox/Content/ToolBox/H/ToggleSelection" to="MenuBoxes/MapBox/Content" method="toggle_selection"]
+[connection signal="pressed" from="MenuBoxes/MapBox/Content/ToolBox/H/EnableAll" to="MenuBoxes/MapBox/Content" method="enable_all"]
+[connection signal="pressed" from="MenuBoxes/MapBox/Content/ToolBox/H/DisableAll" to="MenuBoxes/MapBox/Content" method="disable_all"]
+[connection signal="value_changed" from="MenuBoxes/MapBox/Content/ToolBox/H/Scale" to="MenuBoxes/MapBox/Content" method="scale_value_changed"]
+[connection signal="pressed" from="MenuBoxes/MapBox/Content/ToolBox2/H/Randomize" to="MenuBoxes/MapBox/Content" method="randomize_pressed"]
+[connection signal="pressed" from="MenuBoxes/MapBox/Content/RandomGeneratorPanel/Exit" to="MenuBoxes/MapBox/Content" method="exit_pressed"]
+[connection signal="pressed" from="MenuBoxes/AgentBox/Content/ToolBox/H/ToggleSelection" to="MenuBoxes/AgentBox/Content" method="toggle_selection"]
+[connection signal="pressed" from="MenuBoxes/AgentBox/Content/ToolBox/H/EnableAll" to="MenuBoxes/AgentBox/Content" method="enable_all"]
+[connection signal="pressed" from="MenuBoxes/AgentBox/Content/ToolBox/H/DisableAll" to="MenuBoxes/AgentBox/Content" method="disable_all"]
+[connection signal="value_changed" from="MenuBoxes/AgentBox/Content/ToolBox/H/Scale" to="MenuBoxes/AgentBox/Content" method="scale_value_changed"]
+[connection signal="pressed" from="MenuBoxes/AgentBox/Content/ToolBox2/H/Randomize" to="MenuBoxes/AgentBox/Content" method="randomize_pressed"]
+[connection signal="pressed" from="MenuBoxes/AgentBox/Content/RandomGeneratorPanel/Exit" to="MenuBoxes/AgentBox/Content" method="exit_pressed"]
+[connection signal="pressed" from="MenuBoxes/WeaponBox/Content/ToolBox/H/ToggleSelection" to="MenuBoxes/WeaponBox/Content" method="toggle_selection"]
+[connection signal="pressed" from="MenuBoxes/WeaponBox/Content/ToolBox/H/EnableAll" to="MenuBoxes/WeaponBox/Content" method="enable_all"]
+[connection signal="pressed" from="MenuBoxes/WeaponBox/Content/ToolBox/H/DisableAll" to="MenuBoxes/WeaponBox/Content" method="disable_all"]
+[connection signal="pressed" from="MenuBoxes/WeaponBox/Content/ToolBox2/H/Randomize" to="MenuBoxes/WeaponBox/Content" method="randomize_pressed"]
+[connection signal="pressed" from="MenuBoxes/WeaponBox/Content/RandomGeneratorPanel/Exit" to="MenuBoxes/WeaponBox/Content" method="exit_pressed"]
+[connection signal="toggled" from="HoverMenu/Button" to="." method="_on_button_toggled"]
