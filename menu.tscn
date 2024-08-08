@@ -1,16 +1,18 @@
-[gd_scene load_steps=31 format=3 uid="uid://chqxp15gq40rr"]
+[gd_scene load_steps=34 format=3 uid="uid://chqxp15gq40rr"]
 
-[ext_resource type="Theme" uid="uid://4brdb7s7jq0f" path="res://main_theme.tres" id="1_qgaiu"]
+[ext_resource type="Theme" uid="uid://btvn2is50aps6" path="res://style/GlobalTheme.theme" id="1_twkxv"]
 [ext_resource type="Script" path="res://menu.gd" id="2_pp5pq"]
 [ext_resource type="Texture2D" uid="uid://cc4kmu307fgn3" path="res://maps/Range.png" id="3_ahnqv"]
 [ext_resource type="Script" path="res://class_scripts/BoxMenu.gd" id="5_qirl7"]
 [ext_resource type="Script" path="res://scripts/MapRandom.gd" id="6_mm4lw"]
 [ext_resource type="Script" path="res://scripts/AgentRandom.gd" id="7_gdmon"]
+[ext_resource type="Theme" uid="uid://dgw7swkbv80ql" path="res://style/SideMenu.theme" id="8_4clgn"]
 [ext_resource type="Script" path="res://scripts/WeaponRandom.gd" id="8_jgdmc"]
 [ext_resource type="Script" path="res://class_scripts/BoxLinkButton.gd" id="10_et5cv"]
 [ext_resource type="Texture2D" uid="uid://bictvqq80neby" path="res://svg/speakeron.png" id="11_ka7m5"]
 [ext_resource type="Texture2D" uid="uid://c8jy683h07gpv" path="res://svg/speakerond.png" id="12_g5wtx"]
 [ext_resource type="Texture2D" uid="uid://dymwe6n2sltat" path="res://svg/speakeroff.png" id="13_b5oxb"]
+[ext_resource type="Theme" uid="uid://fnm1jyivrm5i" path="res://style/FileDialogs.theme" id="14_4hg5c"]
 [ext_resource type="Texture2D" uid="uid://durxmm6et3xa6" path="res://svg/speakeroffd.png" id="14_tlmfr"]
 
 [sub_resource type="Shader" id="Shader_3jofm"]
@@ -73,7 +75,6 @@ Button/styles/focus = SubResource("StyleBoxFlat_fr8a7")
 font_size = 64
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_j828l"]
-load_path = "res://.godot/imported/Range.webp-7a71663d9cc5a7fb674eaa7d617656da.ctex"
 
 [sub_resource type="LabelSettings" id="LabelSettings_vy2xm"]
 font_size = 64
@@ -140,7 +141,6 @@ _data = {
 }
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_ulfkw"]
-load_path = "res://.godot/imported/GoldenGun.webp-10c4e9bd21c49061723aaa1a5323d1e6.ctex"
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qoe3g"]
 bg_color = Color(0.0784314, 0.0784314, 0.0784314, 0.156863)
@@ -174,6 +174,10 @@ Button/styles/hover = SubResource("StyleBoxFlat_8wbuo")
 Button/styles/normal = SubResource("StyleBoxFlat_ipnns")
 Button/styles/pressed = SubResource("StyleBoxFlat_mlpe8")
 
+[sub_resource type="LabelSettings" id="LabelSettings_2v1id"]
+font_size = 36
+font_color = Color(0.835972, 0.88167, 0.934474, 1)
+
 [sub_resource type="Theme" id="Theme_brai7"]
 CheckButton/icons/checked = ExtResource("11_ka7m5")
 CheckButton/icons/checked_disabled = ExtResource("12_g5wtx")
@@ -191,7 +195,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("1_qgaiu")
+theme_type_variation = &"Test"
 script = ExtResource("2_pp5pq")
 currentlyVisible = NodePath("MenuBoxes/IntroPanel")
 
@@ -221,6 +225,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_twkxv")
 
 [node name="IntroPanel" type="Control" parent="MenuBoxes"]
 visible = false
@@ -275,7 +280,6 @@ theme_override_font_sizes/font_size = 64
 text = "Click the left side to reveal the menu"
 
 [node name="MapBox" type="Control" parent="MenuBoxes"]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -312,6 +316,7 @@ offset_top = 20.0
 offset_right = -80.0
 offset_bottom = 80.0
 grow_horizontal = 2
+theme = ExtResource("8_4clgn")
 
 [node name="H" type="HBoxContainer" parent="MenuBoxes/MapBox/Content/ToolBox"]
 layout_mode = 2
@@ -339,14 +344,12 @@ text = "Disable All"
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 28
-disabled = true
 text = "Save selection"
 
 [node name="Load" type="Button" parent="MenuBoxes/MapBox/Content/ToolBox/H"]
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 28
-disabled = true
 text = "Load selection"
 
 [node name="Scale" type="HSlider" parent="MenuBoxes/MapBox/Content/ToolBox/H"]
@@ -371,6 +374,7 @@ offset_right = -80.0
 offset_bottom = -100.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("8_4clgn")
 
 [node name="Grid" type="GridContainer" parent="MenuBoxes/MapBox/Content/MapSelection"]
 layout_mode = 2
@@ -392,6 +396,7 @@ offset_right = -80.0
 offset_bottom = -20.0
 grow_horizontal = 2
 grow_vertical = 0
+theme = ExtResource("8_4clgn")
 
 [node name="H" type="HBoxContainer" parent="MenuBoxes/MapBox/Content/ToolBox2"]
 layout_mode = 2
@@ -413,6 +418,7 @@ grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(1e-05, 1e-05)
 pivot_offset = Vector2(960, 540)
+theme = ExtResource("8_4clgn")
 
 [node name="ColorRect" type="ColorRect" parent="MenuBoxes/MapBox/Content/RandomGeneratorPanel"]
 layout_mode = 1
@@ -483,6 +489,29 @@ libraries = {
 "": SubResource("AnimationLibrary_kygjm")
 }
 
+[node name="SaveDialog" type="FileDialog" parent="MenuBoxes/MapBox/Content"]
+initial_position = 2
+size = Vector2i(1500, 800)
+theme = ExtResource("14_4hg5c")
+access = 1
+filters = PackedStringArray("*.val")
+
+[node name="LoadDialog" type="FileDialog" parent="MenuBoxes/MapBox/Content"]
+title = "Open a File"
+initial_position = 2
+size = Vector2i(1500, 800)
+theme = ExtResource("14_4hg5c")
+ok_button_text = "Open"
+file_mode = 0
+access = 1
+filters = PackedStringArray("*.val")
+
+[node name="AcceptDialog" type="AcceptDialog" parent="MenuBoxes/MapBox/Content"]
+title = "Error"
+initial_position = 2
+theme = ExtResource("14_4hg5c")
+dialog_text = "This file doesn't have any or correct data."
+
 [node name="AgentBox" type="Control" parent="MenuBoxes"]
 visible = false
 layout_mode = 1
@@ -521,6 +550,7 @@ offset_top = 20.0
 offset_right = -80.0
 offset_bottom = 80.0
 grow_horizontal = 2
+theme = ExtResource("8_4clgn")
 
 [node name="H" type="HBoxContainer" parent="MenuBoxes/AgentBox/Content/ToolBox"]
 layout_mode = 2
@@ -548,14 +578,12 @@ text = "Disable All"
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 28
-disabled = true
 text = "Save selection"
 
 [node name="Load" type="Button" parent="MenuBoxes/AgentBox/Content/ToolBox/H"]
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 28
-disabled = true
 text = "Load selection"
 
 [node name="Scale" type="HSlider" parent="MenuBoxes/AgentBox/Content/ToolBox/H"]
@@ -580,6 +608,7 @@ offset_right = -80.0
 offset_bottom = -100.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("8_4clgn")
 
 [node name="Grid" type="GridContainer" parent="MenuBoxes/AgentBox/Content/AgentSelection"]
 layout_mode = 2
@@ -601,6 +630,7 @@ offset_right = -80.0
 offset_bottom = -20.0
 grow_horizontal = 2
 grow_vertical = 0
+theme = ExtResource("8_4clgn")
 
 [node name="H" type="HBoxContainer" parent="MenuBoxes/AgentBox/Content/ToolBox2"]
 layout_mode = 2
@@ -622,6 +652,7 @@ grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(1e-05, 1e-05)
 pivot_offset = Vector2(960, 540)
+theme = ExtResource("8_4clgn")
 
 [node name="ColorRect" type="ColorRect" parent="MenuBoxes/AgentBox/Content/RandomGeneratorPanel"]
 layout_mode = 1
@@ -692,6 +723,29 @@ libraries = {
 "": SubResource("AnimationLibrary_kygjm")
 }
 
+[node name="SaveDialog" type="FileDialog" parent="MenuBoxes/AgentBox/Content"]
+initial_position = 2
+size = Vector2i(1500, 800)
+theme = ExtResource("14_4hg5c")
+access = 1
+filters = PackedStringArray("*.val")
+
+[node name="LoadDialog" type="FileDialog" parent="MenuBoxes/AgentBox/Content"]
+title = "Open a File"
+initial_position = 2
+size = Vector2i(1500, 800)
+theme = ExtResource("14_4hg5c")
+ok_button_text = "Open"
+file_mode = 0
+access = 1
+filters = PackedStringArray("*.val")
+
+[node name="AcceptDialog" type="AcceptDialog" parent="MenuBoxes/AgentBox/Content"]
+title = "Error"
+initial_position = 2
+theme = ExtResource("14_4hg5c")
+dialog_text = "This file doesn't have any or correct data."
+
 [node name="WeaponBox" type="Control" parent="MenuBoxes"]
 visible = false
 layout_mode = 1
@@ -730,6 +784,7 @@ offset_top = 20.0
 offset_right = -80.0
 offset_bottom = 80.0
 grow_horizontal = 2
+theme = ExtResource("8_4clgn")
 
 [node name="H" type="HBoxContainer" parent="MenuBoxes/WeaponBox/Content/ToolBox"]
 layout_mode = 2
@@ -757,14 +812,12 @@ text = "Disable All"
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 28
-disabled = true
 text = "Save selection"
 
 [node name="Load" type="Button" parent="MenuBoxes/WeaponBox/Content/ToolBox/H"]
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 28
-disabled = true
 text = "Load selection"
 
 [node name="WeaponSelection" type="HBoxContainer" parent="MenuBoxes/WeaponBox/Content"]
@@ -778,6 +831,7 @@ offset_right = -80.0
 offset_bottom = -100.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("8_4clgn")
 theme_override_constants/separation = 20
 
 [node name="Options" type="VBoxContainer" parent="MenuBoxes/WeaponBox/Content/WeaponSelection"]
@@ -850,6 +904,7 @@ offset_right = -80.0
 offset_bottom = -20.0
 grow_horizontal = 2
 grow_vertical = 0
+theme = ExtResource("8_4clgn")
 
 [node name="H" type="HBoxContainer" parent="MenuBoxes/WeaponBox/Content/ToolBox2"]
 layout_mode = 2
@@ -871,6 +926,7 @@ grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(1e-05, 1e-05)
 pivot_offset = Vector2(960, 540)
+theme = ExtResource("8_4clgn")
 
 [node name="ColorRect" type="ColorRect" parent="MenuBoxes/WeaponBox/Content/RandomGeneratorPanel"]
 layout_mode = 1
@@ -987,6 +1043,29 @@ libraries = {
 "": SubResource("AnimationLibrary_kygjm")
 }
 
+[node name="SaveDialog" type="FileDialog" parent="MenuBoxes/WeaponBox/Content"]
+initial_position = 2
+size = Vector2i(1500, 800)
+theme = ExtResource("14_4hg5c")
+access = 1
+filters = PackedStringArray("*.val")
+
+[node name="LoadDialog" type="FileDialog" parent="MenuBoxes/WeaponBox/Content"]
+title = "Open a File"
+initial_position = 2
+size = Vector2i(1500, 800)
+theme = ExtResource("14_4hg5c")
+ok_button_text = "Open"
+file_mode = 0
+access = 1
+filters = PackedStringArray("*.val")
+
+[node name="AcceptDialog" type="AcceptDialog" parent="MenuBoxes/WeaponBox/Content"]
+title = "Error"
+initial_position = 2
+theme = ExtResource("14_4hg5c")
+dialog_text = "This file doesn't have any or correct data."
+
 [node name="ColorEffect2" type="ColorRect" parent="."]
 layout_mode = 1
 anchors_preset = 15
@@ -1005,6 +1084,8 @@ offset_left = -440.0
 offset_right = 60.0
 grow_vertical = 2
 mouse_default_cursor_shape = 2
+theme = ExtResource("8_4clgn")
+theme_type_variation = &"SideMenu"
 color = Color(0.0745098, 0.0745098, 0.0745098, 0.882353)
 
 [node name="Button" type="Button" parent="HoverMenu"]
@@ -1051,6 +1132,7 @@ theme_override_constants/separation = 20
 layout_mode = 2
 text = "Select
 Randomizer"
+label_settings = SubResource("LabelSettings_2v1id")
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -1058,6 +1140,7 @@ vertical_alignment = 1
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/separation = 20
+alignment = 1
 
 [node name="Map" type="Button" parent="HoverMenu/Container/List/ButtonList" node_paths=PackedStringArray("box_to_link")]
 layout_mode = 2
@@ -1143,18 +1226,30 @@ ticks_on_borders = true
 [connection signal="pressed" from="MenuBoxes/MapBox/Content/ToolBox/H/ToggleSelection" to="MenuBoxes/MapBox/Content" method="toggle_selection"]
 [connection signal="pressed" from="MenuBoxes/MapBox/Content/ToolBox/H/EnableAll" to="MenuBoxes/MapBox/Content" method="enable_all"]
 [connection signal="pressed" from="MenuBoxes/MapBox/Content/ToolBox/H/DisableAll" to="MenuBoxes/MapBox/Content" method="disable_all"]
+[connection signal="pressed" from="MenuBoxes/MapBox/Content/ToolBox/H/Save" to="MenuBoxes/MapBox/Content" method="_save_pressed"]
+[connection signal="pressed" from="MenuBoxes/MapBox/Content/ToolBox/H/Load" to="MenuBoxes/MapBox/Content" method="_on_load_pressed"]
 [connection signal="value_changed" from="MenuBoxes/MapBox/Content/ToolBox/H/Scale" to="MenuBoxes/MapBox/Content" method="scale_value_changed"]
 [connection signal="pressed" from="MenuBoxes/MapBox/Content/ToolBox2/H/Randomize" to="MenuBoxes/MapBox/Content" method="randomize_pressed"]
 [connection signal="pressed" from="MenuBoxes/MapBox/Content/RandomGeneratorPanel/Exit" to="MenuBoxes/MapBox/Content" method="exit_pressed"]
+[connection signal="file_selected" from="MenuBoxes/MapBox/Content/SaveDialog" to="MenuBoxes/MapBox/Content" method="_save_selected"]
+[connection signal="file_selected" from="MenuBoxes/MapBox/Content/LoadDialog" to="MenuBoxes/MapBox/Content" method="_load_selected"]
 [connection signal="pressed" from="MenuBoxes/AgentBox/Content/ToolBox/H/ToggleSelection" to="MenuBoxes/AgentBox/Content" method="toggle_selection"]
 [connection signal="pressed" from="MenuBoxes/AgentBox/Content/ToolBox/H/EnableAll" to="MenuBoxes/AgentBox/Content" method="enable_all"]
 [connection signal="pressed" from="MenuBoxes/AgentBox/Content/ToolBox/H/DisableAll" to="MenuBoxes/AgentBox/Content" method="disable_all"]
+[connection signal="pressed" from="MenuBoxes/AgentBox/Content/ToolBox/H/Save" to="MenuBoxes/AgentBox/Content" method="_save_pressed"]
+[connection signal="pressed" from="MenuBoxes/AgentBox/Content/ToolBox/H/Load" to="MenuBoxes/AgentBox/Content" method="_load_pressed"]
 [connection signal="value_changed" from="MenuBoxes/AgentBox/Content/ToolBox/H/Scale" to="MenuBoxes/AgentBox/Content" method="scale_value_changed"]
 [connection signal="pressed" from="MenuBoxes/AgentBox/Content/ToolBox2/H/Randomize" to="MenuBoxes/AgentBox/Content" method="randomize_pressed"]
 [connection signal="pressed" from="MenuBoxes/AgentBox/Content/RandomGeneratorPanel/Exit" to="MenuBoxes/AgentBox/Content" method="exit_pressed"]
+[connection signal="file_selected" from="MenuBoxes/AgentBox/Content/SaveDialog" to="MenuBoxes/AgentBox/Content" method="_save_selected"]
+[connection signal="file_selected" from="MenuBoxes/AgentBox/Content/LoadDialog" to="MenuBoxes/AgentBox/Content" method="_load_selected"]
 [connection signal="pressed" from="MenuBoxes/WeaponBox/Content/ToolBox/H/ToggleSelection" to="MenuBoxes/WeaponBox/Content" method="toggle_selection"]
 [connection signal="pressed" from="MenuBoxes/WeaponBox/Content/ToolBox/H/EnableAll" to="MenuBoxes/WeaponBox/Content" method="enable_all"]
 [connection signal="pressed" from="MenuBoxes/WeaponBox/Content/ToolBox/H/DisableAll" to="MenuBoxes/WeaponBox/Content" method="disable_all"]
+[connection signal="pressed" from="MenuBoxes/WeaponBox/Content/ToolBox/H/Save" to="MenuBoxes/WeaponBox/Content" method="_save_pressed"]
+[connection signal="pressed" from="MenuBoxes/WeaponBox/Content/ToolBox/H/Load" to="MenuBoxes/WeaponBox/Content" method="_load_pressed"]
 [connection signal="pressed" from="MenuBoxes/WeaponBox/Content/ToolBox2/H/Randomize" to="MenuBoxes/WeaponBox/Content" method="randomize_pressed"]
 [connection signal="pressed" from="MenuBoxes/WeaponBox/Content/RandomGeneratorPanel/Exit" to="MenuBoxes/WeaponBox/Content" method="exit_pressed"]
+[connection signal="file_selected" from="MenuBoxes/WeaponBox/Content/SaveDialog" to="MenuBoxes/WeaponBox/Content" method="_save_selected"]
+[connection signal="file_selected" from="MenuBoxes/WeaponBox/Content/LoadDialog" to="MenuBoxes/WeaponBox/Content" method="_load_selected"]
 [connection signal="toggled" from="HoverMenu/Button" to="." method="_on_button_toggled"]

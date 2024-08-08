@@ -1,9 +1,13 @@
 extends Control
 
-@export var maps : Array[String] = ["Bind","Haven","Split","Ascent","Icebox","Breeze","Fracture","Pearl","Lotus","Sunset"]
+@export var maps : Array[String] = ["Bind","Haven","Split","Ascent","Icebox","Breeze","Fracture","Pearl","Lotus","Sunset","Abyss"]
 @onready var grid := $MapSelection/Grid
 @onready var RGP := $RandomGeneratorPanel
 @onready var RGPL := $RandomGeneratorPanel/Content/List
+
+@onready var save_dialog: FileDialog = $SaveDialog
+@onready var load_dialog: FileDialog = $LoadDialog
+@onready var accept_dialog: AcceptDialog = $AcceptDialog
 
 var rng_list := []
 
@@ -57,8 +61,36 @@ func randomize_pressed() -> void:
 	var chosen = rng_list.pick_random()
 	RGPL.get_node("MapTexture").texture = ResourceLoader.load("res://maps/%s.png" % [chosen])
 	RGPL.get_node("MapName").text = chosen
-	print("Map List:",rng_list)
 	SoundHandler.play_map_music(chosen)
 
 func exit_pressed() -> void:
 	RGP.get_node("AnimationPlayer").play_backwards("toggle")
+
+func _save_selected(path: String) -> void:
+	var save_file = FileAccess.open(path,FileAccess.WRITE)
+	var temp_list := []
+	for button:Button in grid.get_children():
+		if button.button_pressed: temp_list.append(button.text)
+	var to_save = JSON.stringify({
+		type = "map",
+		maps = temp_list
+	})
+	save_file.store_line(to_save)
+
+func _load_selected(path: String) -> void:
+	var load_file = FileAccess.open(path,FileAccess.READ)
+	var data : Dictionary = JSON.parse_string(load_file.get_line())
+	print(data)
+	if data == null or data.get("type") == null or data.get("maps") == null: 
+		accept_dialog.show()
+		pass
+	if data.get("type") == "map":
+		disable_all()
+		for button:Button in grid.get_children():
+			button.button_pressed = data.get("maps").has(button.text)
+
+func _save_pressed() -> void:
+	save_dialog.show()
+
+func _on_load_pressed() -> void:
+	load_dialog.show()

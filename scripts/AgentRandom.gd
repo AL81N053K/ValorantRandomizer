@@ -1,9 +1,14 @@
 extends Control
 
-@export var agents : Array[String] = ["Brimstone","Viper","Omen","Killjoy","Cypher","Sova","Sage","Phoenix","Jett","Reyna","Raze","Breach","Skye","Yoru","Astra","KAYO","Chamber","Neon","Fade","Harbor","Gekko","Deadlock","Iso"]
+@export var agents : Array[String] = ["Brimstone","Viper","Omen","Killjoy","Cypher","Sova","Sage","Phoenix","Jett","Reyna","Raze","Breach","Skye","Yoru","Astra","KAYO","Chamber","Neon","Fade","Harbor","Gekko","Deadlock","Iso","Clove"]
 @onready var grid := $AgentSelection/Grid
 @onready var RGP := $RandomGeneratorPanel
 @onready var RGPL := $RandomGeneratorPanel/Content/List
+
+@onready var save_dialog: FileDialog = $SaveDialog
+@onready var load_dialog: FileDialog = $LoadDialog
+@onready var accept_dialog: AcceptDialog = $AcceptDialog
+
 var rng_list := []
 
 func _ready() -> void:
@@ -61,3 +66,33 @@ func randomize_pressed() -> void:
 
 func exit_pressed() -> void:
 	RGP.get_node("AnimationPlayer").play_backwards("toggle")
+
+func _save_selected(path: String) -> void:
+	var save_file = FileAccess.open(path,FileAccess.WRITE)
+	var temp_list := []
+	for button:Button in grid.get_children():
+		if button.button_pressed: temp_list.append(button.text)
+	var to_save = JSON.stringify({
+		type = "agent",
+		agents = temp_list
+	})
+	save_file.store_line(to_save)
+
+func _load_selected(path: String) -> void:
+	var load_file = FileAccess.open(path,FileAccess.READ)
+	var data : Dictionary = JSON.parse_string(load_file.get_line())
+	print(data)
+	if data == null or data.get("type") == null or data.get("agents") == null: 
+		accept_dialog.show()
+		pass
+	if data.get("type") == "agent":
+		disable_all()
+		for button:Button in grid.get_children():
+			button.button_pressed = data.get("agents").has(button.text)
+
+func _save_pressed() -> void:
+	save_dialog.show()
+
+func _load_pressed() -> void:
+	load_dialog.show()
+

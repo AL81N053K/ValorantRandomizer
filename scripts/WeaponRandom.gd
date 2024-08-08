@@ -7,6 +7,11 @@ var options : Array = [["IncludeKnife","Include Knife \n(adds to primary)", fals
 @onready var pw_list := $WeaponSelection/PrimaryWeapons/Scroll/List
 @onready var sw_list := $WeaponSelection/SecondaryWeapons/Scroll/List
 @onready var RGP := $RandomGeneratorPanel
+
+@onready var save_dialog: FileDialog = $SaveDialog
+@onready var load_dialog: FileDialog = $LoadDialog
+@onready var accept_dialog: AcceptDialog = $AcceptDialog
+
 var pw_rng_list := []
 var sw_rng_list := []
 var rng_list := []
@@ -115,3 +120,42 @@ func randomize_pressed() -> void:
 
 func exit_pressed() -> void:
 	RGP.get_node("AnimationPlayer").play_backwards("toggle")
+
+func _save_selected(path: String) -> void:
+	var save_file = FileAccess.open(path,FileAccess.WRITE)
+	var temp_list := [[],[],[]]
+	for button:Button in pw_list.get_children():
+		if button.button_pressed: temp_list[0].append(button.text)
+	for button:Button in sw_list.get_children():
+		if button.button_pressed: temp_list[1].append(button.text)
+	for button:Button in options_list.get_children():
+		if button.button_pressed: temp_list[2].append(button.name)
+	var to_save = JSON.stringify({
+		type = "weapon",
+		pw = temp_list[0],
+		sw = temp_list[1],
+		options = temp_list[2]
+	})
+	save_file.store_line(to_save)
+
+func _load_selected(path: String) -> void:
+	var load_file = FileAccess.open(path,FileAccess.READ)
+	var data : Dictionary = JSON.parse_string(load_file.get_line())
+	print(data)
+	if data == null or data.get("type") == null or data.get("pw") == null or data.get("sw") == null or data.get("options") == null: 
+		accept_dialog.show()
+		pass
+	if data.get("type") == "weapon":
+		disable_all()
+		for button:Button in pw_list.get_children():
+			button.button_pressed = data.get("pw").has(button.text)
+		for button:Button in sw_list.get_children():
+			button.button_pressed = data.get("sw").has(button.text)
+		for button:Button in options_list.get_children():
+			button.button_pressed = data.get("options").has(button.name)
+
+func _save_pressed() -> void:
+	save_dialog.show()
+
+func _load_pressed() -> void:
+	load_dialog.show()
