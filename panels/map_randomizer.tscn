@@ -1,0 +1,238 @@
+[gd_scene format=3 uid="uid://y5h2e1326kq0"]
+
+[ext_resource type="Theme" uid="uid://4brdb7s7jq0f" path="res://style/main_theme.tres" id="1_0jc3r"]
+[ext_resource type="Script" uid="uid://cempr7kaosims" path="res://class_scripts/box_menu.gd" id="1_x1f0e"]
+[ext_resource type="Script" uid="uid://bauutfv3j6atf" path="res://scripts/content_panel.gd" id="3_dtovj"]
+[ext_resource type="Script" uid="uid://dw0adfr5tc5fg" path="res://scripts/tool_box.gd" id="4_iy2hl"]
+[ext_resource type="Theme" uid="uid://df42rq7nns074" path="res://style/buttons.tres" id="4_sgbyu"]
+[ext_resource type="Script" uid="uid://qc4ro5roqxb0" path="res://scripts/rng_panel.gd" id="5_sgbyu"]
+[ext_resource type="Shader" uid="uid://cuo848tsgfofp" path="res://shaders/blur_darken.gdshader" id="6_dtovj"]
+[ext_resource type="AnimationLibrary" uid="uid://babvobvm7lhum" path="res://animations/rng_panel/rng_panel.tres" id="7_n43wf"]
+[ext_resource type="PackedScene" uid="uid://c1qty05707v01" path="res://panels/window_panel.tscn" id="8_x3g56"]
+[ext_resource type="Script" uid="uid://bnptwujhqclqh" path="res://panels/map_randomizer.gd" id="9_dtovj"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_iy2hl"]
+resource_local_to_scene = true
+shader = ExtResource("6_dtovj")
+shader_parameter/strength = 3.3
+shader_parameter/mix_percentage = 0.7
+
+[sub_resource type="LabelSettings" id="LabelSettings_dtovj"]
+font_size = 64
+
+[sub_resource type="LabelSettings" id="LabelSettings_iy2hl"]
+font_size = 48
+
+[node name="MapRandomizer" type="MarginContainer" unique_id=1177717129]
+custom_minimum_size = Vector2(1920, 1080)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 0
+theme = ExtResource("1_0jc3r")
+script = ExtResource("1_x1f0e")
+metadata/_custom_type_script = "uid://cempr7kaosims"
+
+[node name="BG" type="ColorRect" parent="." unique_id=963633114]
+layout_mode = 2
+color = Color(0, 0, 0.392157, 0.392157)
+
+[node name="Maps" type="Control" parent="." unique_id=750990130 node_paths=PackedStringArray("grid", "tool_box", "rng_panel_texture", "rng_panel_label")]
+layout_mode = 2
+script = ExtResource("3_dtovj")
+name_icon = &"maps"
+perfect_rect = true
+min_size = Vector2(89, 52)
+max_size = Vector2(89, 52)
+button_style = ExtResource("4_sgbyu")
+list = ["Bind", "Haven", "Split", "Ascent", "Icebox", "Breeze", "Fracture", "Pearl", "Lotus", "Sunset", "Abyss", "Corrode", "Summit"]
+grid = NodePath("Container/Grid")
+grid_default_size_tick = 4
+grid_default_min = 2
+grid_default_max = 7
+tool_box = NodePath("ToolBox")
+rng_panel_texture = NodePath("../Control/RNGPanel/Content/List/MapTexture")
+rng_panel_label = NodePath("../Control/RNGPanel/Content/List/MapName")
+metadata/_custom_type_script = "uid://bauutfv3j6atf"
+
+[node name="ToolBox" type="MarginContainer" parent="Maps" unique_id=35897621 node_paths=PackedStringArray("toggle_selection_button", "enable_all_button", "disable_all_button", "save_button", "load_button", "scale_slider")]
+custom_minimum_size = Vector2(1840, 0)
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 40.0
+offset_top = 20.0
+offset_right = -40.0
+offset_bottom = 60.0
+grow_horizontal = 2
+script = ExtResource("4_iy2hl")
+toggle_selection_button = NodePath("List/ToggleSelection")
+enable_all_button = NodePath("List/SelectAll")
+disable_all_button = NodePath("List/DeselectAll")
+save_button = NodePath("List/Save")
+load_button = NodePath("List/Load")
+scale_slider = NodePath("List/GridSize")
+metadata/_custom_type_script = "uid://dw0adfr5tc5fg"
+
+[node name="List" type="HBoxContainer" parent="Maps/ToolBox" unique_id=1298967949]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+alignment = 1
+
+[node name="ToggleSelection" type="Button" parent="Maps/ToolBox/List" unique_id=268770286]
+custom_minimum_size = Vector2(280, 40)
+layout_mode = 2
+theme_override_font_sizes/font_size = 26
+text = "Toggle Selection"
+
+[node name="SelectAll" type="Button" parent="Maps/ToolBox/List" unique_id=1098202886]
+custom_minimum_size = Vector2(280, 40)
+layout_mode = 2
+theme_override_font_sizes/font_size = 26
+text = "Select All"
+
+[node name="DeselectAll" type="Button" parent="Maps/ToolBox/List" unique_id=1509366935]
+custom_minimum_size = Vector2(280, 40)
+layout_mode = 2
+theme_override_font_sizes/font_size = 26
+text = "Deselect All"
+
+[node name="Save" type="Button" parent="Maps/ToolBox/List" unique_id=210018307]
+custom_minimum_size = Vector2(280, 40)
+layout_mode = 2
+theme_override_font_sizes/font_size = 26
+text = "Save Preset"
+
+[node name="Load" type="Button" parent="Maps/ToolBox/List" unique_id=9447034]
+custom_minimum_size = Vector2(280, 40)
+layout_mode = 2
+theme_override_font_sizes/font_size = 26
+text = "Load Preset"
+
+[node name="GridSize" type="HSlider" parent="Maps/ToolBox/List" unique_id=710856459]
+custom_minimum_size = Vector2(200, 40)
+layout_mode = 2
+min_value = 1.0
+max_value = 6.0
+value = 5.0
+tick_count = 6
+ticks_on_borders = true
+
+[node name="Container" type="ScrollContainer" parent="Maps" unique_id=1758591511]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 80.0
+offset_top = 80.0
+offset_right = -80.0
+offset_bottom = -120.0
+grow_horizontal = 2
+grow_vertical = 2
+follow_focus = true
+
+[node name="Grid" type="GridContainer" parent="Maps/Container" unique_id=1696700861]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+columns = 5
+
+[node name="RandomizeButton" type="Button" parent="Maps" unique_id=1246305686 groups=["Button"]]
+custom_minimum_size = Vector2(450, 60)
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -225.0
+offset_top = -100.0
+offset_right = 225.0
+offset_bottom = -40.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 36
+text = "Randomize"
+
+[node name="Control" type="CanvasLayer" parent="." unique_id=1721817236]
+
+[node name="RNGPanel" type="Control" parent="Control" unique_id=716432503 node_paths=PackedStringArray("title_label", "exit_button", "animation_player")]
+visible = false
+z_index = 1
+custom_minimum_size = Vector2(1920, 1080)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset_ratio = Vector2(0.5, 0.5)
+theme = ExtResource("1_0jc3r")
+script = ExtResource("5_sgbyu")
+title_label = NodePath("Content/List/Title")
+title_text = "map"
+exit_button = NodePath("Exit")
+animation_player = NodePath("AnimationPlayer")
+metadata/_custom_type_script = "uid://qc4ro5roqxb0"
+
+[node name="Background" type="ColorRect" parent="Control/RNGPanel" unique_id=1546886766]
+material = SubResource("ShaderMaterial_iy2hl")
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Content" type="MarginContainer" parent="Control/RNGPanel" unique_id=259044131]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="List" type="VBoxContainer" parent="Control/RNGPanel/Content" unique_id=617957401]
+layout_mode = 2
+alignment = 1
+
+[node name="Title" type="Label" parent="Control/RNGPanel/Content/List" unique_id=418389636]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+text = "Your today's lucky map is..."
+label_settings = SubResource("LabelSettings_dtovj")
+horizontal_alignment = 1
+
+[node name="MapTexture" type="TextureRect" parent="Control/RNGPanel/Content/List" unique_id=1476971524]
+custom_minimum_size = Vector2(0, 450)
+custom_maximum_size = Vector2(1920, 450)
+layout_mode = 2
+stretch_mode = 5
+
+[node name="MapName" type="Label" parent="Control/RNGPanel/Content/List" unique_id=120706574]
+custom_minimum_size = Vector2(0, 80)
+layout_mode = 2
+text = "test"
+label_settings = SubResource("LabelSettings_iy2hl")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Exit" type="Button" parent="Control/RNGPanel" unique_id=599550602 groups=["Button"]]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 0
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -60.0
+offset_right = -60.0
+theme_override_font_sizes/font_size = 34
+text = "X"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Control/RNGPanel" unique_id=638803868]
+libraries/ = ExtResource("7_n43wf")
+
+[node name="WindowPanel" parent="." unique_id=2067766998 instance=ExtResource("8_x3g56")]
+
+[node name="RandomizerHandler" type="Node" parent="." unique_id=2066114305 node_paths=PackedStringArray("randomize_button", "rng_panel", "list_of_panels", "window_panel", "tool_box")]
+script = ExtResource("9_dtovj")
+randomize_button = NodePath("../Maps/RandomizeButton")
+rng_panel = NodePath("../Control/RNGPanel")
+list_of_panels = [NodePath("../Maps")]
+window_panel = NodePath("../WindowPanel")
+tool_box = NodePath("../Maps/ToolBox")
+metadata/_custom_type_script = "uid://dbuy3j6tycmbr"

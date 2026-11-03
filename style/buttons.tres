@@ -1,0 +1,23 @@
+[gd_resource type="Theme" format=3 uid="uid://df42rq7nns074"]
+
+[ext_resource type="FontFile" uid="uid://bj3w0mkplfe3w" path="res://style/DINNextW1G-Regular.otf" id="1_d6n46"]
+[ext_resource type="StyleBox" uid="uid://c70vfibsyvjgj" path="res://style/button_style_disabled.stylebox" id="2_1xetn"]
+[ext_resource type="StyleBox" uid="uid://c000l54avgvbl" path="res://style/button_style_hover.stylebox" id="3_1xetn"]
+[ext_resource type="StyleBox" uid="uid://dl412oouaq82u" path="res://style/button_style_default.stylebox" id="4_0f3gl"]
+[ext_resource type="StyleBox" uid="uid://cs0nht06o8bny" path="res://style/button_style_pressed_hover.stylebox" id="4_hf6g8"]
+[ext_resource type="StyleBox" uid="uid://bmnq3xbsfywty" path="res://style/button_style_pressed.tres" id="5_80yqi"]
+
+[resource]
+default_font = ExtResource("1_d6n46")
+default_font_size = 24
+Button/fonts/font = ExtResource("1_d6n46")
+Button/styles/disabled = ExtResource("2_1xetn")
+Button/styles/hover = ExtResource("3_1xetn")
+Button/styles/hover_pressed = ExtResource("4_hf6g8")
+Button/styles/normal = ExtResource("4_0f3gl")
+Button/styles/pressed = ExtResource("5_80yqi")
+CheckBox/styles/disabled = ExtResource("2_1xetn")
+CheckBox/styles/hover = ExtResource("3_1xetn")
+CheckBox/styles/hover_pressed = ExtResource("3_1xetn")
+CheckBox/styles/normal = ExtResource("4_0f3gl")
+CheckBox/styles/pressed = ExtResource("5_80yqi")

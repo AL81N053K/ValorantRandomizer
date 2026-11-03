@@ -1,0 +1,41 @@
+[gd_scene format=3 uid="uid://c1qty05707v01"]
+
+[ext_resource type="Script" uid="uid://cjx73hefvoebn" path="res://scripts/window_panel.gd" id="1_1wxhj"]
+[ext_resource type="Theme" uid="uid://byu6x3l2gjchw" path="res://style/dialog_box.tres" id="2_1wxhj"]
+
+[node name="WindowPanel" type="Node" unique_id=2067766998 node_paths=PackedStringArray("save_dialog", "load_dialog", "accept_dialog")]
+script = ExtResource("1_1wxhj")
+save_dialog = NodePath("SaveDialog")
+load_dialog = NodePath("LoadDialog")
+accept_dialog = NodePath("AcceptDialog")
+
+[node name="SaveDialog" type="FileDialog" parent="." unique_id=301839207]
+oversampling_override = 1.0
+initial_position = 2
+size = Vector2i(1500, 800)
+popup_window = true
+theme = ExtResource("2_1wxhj")
+access = 1
+filters = PackedStringArray("*.val")
+
+[node name="LoadDialog" type="FileDialog" parent="." unique_id=707998370]
+oversampling_override = 1.0
+title = "Open a File"
+initial_position = 2
+size = Vector2i(1500, 800)
+popup_window = true
+theme = ExtResource("2_1wxhj")
+ok_button_text = "Open"
+file_mode = 0
+access = 1
+filters = PackedStringArray("*.val")
+
+[node name="AcceptDialog" type="AcceptDialog" parent="." unique_id=288413435]
+oversampling_override = 1.0
+title = "Error"
+initial_position = 2
+size = Vector2i(492, 106)
+popup_window = true
+theme = ExtResource("2_1wxhj")
+dialog_text = "This file doesn't have any or correct data."
+dialog_autowrap = true

@@ -1,0 +1,158 @@
+[gd_scene format=3 uid="uid://bbwgaeg5spwwc"]
+
+[ext_resource type="Script" uid="uid://qc4ro5roqxb0" path="res://scripts/rng_panel.gd" id="1_hgmka"]
+[ext_resource type="Shader" uid="uid://d4c4casyijlvm" path="res://shaders/blur.gdshader" id="2_jeeh3"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jeeh3"]
+shader = ExtResource("2_jeeh3")
+shader_parameter/blur = 2.0
+
+[sub_resource type="LabelSettings" id="LabelSettings_jeeh3"]
+font_size = 64
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_q1cms"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_inojs"]
+font_size = 64
+
+[sub_resource type="Animation" id="Animation_20j35"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_7m3en"]
+resource_name = "toggle"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0001, 0.01),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [true, false, true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(2, 0.5),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_d3cm5"]
+_data = {
+&"RESET": SubResource("Animation_20j35"),
+&"toggle": SubResource("Animation_7m3en")
+}
+
+[node name="RNGPanel" type="Control" unique_id=1845377353 node_paths=PackedStringArray("exit_button")]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset_ratio = Vector2(0.5, 0.5)
+script = ExtResource("1_hgmka")
+title_text = null
+exit_button = NodePath("Exit")
+
+[node name="Blur" type="ColorRect" parent="." unique_id=438981064]
+material = SubResource("ShaderMaterial_jeeh3")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.6509804)
+
+[node name="Background" type="ColorRect" parent="." unique_id=2055741043]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.6509804)
+
+[node name="Content" type="MarginContainer" parent="." unique_id=787753651]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="List" type="VBoxContainer" parent="Content" unique_id=109097654]
+layout_mode = 2
+alignment = 1
+
+[node name="Title" type="Label" parent="Content/List" unique_id=1657303732]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+text = "Your today's lucky %s is..."
+label_settings = SubResource("LabelSettings_jeeh3")
+horizontal_alignment = 1
+
+[node name="Texture" type="TextureRect" parent="Content/List" unique_id=732633805]
+custom_minimum_size = Vector2(0, 600)
+layout_mode = 2
+texture = SubResource("CompressedTexture2D_q1cms")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Name" type="Label" parent="Content/List" unique_id=648321188]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+text = "Test"
+label_settings = SubResource("LabelSettings_inojs")
+horizontal_alignment = 1
+vertical_alignment = 2
+
+[node name="Exit" type="Button" parent="." unique_id=1252668265]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -60.0
+offset_bottom = 60.0
+grow_horizontal = 0
+theme_override_font_sizes/font_size = 34
+text = "X"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1453529481]
+libraries/ = SubResource("AnimationLibrary_d3cm5")

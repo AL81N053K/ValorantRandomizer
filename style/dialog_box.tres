@@ -1,0 +1,8 @@
+[gd_resource type="Theme" format=3 uid="uid://byu6x3l2gjchw"]
+
+[ext_resource type="FontFile" uid="uid://bj3w0mkplfe3w" path="res://style/DINNextW1G-Regular.otf" id="1_ct0sj"]
+
+[resource]
+default_base_scale = 1.0
+AcceptDialog/fonts/title_font = ExtResource("1_ct0sj")
+FileDialog/fonts/title_font = ExtResource("1_ct0sj")

@@ -1,0 +1,92 @@
+[gd_scene format=3 uid="uid://bxxki68pl2gp0"]
+
+[ext_resource type="Script" uid="uid://bauutfv3j6atf" path="res://scripts/content_panel.gd" id="1_n5vhf"]
+[ext_resource type="PackedScene" uid="uid://ic0r0it7rqwc" path="res://panels/tool_box.tscn" id="2_mlgfk"]
+[ext_resource type="Theme" uid="uid://dgw7swkbv80ql" path="res://style/SideMenu.theme" id="3_qpq3r"]
+[ext_resource type="PackedScene" uid="uid://bbwgaeg5spwwc" path="res://panels/rng_panel.tscn" id="4_hkiyj"]
+[ext_resource type="PackedScene" uid="uid://c1qty05707v01" path="res://panels/window_panel.tscn" id="5_g0t1j"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fr8a7"]
+bg_color = Color(0.0784314, 0.0784314, 0.0784314, 0.156863)
+border_width_bottom = 2
+border_color = Color(0.443137, 0.8, 0.8, 1)
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="Theme" id="Theme_0jc3r"]
+default_font_size = 26
+Button/colors/icon_focus_color = Color(1, 1, 1, 0.74902)
+Button/colors/icon_hover_color = Color(1, 1, 1, 0.74902)
+Button/colors/icon_hover_pressed_color = Color(1, 1, 1, 0.74902)
+Button/colors/icon_normal_color = Color(1, 1, 1, 0.470588)
+Button/font_sizes/font_size = 26
+Button/styles/focus = SubResource("StyleBoxFlat_fr8a7")
+
+[node name="Content" type="Control" unique_id=18587440 node_paths=PackedStringArray("grid", "tool_box", "rng_panel", "window_panel")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_n5vhf")
+grid = NodePath("MapSelection/Grid")
+tool_box = NodePath("ToolBox")
+rng_panel = NodePath("RNGPanel")
+window_panel = NodePath("WindowPanel")
+
+[node name="ToolBox" parent="." unique_id=577801262 instance=ExtResource("2_mlgfk")]
+custom_minimum_size = Vector2(1920, 60)
+layout_mode = 0
+anchors_preset = 0
+anchor_right = 0.0
+offset_right = 1760.0
+offset_bottom = 60.0
+grow_horizontal = 1
+mouse_filter = 0
+
+[node name="MapSelection" type="ScrollContainer" parent="." unique_id=2007814432]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 80.0
+offset_top = 100.0
+offset_right = -80.0
+offset_bottom = -100.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("3_qpq3r")
+
+[node name="Grid" type="GridContainer" parent="MapSelection" unique_id=234574665]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+theme = SubResource("Theme_0jc3r")
+columns = 3
+
+[node name="Randomize" type="Button" parent="." unique_id=1360569152]
+custom_minimum_size = Vector2(600, 0)
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -300.0
+offset_top = -87.0
+offset_right = 300.0
+offset_bottom = -40.0
+grow_horizontal = 2
+grow_vertical = 0
+offset_transform_position = Vector2(0, -40)
+theme_override_font_sizes/font_size = 28
+text = "Randomize"
+
+[node name="RNGPanel" parent="." unique_id=1845377353 node_paths=PackedStringArray("title_label") instance=ExtResource("4_hkiyj")]
+layout_mode = 1
+title_label = NodePath("Content/List/Title")
+
+[node name="WindowPanel" parent="." unique_id=2067766998 instance=ExtResource("5_g0t1j")]
+
+[editable path="RNGPanel"]

@@ -1,19 +1,22 @@
-[gd_scene load_steps=34 format=3 uid="uid://chqxp15gq40rr"]
+[gd_scene format=3 uid="uid://chqxp15gq40rr"]
 
-[ext_resource type="Theme" uid="uid://btvn2is50aps6" path="res://style/GlobalTheme.theme" id="1_twkxv"]
-[ext_resource type="Script" path="res://menu.gd" id="2_pp5pq"]
-[ext_resource type="Texture2D" uid="uid://cc4kmu307fgn3" path="res://maps/Range.png" id="3_ahnqv"]
-[ext_resource type="Script" path="res://class_scripts/BoxMenu.gd" id="5_qirl7"]
-[ext_resource type="Script" path="res://scripts/MapRandom.gd" id="6_mm4lw"]
-[ext_resource type="Script" path="res://scripts/AgentRandom.gd" id="7_gdmon"]
-[ext_resource type="Theme" uid="uid://dgw7swkbv80ql" path="res://style/SideMenu.theme" id="8_4clgn"]
-[ext_resource type="Script" path="res://scripts/WeaponRandom.gd" id="8_jgdmc"]
-[ext_resource type="Script" path="res://class_scripts/BoxLinkButton.gd" id="10_et5cv"]
-[ext_resource type="Texture2D" uid="uid://bictvqq80neby" path="res://svg/speakeron.png" id="11_ka7m5"]
-[ext_resource type="Texture2D" uid="uid://c8jy683h07gpv" path="res://svg/speakerond.png" id="12_g5wtx"]
-[ext_resource type="Texture2D" uid="uid://dymwe6n2sltat" path="res://svg/speakeroff.png" id="13_b5oxb"]
-[ext_resource type="Theme" uid="uid://fnm1jyivrm5i" path="res://style/FileDialogs.theme" id="14_4hg5c"]
-[ext_resource type="Texture2D" uid="uid://durxmm6et3xa6" path="res://svg/speakeroffd.png" id="14_tlmfr"]
+[ext_resource type="Theme" uid="uid://4brdb7s7jq0f" path="res://style/main_theme.tres" id="1_oxnod"]
+[ext_resource type="Script" uid="uid://tsfct1eam188" path="res://scripts/menu.gd" id="2_jspdm"]
+[ext_resource type="Texture2D" uid="uid://cc4kmu307fgn3" path="res://images/maps/Range.png" id="3_ahnqv"]
+[ext_resource type="Script" uid="uid://dyr63cccaklyc" path="res://class_scripts/menu_container.gd" id="3_jspdm"]
+[ext_resource type="PackedScene" uid="uid://birno8d1pmpuo" path="res://panels/intro_panel.tscn" id="4_oxnod"]
+[ext_resource type="PackedScene" uid="uid://y5h2e1326kq0" path="res://panels/map_randomizer.tscn" id="5_g7jxm"]
+[ext_resource type="PackedScene" uid="uid://b37gbfiiocav2" path="res://panels/agent_randomizer.tscn" id="6_jspdm"]
+[ext_resource type="PackedScene" uid="uid://chhjmht10ogvi" path="res://panels/weapon_randomizer.tscn" id="7_oxnod"]
+[ext_resource type="Script" uid="uid://cempr7kaosims" path="res://class_scripts/box_menu.gd" id="9_gd0jp"]
+[ext_resource type="Script" uid="uid://de3fj8hxj0yis" path="res://scripts/side_menu.gd" id="9_jspdm"]
+[ext_resource type="Shader" uid="uid://cuo848tsgfofp" path="res://shaders/blur_darken.gdshader" id="9_oxnod"]
+[ext_resource type="Texture2D" uid="uid://bictvqq80neby" path="res://images/svg/speakeron.png" id="11_ka7m5"]
+[ext_resource type="Theme" uid="uid://dysvmnk6wb835" path="res://style/side_menu.tres" id="12_4ndjb"]
+[ext_resource type="Texture2D" uid="uid://c8jy683h07gpv" path="res://images/svg/speakerond.png" id="12_g5wtx"]
+[ext_resource type="FontFile" uid="uid://dqhr0ec5t82kb" path="res://style/Valorant Font.ttf" id="12_gd0jp"]
+[ext_resource type="Texture2D" uid="uid://dymwe6n2sltat" path="res://images/svg/speakeroff.png" id="13_b5oxb"]
+[ext_resource type="Texture2D" uid="uid://durxmm6et3xa6" path="res://images/svg/speakeroffd.png" id="14_tlmfr"]
 
 [sub_resource type="Shader" id="Shader_3jofm"]
 code = "shader_type canvas_item;
@@ -55,126 +58,14 @@ void fragment() {
 shader = SubResource("Shader_3jofm")
 shader_parameter/strength = 4
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fr8a7"]
-bg_color = Color(0.0784314, 0.0784314, 0.0784314, 0.156863)
-border_width_bottom = 2
-border_color = Color(0.443137, 0.8, 0.8, 1)
-corner_radius_bottom_right = 4
-corner_radius_bottom_left = 4
-
-[sub_resource type="Theme" id="Theme_e1hma"]
-default_font_size = 26
-Button/colors/icon_focus_color = Color(1, 1, 1, 0.74902)
-Button/colors/icon_hover_color = Color(1, 1, 1, 0.74902)
-Button/colors/icon_hover_pressed_color = Color(1, 1, 1, 0.74902)
-Button/colors/icon_normal_color = Color(1, 1, 1, 0.470588)
-Button/font_sizes/font_size = 26
-Button/styles/focus = SubResource("StyleBoxFlat_fr8a7")
-
-[sub_resource type="LabelSettings" id="LabelSettings_fb0tp"]
-font_size = 64
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_j828l"]
-
-[sub_resource type="LabelSettings" id="LabelSettings_vy2xm"]
-font_size = 64
-
-[sub_resource type="Animation" id="Animation_20j35"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:visible")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:scale")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(0, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_7m3en"]
-resource_name = "toggle"
-length = 0.4
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:visible")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.0001, 0.01),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 1,
-"values": [true, false, true]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:scale")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.4),
-"transitions": PackedFloat32Array(2, 0.5),
-"update": 0,
-"values": [Vector2(0, 0), Vector2(1, 1)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_kygjm"]
-_data = {
-"RESET": SubResource("Animation_20j35"),
-"toggle": SubResource("Animation_7m3en")
-}
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_ulfkw"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qoe3g"]
-bg_color = Color(0.0784314, 0.0784314, 0.0784314, 0.156863)
-corner_radius_bottom_right = 4
-corner_radius_bottom_left = 4
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kavgn"]
-bg_color = Color(0.0784314, 0.0784314, 0.0784314, 0.156863)
-corner_radius_bottom_right = 4
-corner_radius_bottom_left = 4
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8wbuo"]
-bg_color = Color(0.0784314, 0.0784314, 0.0784314, 0.156863)
-corner_radius_bottom_right = 4
-corner_radius_bottom_left = 4
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ipnns"]
-bg_color = Color(0.0784314, 0.0784314, 0.0784314, 0.156863)
-corner_radius_bottom_right = 4
-corner_radius_bottom_left = 4
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mlpe8"]
-bg_color = Color(0.0784314, 0.0784314, 0.0784314, 0.156863)
-corner_radius_bottom_right = 4
-corner_radius_bottom_left = 4
-
-[sub_resource type="Theme" id="Theme_dmvd3"]
-Button/styles/disabled = SubResource("StyleBoxFlat_qoe3g")
-Button/styles/focus = SubResource("StyleBoxFlat_kavgn")
-Button/styles/hover = SubResource("StyleBoxFlat_8wbuo")
-Button/styles/normal = SubResource("StyleBoxFlat_ipnns")
-Button/styles/pressed = SubResource("StyleBoxFlat_mlpe8")
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_oxnod"]
+resource_local_to_scene = true
+shader = ExtResource("9_oxnod")
+shader_parameter/strength = 5.00000023424012
+shader_parameter/mix_percentage = 0.90000004275
 
 [sub_resource type="LabelSettings" id="LabelSettings_2v1id"]
+font = ExtResource("12_gd0jp")
 font_size = 36
 font_color = Color(0.835972, 0.88167, 0.934474, 1)
 
@@ -188,18 +79,20 @@ CheckButton/icons/unchecked_disabled = ExtResource("14_tlmfr")
 CheckButton/icons/unchecked_disabled_mirrored = ExtResource("14_tlmfr")
 CheckButton/icons/unchecked_mirrored = ExtResource("13_b5oxb")
 
-[node name="Menu" type="Control" node_paths=PackedStringArray("currentlyVisible")]
+[node name="Menu" type="Control" unique_id=1490364404 node_paths=PackedStringArray("menu_container", "side_menu")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_type_variation = &"Test"
-script = ExtResource("2_pp5pq")
-currentlyVisible = NodePath("MenuBoxes/IntroPanel")
+mouse_filter = 2
+theme = ExtResource("1_oxnod")
+script = ExtResource("2_jspdm")
+menu_container = NodePath("MenuContainer")
+side_menu = NodePath("SideMenu")
 
-[node name="MapBackground" type="TextureRect" parent="."]
+[node name="MapBackground" type="TextureRect" parent="." unique_id=1196823824]
 material = SubResource("ShaderMaterial_1xd4i")
 layout_mode = 1
 anchors_preset = 15
@@ -209,7 +102,7 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("3_ahnqv")
 
-[node name="ColorEffect" type="ColorRect" parent="."]
+[node name="ColorEffect" type="ColorRect" parent="." unique_id=1955892272]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -218,887 +111,132 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.0313726, 0.0901961, 0.258824, 0.392157)
 
-[node name="MenuBoxes" type="Control" parent="."]
+[node name="MenuContainer" type="MarginContainer" parent="." unique_id=892556719 node_paths=PackedStringArray("currently_visible")]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("1_twkxv")
+mouse_filter = 0
+script = ExtResource("3_jspdm")
+currently_visible = NodePath("IntroPanel")
+metadata/_custom_type_script = "uid://dyr63cccaklyc"
 
-[node name="IntroPanel" type="Control" parent="MenuBoxes"]
-visible = false
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-script = ExtResource("5_qirl7")
+[node name="IntroPanel" parent="MenuContainer" unique_id=527656157 instance=ExtResource("4_oxnod")]
+layout_mode = 2
+ignore_add = true
 ignore_start_rest = true
+rest_position = Vector2(0, 0)
 
-[node name="BG" type="ColorRect" parent="MenuBoxes/IntroPanel"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0.815686, 0.380392, 0.717647, 0.156863)
+[node name="MapRandomizer" parent="MenuContainer" unique_id=1177717129 instance=ExtResource("5_g7jxm")]
+layout_mode = 2
 
-[node name="Label" type="Label" parent="MenuBoxes/IntroPanel/BG"]
+[node name="AgentRandomizer" parent="MenuContainer" unique_id=1700492940 instance=ExtResource("6_jspdm")]
+layout_mode = 2
+
+[node name="WeaponRandomizer" parent="MenuContainer" unique_id=844036124 instance=ExtResource("7_oxnod")]
+layout_mode = 2
+
+[node name="Credits" type="MarginContainer" parent="MenuContainer" unique_id=196516550]
+layout_mode = 2
+mouse_filter = 0
+script = ExtResource("9_gd0jp")
+metadata/_custom_type_script = "uid://cempr7kaosims"
+
+[node name="Background" type="ColorRect" parent="MenuContainer/Credits" unique_id=1657594784]
+layout_mode = 2
+color = Color(0.49600723, 0.2957042, 0.8025197, 0.39215687)
+
+[node name="Control" type="Control" parent="MenuContainer/Credits" unique_id=1296145282]
+layout_mode = 2
+
+[node name="Container" type="ScrollContainer" parent="MenuContainer/Credits/Control" unique_id=853374033]
+custom_minimum_size = Vector2(1760, 1000)
+custom_maximum_size = Vector2(1760, 1000)
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -686.5
-offset_top = -140.0
-offset_right = 686.5
-offset_bottom = -12.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_font_sizes/font_size = 128
-text = "Select Randomizer"
-
-[node name="Label" type="Label" parent="MenuBoxes/IntroPanel"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -684.5
-offset_top = 60.0
-offset_right = 684.5
-offset_bottom = 124.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_font_sizes/font_size = 64
-text = "Click the left side to reveal the menu"
-
-[node name="MapBox" type="Control" parent="MenuBoxes"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-script = ExtResource("5_qirl7")
-
-[node name="BG" type="ColorRect" parent="MenuBoxes/MapBox"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0, 0, 0.392157, 0.392157)
-
-[node name="Content" type="Control" parent="MenuBoxes/MapBox"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-script = ExtResource("6_mm4lw")
-
-[node name="ToolBox" type="MarginContainer" parent="MenuBoxes/MapBox/Content"]
-custom_minimum_size = Vector2(1760, 60)
-layout_mode = 1
-anchors_preset = 10
-anchor_right = 1.0
-offset_left = 80.0
-offset_top = 20.0
-offset_right = -80.0
-offset_bottom = 80.0
-grow_horizontal = 2
-theme = ExtResource("8_4clgn")
-
-[node name="H" type="HBoxContainer" parent="MenuBoxes/MapBox/Content/ToolBox"]
-layout_mode = 2
-size_flags_horizontal = 4
-
-[node name="ToggleSelection" type="Button" parent="MenuBoxes/MapBox/Content/ToolBox/H"]
-custom_minimum_size = Vector2(340, 0)
-layout_mode = 2
-theme_override_font_sizes/font_size = 28
-text = "Toggle selection"
-
-[node name="EnableAll" type="Button" parent="MenuBoxes/MapBox/Content/ToolBox/H"]
-custom_minimum_size = Vector2(260, 0)
-layout_mode = 2
-theme_override_font_sizes/font_size = 28
-text = "Enable All"
-
-[node name="DisableAll" type="Button" parent="MenuBoxes/MapBox/Content/ToolBox/H"]
-custom_minimum_size = Vector2(260, 0)
-layout_mode = 2
-theme_override_font_sizes/font_size = 28
-text = "Disable All"
-
-[node name="Save" type="Button" parent="MenuBoxes/MapBox/Content/ToolBox/H"]
-custom_minimum_size = Vector2(300, 0)
-layout_mode = 2
-theme_override_font_sizes/font_size = 28
-text = "Save selection"
-
-[node name="Load" type="Button" parent="MenuBoxes/MapBox/Content/ToolBox/H"]
-custom_minimum_size = Vector2(300, 0)
-layout_mode = 2
-theme_override_font_sizes/font_size = 28
-text = "Load selection"
-
-[node name="Scale" type="HSlider" parent="MenuBoxes/MapBox/Content/ToolBox/H"]
-custom_minimum_size = Vector2(200, 0)
-layout_mode = 2
-size_flags_vertical = 4
-min_value = 1.0
-max_value = 6.0
-value = 5.0
-rounded = true
-tick_count = 6
-ticks_on_borders = true
-
-[node name="MapSelection" type="ScrollContainer" parent="MenuBoxes/MapBox/Content"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 80.0
-offset_top = 100.0
-offset_right = -80.0
-offset_bottom = -100.0
-grow_horizontal = 2
-grow_vertical = 2
-theme = ExtResource("8_4clgn")
-
-[node name="Grid" type="GridContainer" parent="MenuBoxes/MapBox/Content/MapSelection"]
-layout_mode = 2
-size_flags_horizontal = 6
-size_flags_vertical = 6
-theme = SubResource("Theme_e1hma")
-columns = 3
-
-[node name="ToolBox2" type="MarginContainer" parent="MenuBoxes/MapBox/Content"]
-custom_minimum_size = Vector2(1760, 60)
-layout_mode = 1
-anchors_preset = 12
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 80.0
-offset_top = -80.0
-offset_right = -80.0
-offset_bottom = -20.0
-grow_horizontal = 2
-grow_vertical = 0
-theme = ExtResource("8_4clgn")
-
-[node name="H" type="HBoxContainer" parent="MenuBoxes/MapBox/Content/ToolBox2"]
-layout_mode = 2
-size_flags_horizontal = 4
-
-[node name="Randomize" type="Button" parent="MenuBoxes/MapBox/Content/ToolBox2/H"]
-custom_minimum_size = Vector2(600, 0)
-layout_mode = 2
-theme_override_font_sizes/font_size = 28
-text = "Randomize"
-
-[node name="RandomGeneratorPanel" type="Control" parent="MenuBoxes/MapBox/Content"]
-visible = false
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-scale = Vector2(1e-05, 1e-05)
-pivot_offset = Vector2(960, 540)
-theme = ExtResource("8_4clgn")
-
-[node name="ColorRect" type="ColorRect" parent="MenuBoxes/MapBox/Content/RandomGeneratorPanel"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0, 0, 0, 0.686275)
-
-[node name="Content" type="MarginContainer" parent="MenuBoxes/MapBox/Content/RandomGeneratorPanel"]
-custom_minimum_size = Vector2(1520, 880)
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -20.0
-offset_right = 20.0
-offset_bottom = 20.0
+offset_left = -960.0
+offset_top = -540.0
+offset_right = 960.0
+offset_bottom = 540.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="List" type="VBoxContainer" parent="MenuBoxes/MapBox/Content/RandomGeneratorPanel/Content"]
+[node name="V" type="VBoxContainer" parent="MenuContainer/Credits/Control/Container" unique_id=1586209173]
 layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 alignment = 1
 
-[node name="Label" type="Label" parent="MenuBoxes/MapBox/Content/RandomGeneratorPanel/Content/List"]
-custom_minimum_size = Vector2(0, 100)
-layout_mode = 2
-text = "Your today's lucky map is..."
-label_settings = SubResource("LabelSettings_fb0tp")
-horizontal_alignment = 1
-
-[node name="MapTexture" type="TextureRect" parent="MenuBoxes/MapBox/Content/RandomGeneratorPanel/Content/List"]
-custom_minimum_size = Vector2(0, 600)
-layout_mode = 2
-texture = SubResource("CompressedTexture2D_j828l")
-expand_mode = 1
-stretch_mode = 5
-
-[node name="MapName" type="Label" parent="MenuBoxes/MapBox/Content/RandomGeneratorPanel/Content/List"]
-custom_minimum_size = Vector2(0, 100)
-layout_mode = 2
-text = "Test"
-label_settings = SubResource("LabelSettings_vy2xm")
-horizontal_alignment = 1
-vertical_alignment = 2
-
-[node name="Exit" type="Button" parent="MenuBoxes/MapBox/Content/RandomGeneratorPanel"]
-custom_minimum_size = Vector2(60, 60)
-layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -100.0
-offset_top = 40.0
-offset_right = -40.0
-offset_bottom = 100.0
-grow_horizontal = 0
-theme_override_font_sizes/font_size = 34
-text = "X"
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="MenuBoxes/MapBox/Content/RandomGeneratorPanel"]
-libraries = {
-"": SubResource("AnimationLibrary_kygjm")
-}
-
-[node name="SaveDialog" type="FileDialog" parent="MenuBoxes/MapBox/Content"]
-initial_position = 2
-size = Vector2i(1500, 800)
-theme = ExtResource("14_4hg5c")
-access = 1
-filters = PackedStringArray("*.val")
-
-[node name="LoadDialog" type="FileDialog" parent="MenuBoxes/MapBox/Content"]
-title = "Open a File"
-initial_position = 2
-size = Vector2i(1500, 800)
-theme = ExtResource("14_4hg5c")
-ok_button_text = "Open"
-file_mode = 0
-access = 1
-filters = PackedStringArray("*.val")
-
-[node name="AcceptDialog" type="AcceptDialog" parent="MenuBoxes/MapBox/Content"]
-title = "Error"
-initial_position = 2
-theme = ExtResource("14_4hg5c")
-dialog_text = "This file doesn't have any or correct data."
-
-[node name="AgentBox" type="Control" parent="MenuBoxes"]
-visible = false
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-script = ExtResource("5_qirl7")
-
-[node name="ColorRect" type="ColorRect" parent="MenuBoxes/AgentBox"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0.0705882, 0.266667, 0.266667, 0.392157)
-
-[node name="Content" type="Control" parent="MenuBoxes/AgentBox"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-script = ExtResource("7_gdmon")
-
-[node name="ToolBox" type="MarginContainer" parent="MenuBoxes/AgentBox/Content"]
-custom_minimum_size = Vector2(1760, 60)
-layout_mode = 1
-anchors_preset = 10
-anchor_right = 1.0
-offset_left = 80.0
-offset_top = 20.0
-offset_right = -80.0
-offset_bottom = 80.0
-grow_horizontal = 2
-theme = ExtResource("8_4clgn")
-
-[node name="H" type="HBoxContainer" parent="MenuBoxes/AgentBox/Content/ToolBox"]
-layout_mode = 2
-size_flags_horizontal = 4
-
-[node name="ToggleSelection" type="Button" parent="MenuBoxes/AgentBox/Content/ToolBox/H"]
-custom_minimum_size = Vector2(340, 0)
-layout_mode = 2
-theme_override_font_sizes/font_size = 28
-text = "Toggle selection"
-
-[node name="EnableAll" type="Button" parent="MenuBoxes/AgentBox/Content/ToolBox/H"]
-custom_minimum_size = Vector2(260, 0)
-layout_mode = 2
-theme_override_font_sizes/font_size = 28
-text = "Enable All"
-
-[node name="DisableAll" type="Button" parent="MenuBoxes/AgentBox/Content/ToolBox/H"]
-custom_minimum_size = Vector2(260, 0)
-layout_mode = 2
-theme_override_font_sizes/font_size = 28
-text = "Disable All"
-
-[node name="Save" type="Button" parent="MenuBoxes/AgentBox/Content/ToolBox/H"]
-custom_minimum_size = Vector2(300, 0)
-layout_mode = 2
-theme_override_font_sizes/font_size = 28
-text = "Save selection"
-
-[node name="Load" type="Button" parent="MenuBoxes/AgentBox/Content/ToolBox/H"]
-custom_minimum_size = Vector2(300, 0)
-layout_mode = 2
-theme_override_font_sizes/font_size = 28
-text = "Load selection"
-
-[node name="Scale" type="HSlider" parent="MenuBoxes/AgentBox/Content/ToolBox/H"]
-custom_minimum_size = Vector2(200, 0)
-layout_mode = 2
-size_flags_vertical = 4
-min_value = 1.0
-max_value = 10.0
-value = 7.0
-rounded = true
-tick_count = 6
-ticks_on_borders = true
-
-[node name="AgentSelection" type="ScrollContainer" parent="MenuBoxes/AgentBox/Content"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 80.0
-offset_top = 100.0
-offset_right = -80.0
-offset_bottom = -100.0
-grow_horizontal = 2
-grow_vertical = 2
-theme = ExtResource("8_4clgn")
-
-[node name="Grid" type="GridContainer" parent="MenuBoxes/AgentBox/Content/AgentSelection"]
-layout_mode = 2
-size_flags_horizontal = 6
-size_flags_vertical = 6
-theme = SubResource("Theme_e1hma")
-columns = 3
-
-[node name="ToolBox2" type="MarginContainer" parent="MenuBoxes/AgentBox/Content"]
-custom_minimum_size = Vector2(1760, 60)
-layout_mode = 1
-anchors_preset = 12
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 80.0
-offset_top = -80.0
-offset_right = -80.0
-offset_bottom = -20.0
-grow_horizontal = 2
-grow_vertical = 0
-theme = ExtResource("8_4clgn")
-
-[node name="H" type="HBoxContainer" parent="MenuBoxes/AgentBox/Content/ToolBox2"]
-layout_mode = 2
-size_flags_horizontal = 4
-
-[node name="Randomize" type="Button" parent="MenuBoxes/AgentBox/Content/ToolBox2/H"]
-custom_minimum_size = Vector2(600, 0)
-layout_mode = 2
-theme_override_font_sizes/font_size = 28
-text = "Randomize"
-
-[node name="RandomGeneratorPanel" type="Control" parent="MenuBoxes/AgentBox/Content"]
-visible = false
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-scale = Vector2(1e-05, 1e-05)
-pivot_offset = Vector2(960, 540)
-theme = ExtResource("8_4clgn")
-
-[node name="ColorRect" type="ColorRect" parent="MenuBoxes/AgentBox/Content/RandomGeneratorPanel"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0, 0, 0, 0.686275)
-
-[node name="Content" type="MarginContainer" parent="MenuBoxes/AgentBox/Content/RandomGeneratorPanel"]
-custom_minimum_size = Vector2(1520, 880)
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -20.0
-offset_right = 20.0
-offset_bottom = 20.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="List" type="VBoxContainer" parent="MenuBoxes/AgentBox/Content/RandomGeneratorPanel/Content"]
-layout_mode = 2
-alignment = 1
-
-[node name="Label" type="Label" parent="MenuBoxes/AgentBox/Content/RandomGeneratorPanel/Content/List"]
-custom_minimum_size = Vector2(0, 100)
-layout_mode = 2
-text = "Your today's lucky agent is..."
-label_settings = SubResource("LabelSettings_fb0tp")
-horizontal_alignment = 1
-
-[node name="AgentTexture" type="TextureRect" parent="MenuBoxes/AgentBox/Content/RandomGeneratorPanel/Content/List"]
-custom_minimum_size = Vector2(0, 600)
-layout_mode = 2
-texture = SubResource("CompressedTexture2D_j828l")
-expand_mode = 1
-stretch_mode = 5
-
-[node name="AgentName" type="Label" parent="MenuBoxes/AgentBox/Content/RandomGeneratorPanel/Content/List"]
-custom_minimum_size = Vector2(0, 100)
-layout_mode = 2
-text = "Test"
-label_settings = SubResource("LabelSettings_vy2xm")
-horizontal_alignment = 1
-vertical_alignment = 2
-
-[node name="Exit" type="Button" parent="MenuBoxes/AgentBox/Content/RandomGeneratorPanel"]
-custom_minimum_size = Vector2(60, 60)
-layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -100.0
-offset_top = 40.0
-offset_right = -40.0
-offset_bottom = 100.0
-grow_horizontal = 0
-theme_override_font_sizes/font_size = 34
-text = "X"
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="MenuBoxes/AgentBox/Content/RandomGeneratorPanel"]
-libraries = {
-"": SubResource("AnimationLibrary_kygjm")
-}
-
-[node name="SaveDialog" type="FileDialog" parent="MenuBoxes/AgentBox/Content"]
-initial_position = 2
-size = Vector2i(1500, 800)
-theme = ExtResource("14_4hg5c")
-access = 1
-filters = PackedStringArray("*.val")
-
-[node name="LoadDialog" type="FileDialog" parent="MenuBoxes/AgentBox/Content"]
-title = "Open a File"
-initial_position = 2
-size = Vector2i(1500, 800)
-theme = ExtResource("14_4hg5c")
-ok_button_text = "Open"
-file_mode = 0
-access = 1
-filters = PackedStringArray("*.val")
-
-[node name="AcceptDialog" type="AcceptDialog" parent="MenuBoxes/AgentBox/Content"]
-title = "Error"
-initial_position = 2
-theme = ExtResource("14_4hg5c")
-dialog_text = "This file doesn't have any or correct data."
-
-[node name="WeaponBox" type="Control" parent="MenuBoxes"]
-visible = false
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-script = ExtResource("5_qirl7")
-
-[node name="ColorRect" type="ColorRect" parent="MenuBoxes/WeaponBox"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0.341176, 0.137255, 0.0784314, 0.392157)
-
-[node name="Content" type="Control" parent="MenuBoxes/WeaponBox"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-script = ExtResource("8_jgdmc")
-
-[node name="ToolBox" type="MarginContainer" parent="MenuBoxes/WeaponBox/Content"]
-custom_minimum_size = Vector2(1760, 60)
-layout_mode = 1
-anchors_preset = 10
-anchor_right = 1.0
-offset_left = 80.0
-offset_top = 20.0
-offset_right = -80.0
-offset_bottom = 80.0
-grow_horizontal = 2
-theme = ExtResource("8_4clgn")
-
-[node name="H" type="HBoxContainer" parent="MenuBoxes/WeaponBox/Content/ToolBox"]
-layout_mode = 2
-size_flags_horizontal = 4
-
-[node name="ToggleSelection" type="Button" parent="MenuBoxes/WeaponBox/Content/ToolBox/H"]
-custom_minimum_size = Vector2(340, 0)
-layout_mode = 2
-theme_override_font_sizes/font_size = 28
-text = "Toggle selection"
-
-[node name="EnableAll" type="Button" parent="MenuBoxes/WeaponBox/Content/ToolBox/H"]
-custom_minimum_size = Vector2(260, 0)
-layout_mode = 2
-theme_override_font_sizes/font_size = 28
-text = "Enable All"
-
-[node name="DisableAll" type="Button" parent="MenuBoxes/WeaponBox/Content/ToolBox/H"]
-custom_minimum_size = Vector2(260, 0)
-layout_mode = 2
-theme_override_font_sizes/font_size = 28
-text = "Disable All"
-
-[node name="Save" type="Button" parent="MenuBoxes/WeaponBox/Content/ToolBox/H"]
-custom_minimum_size = Vector2(300, 0)
-layout_mode = 2
-theme_override_font_sizes/font_size = 28
-text = "Save selection"
-
-[node name="Load" type="Button" parent="MenuBoxes/WeaponBox/Content/ToolBox/H"]
-custom_minimum_size = Vector2(300, 0)
-layout_mode = 2
-theme_override_font_sizes/font_size = 28
-text = "Load selection"
-
-[node name="WeaponSelection" type="HBoxContainer" parent="MenuBoxes/WeaponBox/Content"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 80.0
-offset_top = 100.0
-offset_right = -80.0
-offset_bottom = -100.0
-grow_horizontal = 2
-grow_vertical = 2
-theme = ExtResource("8_4clgn")
-theme_override_constants/separation = 20
-
-[node name="Options" type="VBoxContainer" parent="MenuBoxes/WeaponBox/Content/WeaponSelection"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="Label" type="Label" parent="MenuBoxes/WeaponBox/Content/WeaponSelection/Options"]
-layout_mode = 2
-text = "Options"
-horizontal_alignment = 1
-
-[node name="Scroll" type="ScrollContainer" parent="MenuBoxes/WeaponBox/Content/WeaponSelection/Options"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="List" type="VBoxContainer" parent="MenuBoxes/WeaponBox/Content/WeaponSelection/Options/Scroll"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="PrimaryWeapons" type="VBoxContainer" parent="MenuBoxes/WeaponBox/Content/WeaponSelection"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="Label" type="Label" parent="MenuBoxes/WeaponBox/Content/WeaponSelection/PrimaryWeapons"]
-layout_mode = 2
-text = "Primary"
-horizontal_alignment = 1
-
-[node name="Scroll" type="ScrollContainer" parent="MenuBoxes/WeaponBox/Content/WeaponSelection/PrimaryWeapons"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="List" type="VBoxContainer" parent="MenuBoxes/WeaponBox/Content/WeaponSelection/PrimaryWeapons/Scroll"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="SecondaryWeapons" type="VBoxContainer" parent="MenuBoxes/WeaponBox/Content/WeaponSelection"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="Label" type="Label" parent="MenuBoxes/WeaponBox/Content/WeaponSelection/SecondaryWeapons"]
-layout_mode = 2
-text = "Sidearms"
-horizontal_alignment = 1
-
-[node name="Scroll" type="ScrollContainer" parent="MenuBoxes/WeaponBox/Content/WeaponSelection/SecondaryWeapons"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="List" type="VBoxContainer" parent="MenuBoxes/WeaponBox/Content/WeaponSelection/SecondaryWeapons/Scroll"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="ToolBox2" type="MarginContainer" parent="MenuBoxes/WeaponBox/Content"]
-custom_minimum_size = Vector2(1760, 60)
-layout_mode = 1
-anchors_preset = 12
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 80.0
-offset_top = -80.0
-offset_right = -80.0
-offset_bottom = -20.0
-grow_horizontal = 2
-grow_vertical = 0
-theme = ExtResource("8_4clgn")
-
-[node name="H" type="HBoxContainer" parent="MenuBoxes/WeaponBox/Content/ToolBox2"]
-layout_mode = 2
-size_flags_horizontal = 4
-
-[node name="Randomize" type="Button" parent="MenuBoxes/WeaponBox/Content/ToolBox2/H"]
-custom_minimum_size = Vector2(600, 0)
-layout_mode = 2
-theme_override_font_sizes/font_size = 28
-text = "Randomize"
-
-[node name="RandomGeneratorPanel" type="Control" parent="MenuBoxes/WeaponBox/Content"]
-visible = false
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-scale = Vector2(1e-05, 1e-05)
-pivot_offset = Vector2(960, 540)
-theme = ExtResource("8_4clgn")
-
-[node name="ColorRect" type="ColorRect" parent="MenuBoxes/WeaponBox/Content/RandomGeneratorPanel"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0, 0, 0, 0.686275)
-
-[node name="Content" type="MarginContainer" parent="MenuBoxes/WeaponBox/Content/RandomGeneratorPanel"]
-custom_minimum_size = Vector2(1520, 880)
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -20.0
-offset_right = 20.0
-offset_bottom = 20.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="List" type="VBoxContainer" parent="MenuBoxes/WeaponBox/Content/RandomGeneratorPanel/Content"]
-layout_mode = 2
-alignment = 1
-
-[node name="Label" type="Label" parent="MenuBoxes/WeaponBox/Content/RandomGeneratorPanel/Content/List"]
-custom_minimum_size = Vector2(0, 100)
-layout_mode = 2
-text = "Your loadout is..."
-label_settings = SubResource("LabelSettings_fb0tp")
-horizontal_alignment = 1
-
-[node name="H" type="HBoxContainer" parent="MenuBoxes/WeaponBox/Content/RandomGeneratorPanel/Content/List"]
+[node name="RichTextLabel" type="RichTextLabel" parent="MenuContainer/Credits/Control/Container/V" unique_id=689093343]
 layout_mode = 2
 size_flags_vertical = 3
+bbcode_enabled = true
+text = "[font=OpenSans-SemiBold.ttf][font_size=64] All artwork and audio belongs to Riot Games® 
 
-[node name="PrimaryWeapon" type="VBoxContainer" parent="MenuBoxes/WeaponBox/Content/RandomGeneratorPanel/Content/List/H"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 4
+ Made with Godot
 
-[node name="Image" type="TextureRect" parent="MenuBoxes/WeaponBox/Content/RandomGeneratorPanel/Content/List/H/PrimaryWeapon"]
-custom_minimum_size = Vector2(0, 400)
-layout_mode = 2
-texture = SubResource("CompressedTexture2D_ulfkw")
-expand_mode = 1
-stretch_mode = 5
+ Coded by AL81N053K 
+"
+shortcut_keys_enabled = false
+vertical_alignment = 1
 
-[node name="Label" type="Label" parent="MenuBoxes/WeaponBox/Content/RandomGeneratorPanel/Content/List/H/PrimaryWeapon"]
-layout_mode = 2
-text = "Golden Gun"
-horizontal_alignment = 1
-
-[node name="V" type="VBoxContainer" parent="MenuBoxes/WeaponBox/Content/RandomGeneratorPanel/Content/List/H"]
-layout_mode = 2
-size_flags_horizontal = 3
-alignment = 1
-
-[node name="SecondaryWeapon" type="VBoxContainer" parent="MenuBoxes/WeaponBox/Content/RandomGeneratorPanel/Content/List/H/V"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="Image" type="TextureRect" parent="MenuBoxes/WeaponBox/Content/RandomGeneratorPanel/Content/List/H/V/SecondaryWeapon"]
-custom_minimum_size = Vector2(0, 200)
-layout_mode = 2
-texture = SubResource("CompressedTexture2D_ulfkw")
-expand_mode = 1
-stretch_mode = 5
-
-[node name="Label" type="Label" parent="MenuBoxes/WeaponBox/Content/RandomGeneratorPanel/Content/List/H/V/SecondaryWeapon"]
-layout_mode = 2
-text = "Golden Gun"
-horizontal_alignment = 1
-
-[node name="Shield" type="VBoxContainer" parent="MenuBoxes/WeaponBox/Content/RandomGeneratorPanel/Content/List/H/V"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="Image" type="TextureRect" parent="MenuBoxes/WeaponBox/Content/RandomGeneratorPanel/Content/List/H/V/Shield"]
-custom_minimum_size = Vector2(0, 200)
-layout_mode = 2
-texture = SubResource("CompressedTexture2D_ulfkw")
-expand_mode = 1
-stretch_mode = 5
-
-[node name="Label" type="Label" parent="MenuBoxes/WeaponBox/Content/RandomGeneratorPanel/Content/List/H/V/Shield"]
-layout_mode = 2
-text = "Golden Gun"
-horizontal_alignment = 1
-
-[node name="Exit" type="Button" parent="MenuBoxes/WeaponBox/Content/RandomGeneratorPanel"]
-custom_minimum_size = Vector2(60, 60)
-layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -100.0
-offset_top = 40.0
-offset_right = -40.0
-offset_bottom = 100.0
-grow_horizontal = 0
-theme_override_font_sizes/font_size = 34
-text = "X"
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="MenuBoxes/WeaponBox/Content/RandomGeneratorPanel"]
-libraries = {
-"": SubResource("AnimationLibrary_kygjm")
-}
-
-[node name="SaveDialog" type="FileDialog" parent="MenuBoxes/WeaponBox/Content"]
-initial_position = 2
-size = Vector2i(1500, 800)
-theme = ExtResource("14_4hg5c")
-access = 1
-filters = PackedStringArray("*.val")
-
-[node name="LoadDialog" type="FileDialog" parent="MenuBoxes/WeaponBox/Content"]
-title = "Open a File"
-initial_position = 2
-size = Vector2i(1500, 800)
-theme = ExtResource("14_4hg5c")
-ok_button_text = "Open"
-file_mode = 0
-access = 1
-filters = PackedStringArray("*.val")
-
-[node name="AcceptDialog" type="AcceptDialog" parent="MenuBoxes/WeaponBox/Content"]
-title = "Error"
-initial_position = 2
-theme = ExtResource("14_4hg5c")
-dialog_text = "This file doesn't have any or correct data."
-
-[node name="ColorEffect2" type="ColorRect" parent="."]
+[node name="Background" type="ColorRect" parent="." unique_id=125864668]
+z_index = 2
+material = SubResource("ShaderMaterial_oxnod")
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0, 0, 0, 0)
+color = Color(0, 0, 0, 1)
 
-[node name="HoverMenu" type="ColorRect" parent="."]
+[node name="SideMenu" type="Control" parent="." unique_id=1144442397 node_paths=PackedStringArray("toggle_menu_button", "button_list", "volume_list", "block_shade")]
+z_index = 3
 custom_minimum_size = Vector2(500, 0)
 layout_mode = 1
 anchors_preset = 9
 anchor_bottom = 1.0
 offset_left = -440.0
 offset_right = 60.0
+offset_bottom = 10.0
 grow_vertical = 2
+mouse_filter = 2
 mouse_default_cursor_shape = 2
-theme = ExtResource("8_4clgn")
+theme = ExtResource("1_oxnod")
 theme_type_variation = &"SideMenu"
-color = Color(0.0745098, 0.0745098, 0.0745098, 0.882353)
+script = ExtResource("9_jspdm")
+toggle_menu_button = NodePath("ToggleMenu")
+button_list = NodePath("Container/List/ButtonList")
+volume_list = NodePath("Container/List/VolumeList")
+block_shade = NodePath("../Background")
 
-[node name="Button" type="Button" parent="HoverMenu"]
+[node name="Background" type="ColorRect" parent="SideMenu" unique_id=1177118106]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.07450981, 0.07450981, 0.07450981, 0.88235295)
+
+[node name="ToggleMenu" type="Button" parent="SideMenu" unique_id=704522844]
 custom_minimum_size = Vector2(60, 1090)
 layout_mode = 1
 anchors_preset = 11
 anchor_left = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -8.0
+offset_left = -29.0
 grow_horizontal = 0
 grow_vertical = 2
-theme = SubResource("Theme_dmvd3")
+theme = ExtResource("12_4ndjb")
 theme_override_font_sizes/font_size = 64
 toggle_mode = true
 text = ">
@@ -1111,24 +249,25 @@ text = ">
 
 >"
 
-[node name="Container" type="MarginContainer" parent="HoverMenu"]
+[node name="Container" type="MarginContainer" parent="SideMenu" unique_id=1796314644]
 custom_minimum_size = Vector2(360, 1000)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 40.0
-offset_top = 40.0
-offset_right = -100.0
-offset_bottom = -40.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 80
+theme_override_constants/margin_bottom = 20
 
-[node name="List" type="VBoxContainer" parent="HoverMenu/Container"]
+[node name="List" type="VBoxContainer" parent="SideMenu/Container" unique_id=1632429625]
 layout_mode = 2
 theme_override_constants/separation = 20
 
-[node name="Label" type="Label" parent="HoverMenu/Container/List"]
+[node name="Label" type="Label" parent="SideMenu/Container/List" unique_id=1990716628]
 layout_mode = 2
 text = "Select
 Randomizer"
@@ -1136,120 +275,70 @@ label_settings = SubResource("LabelSettings_2v1id")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="ButtonList" type="VBoxContainer" parent="HoverMenu/Container/List"]
+[node name="ButtonList" type="VBoxContainer" parent="SideMenu/Container/List" unique_id=1485206027]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/separation = 20
 alignment = 1
 
-[node name="Map" type="Button" parent="HoverMenu/Container/List/ButtonList" node_paths=PackedStringArray("box_to_link")]
-layout_mode = 2
-theme_override_font_sizes/font_size = 38
-text = "Map 
-Randomizer"
-script = ExtResource("10_et5cv")
-box_to_link = NodePath("../../../../../MenuBoxes/MapBox")
-
-[node name="Agent" type="Button" parent="HoverMenu/Container/List/ButtonList" node_paths=PackedStringArray("box_to_link")]
-layout_mode = 2
-theme_override_font_sizes/font_size = 38
-text = "Agent 
-Randomizer"
-script = ExtResource("10_et5cv")
-box_to_link = NodePath("../../../../../MenuBoxes/AgentBox")
-
-[node name="Weapon" type="Button" parent="HoverMenu/Container/List/ButtonList" node_paths=PackedStringArray("box_to_link")]
-layout_mode = 2
-theme_override_font_sizes/font_size = 38
-text = "Weapon 
-Randomizer"
-script = ExtResource("10_et5cv")
-box_to_link = NodePath("../../../../../MenuBoxes/WeaponBox")
-
-[node name="VolumeList" type="VBoxContainer" parent="HoverMenu/Container/List"]
-unique_name_in_owner = true
+[node name="VolumeList" type="VBoxContainer" parent="SideMenu/Container/List" unique_id=80420069]
 layout_mode = 2
 theme_override_constants/separation = 20
 
-[node name="Music" type="HBoxContainer" parent="HoverMenu/Container/List/VolumeList"]
+[node name="Music" type="HBoxContainer" parent="SideMenu/Container/List/VolumeList" unique_id=737318746]
 custom_minimum_size = Vector2(0, 80)
 layout_mode = 2
 
-[node name="ToggleAudio" type="CheckButton" parent="HoverMenu/Container/List/VolumeList/Music"]
+[node name="ToggleAudio" type="CheckButton" parent="SideMenu/Container/List/VolumeList/Music" unique_id=1557036513]
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 theme = SubResource("Theme_brai7")
 button_pressed = true
 
-[node name="V" type="VBoxContainer" parent="HoverMenu/Container/List/VolumeList/Music"]
+[node name="V" type="VBoxContainer" parent="SideMenu/Container/List/VolumeList/Music" unique_id=1936507988]
 layout_mode = 2
 size_flags_horizontal = 3
+alignment = 1
 
-[node name="Indicator" type="Label" parent="HoverMenu/Container/List/VolumeList/Music/V"]
+[node name="Indicator" type="Label" parent="SideMenu/Container/List/VolumeList/Music/V" unique_id=1129744481]
 layout_mode = 2
 theme_override_font_sizes/font_size = 28
 text = "Music %s%"
 
-[node name="Slider" type="HSlider" parent="HoverMenu/Container/List/VolumeList/Music/V"]
+[node name="Slider" type="HSlider" parent="SideMenu/Container/List/VolumeList/Music/V" unique_id=108811852]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
-value = 100.0
+max_value = 1.0
+step = 0.01
+value = 1.0
 ticks_on_borders = true
 
-[node name="SFX" type="HBoxContainer" parent="HoverMenu/Container/List/VolumeList"]
+[node name="SFX" type="HBoxContainer" parent="SideMenu/Container/List/VolumeList" unique_id=1628141927]
 custom_minimum_size = Vector2(0, 80)
 layout_mode = 2
 
-[node name="ToggleAudio" type="CheckButton" parent="HoverMenu/Container/List/VolumeList/SFX"]
+[node name="ToggleAudio" type="CheckButton" parent="SideMenu/Container/List/VolumeList/SFX" unique_id=2015982832]
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 theme = SubResource("Theme_brai7")
 button_pressed = true
 
-[node name="V" type="VBoxContainer" parent="HoverMenu/Container/List/VolumeList/SFX"]
+[node name="V" type="VBoxContainer" parent="SideMenu/Container/List/VolumeList/SFX" unique_id=2060381481]
 layout_mode = 2
 size_flags_horizontal = 3
+alignment = 1
 
-[node name="Indicator" type="Label" parent="HoverMenu/Container/List/VolumeList/SFX/V"]
+[node name="Indicator" type="Label" parent="SideMenu/Container/List/VolumeList/SFX/V" unique_id=1261074157]
 layout_mode = 2
 theme_override_font_sizes/font_size = 28
 text = "Sound FX %s%"
 
-[node name="Slider" type="HSlider" parent="HoverMenu/Container/List/VolumeList/SFX/V"]
+[node name="Slider" type="HSlider" parent="SideMenu/Container/List/VolumeList/SFX/V" unique_id=1390298374]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
-value = 100.0
+max_value = 1.0
+step = 0.01
+value = 1.0
 ticks_on_borders = true
-
-[connection signal="pressed" from="MenuBoxes/MapBox/Content/ToolBox/H/ToggleSelection" to="MenuBoxes/MapBox/Content" method="toggle_selection"]
-[connection signal="pressed" from="MenuBoxes/MapBox/Content/ToolBox/H/EnableAll" to="MenuBoxes/MapBox/Content" method="enable_all"]
-[connection signal="pressed" from="MenuBoxes/MapBox/Content/ToolBox/H/DisableAll" to="MenuBoxes/MapBox/Content" method="disable_all"]
-[connection signal="pressed" from="MenuBoxes/MapBox/Content/ToolBox/H/Save" to="MenuBoxes/MapBox/Content" method="_save_pressed"]
-[connection signal="pressed" from="MenuBoxes/MapBox/Content/ToolBox/H/Load" to="MenuBoxes/MapBox/Content" method="_on_load_pressed"]
-[connection signal="value_changed" from="MenuBoxes/MapBox/Content/ToolBox/H/Scale" to="MenuBoxes/MapBox/Content" method="scale_value_changed"]
-[connection signal="pressed" from="MenuBoxes/MapBox/Content/ToolBox2/H/Randomize" to="MenuBoxes/MapBox/Content" method="randomize_pressed"]
-[connection signal="pressed" from="MenuBoxes/MapBox/Content/RandomGeneratorPanel/Exit" to="MenuBoxes/MapBox/Content" method="exit_pressed"]
-[connection signal="file_selected" from="MenuBoxes/MapBox/Content/SaveDialog" to="MenuBoxes/MapBox/Content" method="_save_selected"]
-[connection signal="file_selected" from="MenuBoxes/MapBox/Content/LoadDialog" to="MenuBoxes/MapBox/Content" method="_load_selected"]
-[connection signal="pressed" from="MenuBoxes/AgentBox/Content/ToolBox/H/ToggleSelection" to="MenuBoxes/AgentBox/Content" method="toggle_selection"]
-[connection signal="pressed" from="MenuBoxes/AgentBox/Content/ToolBox/H/EnableAll" to="MenuBoxes/AgentBox/Content" method="enable_all"]
-[connection signal="pressed" from="MenuBoxes/AgentBox/Content/ToolBox/H/DisableAll" to="MenuBoxes/AgentBox/Content" method="disable_all"]
-[connection signal="pressed" from="MenuBoxes/AgentBox/Content/ToolBox/H/Save" to="MenuBoxes/AgentBox/Content" method="_save_pressed"]
-[connection signal="pressed" from="MenuBoxes/AgentBox/Content/ToolBox/H/Load" to="MenuBoxes/AgentBox/Content" method="_load_pressed"]
-[connection signal="value_changed" from="MenuBoxes/AgentBox/Content/ToolBox/H/Scale" to="MenuBoxes/AgentBox/Content" method="scale_value_changed"]
-[connection signal="pressed" from="MenuBoxes/AgentBox/Content/ToolBox2/H/Randomize" to="MenuBoxes/AgentBox/Content" method="randomize_pressed"]
-[connection signal="pressed" from="MenuBoxes/AgentBox/Content/RandomGeneratorPanel/Exit" to="MenuBoxes/AgentBox/Content" method="exit_pressed"]
-[connection signal="file_selected" from="MenuBoxes/AgentBox/Content/SaveDialog" to="MenuBoxes/AgentBox/Content" method="_save_selected"]
-[connection signal="file_selected" from="MenuBoxes/AgentBox/Content/LoadDialog" to="MenuBoxes/AgentBox/Content" method="_load_selected"]
-[connection signal="pressed" from="MenuBoxes/WeaponBox/Content/ToolBox/H/ToggleSelection" to="MenuBoxes/WeaponBox/Content" method="toggle_selection"]
-[connection signal="pressed" from="MenuBoxes/WeaponBox/Content/ToolBox/H/EnableAll" to="MenuBoxes/WeaponBox/Content" method="enable_all"]
-[connection signal="pressed" from="MenuBoxes/WeaponBox/Content/ToolBox/H/DisableAll" to="MenuBoxes/WeaponBox/Content" method="disable_all"]
-[connection signal="pressed" from="MenuBoxes/WeaponBox/Content/ToolBox/H/Save" to="MenuBoxes/WeaponBox/Content" method="_save_pressed"]
-[connection signal="pressed" from="MenuBoxes/WeaponBox/Content/ToolBox/H/Load" to="MenuBoxes/WeaponBox/Content" method="_load_pressed"]
-[connection signal="pressed" from="MenuBoxes/WeaponBox/Content/ToolBox2/H/Randomize" to="MenuBoxes/WeaponBox/Content" method="randomize_pressed"]
-[connection signal="pressed" from="MenuBoxes/WeaponBox/Content/RandomGeneratorPanel/Exit" to="MenuBoxes/WeaponBox/Content" method="exit_pressed"]
-[connection signal="file_selected" from="MenuBoxes/WeaponBox/Content/SaveDialog" to="MenuBoxes/WeaponBox/Content" method="_save_selected"]
-[connection signal="file_selected" from="MenuBoxes/WeaponBox/Content/LoadDialog" to="MenuBoxes/WeaponBox/Content" method="_load_selected"]
-[connection signal="toggled" from="HoverMenu/Button" to="." method="_on_button_toggled"]

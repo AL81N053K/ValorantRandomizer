@@ -1,0 +1,62 @@
+extends RandomizerHandler
+
+var rng_list : Array = []
+
+func randomize_result() -> void:
+	randomize()
+	rng_list.clear()
+	get_list()
+	if rng_list.size() == 0: get_list(true)
+	print("agents: ",rng_list)
+	var result : Button = rng_list.pick_random()
+	var result_panel : ContentPanel = result.get_parent().get_parent().get_parent()
+	result_panel.rng_panel_texture.texture = ResourceLoader.load(str(Constants.PATHS.get(&"agents_artwork"),result.text,".png"))
+	result_panel.rng_panel_label.text = result.text
+	#rng_panel.set_results(str(Constants.PATHS.get(&"agents_artwork"),result.text,".png"),\
+	#result_panel.rng_panel_texture,\
+	#result.text,\
+	#result_panel.rng_panel_label)
+	rng_panel.open_panel()
+	SoundHandler.play_agent_voice(result.text)
+
+func get_list(ignore_condition: bool = false) -> void:
+	for panel : ContentPanel in list_of_panels:
+		for object : Button in panel.grid.get_children():
+			if (object.disabled == false and object.button_pressed == true) or ignore_condition:
+				rng_list.append(object)
+
+
+func save_preset() -> void:
+	rng_list.clear()
+	get_list()
+	var list : Array[String]
+	for result in rng_list:
+		list.append(result.text)
+	var save_data : Dictionary = {}
+	save_data.set(&"type",&"agent")
+	save_data.set(&"list",list)
+	
+	var file = FileAccess.open(file_path,FileAccess.WRITE)
+	if file == null: show_error(str("Error while creating a file. ",FileAccess.get_open_error()))
+	var json_sting := JSON.stringify(save_data)
+	file.store_string(json_sting)
+	
+
+func load_preset() -> void:
+	if not FileAccess.file_exists(file_path): return show_error(str("File not found."))
+	
+	var file := FileAccess.open(file_path,FileAccess.READ)
+	var json_string := file.get_as_text()
+	var json = JSON.new()
+	var parse_result = json.parse(json_string)
+	if not parse_result == OK:
+		return show_error(str("JSON parse error ", json.get_error_message()," on line", json.get_error_line()))
+	var save_data : Dictionary = json.get_data()
+	if save_data.get(&"type") == null: return show_error(str("File is not the correct."))
+	if save_data.get(&"type") != &"agent": return show_error(str("File is not the correct type."))
+	if save_data.get(&"list") == null: return show_error(str("File doesn't have a list."))
+	
+	var list : Array = save_data.get(&"list")
+	for panel : ContentPanel in list_of_panels:
+		for object : Button in panel.grid.get_children():
+			object.button_pressed = list.has(object.text)

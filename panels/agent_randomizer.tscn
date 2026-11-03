@@ -1,0 +1,240 @@
+[gd_scene format=3 uid="uid://b37gbfiiocav2"]
+
+[ext_resource type="Script" uid="uid://cempr7kaosims" path="res://class_scripts/box_menu.gd" id="1_8bixq"]
+[ext_resource type="Script" uid="uid://bauutfv3j6atf" path="res://scripts/content_panel.gd" id="2_kg456"]
+[ext_resource type="Script" uid="uid://dw0adfr5tc5fg" path="res://scripts/tool_box.gd" id="3_el2nl"]
+[ext_resource type="Script" uid="uid://qc4ro5roqxb0" path="res://scripts/rng_panel.gd" id="4_cl51i"]
+[ext_resource type="Theme" uid="uid://4brdb7s7jq0f" path="res://style/main_theme.tres" id="4_el2nl"]
+[ext_resource type="Theme" uid="uid://df42rq7nns074" path="res://style/buttons.tres" id="4_rrtdi"]
+[ext_resource type="Shader" uid="uid://cuo848tsgfofp" path="res://shaders/blur_darken.gdshader" id="5_kg456"]
+[ext_resource type="AnimationLibrary" uid="uid://babvobvm7lhum" path="res://animations/rng_panel/rng_panel.tres" id="6_yfsj8"]
+[ext_resource type="PackedScene" uid="uid://c1qty05707v01" path="res://panels/window_panel.tscn" id="7_br06w"]
+[ext_resource type="Script" uid="uid://b2hffeh673l77" path="res://panels/agent_randomizer.gd" id="8_6jc48"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_el2nl"]
+resource_local_to_scene = true
+shader = ExtResource("5_kg456")
+shader_parameter/strength = 3.3
+shader_parameter/mix_percentage = 0.7
+
+[sub_resource type="LabelSettings" id="LabelSettings_pbx3d"]
+font_size = 64
+
+[sub_resource type="LabelSettings" id="LabelSettings_p7n6o"]
+font_size = 48
+
+[node name="AgentRandomizer" type="MarginContainer" unique_id=1700492940]
+custom_minimum_size = Vector2(1920, 1080)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 0
+theme = ExtResource("4_el2nl")
+script = ExtResource("1_8bixq")
+metadata/_custom_type_script = "uid://cempr7kaosims"
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1662523091]
+layout_mode = 2
+color = Color(0.0705882, 0.266667, 0.266667, 0.392157)
+
+[node name="Agents" type="Control" parent="." unique_id=1068516393 node_paths=PackedStringArray("grid", "tool_box", "rng_panel_texture", "rng_panel_label")]
+layout_mode = 2
+script = ExtResource("2_kg456")
+name_icon = &"agents_icon"
+perfect_rect = true
+min_size = Vector2(50, 50)
+max_size = Vector2(50, 50)
+button_style = ExtResource("4_rrtdi")
+list = ["Brimstone", "Viper", "Omen", "Killjoy", "Cypher", "Sova", "Sage", "Phoenix", "Jett", "Reyna", "Raze", "Breach", "Skye", "Yoru", "Astra", "KAYO", "Chamber", "Neon", "Fade", "Harbor", "Gekko", "Deadlock", "Iso", "Clove", "Vyse", "Tejo", "Waylay", "Veto", "Miks", "Hush"]
+grid = NodePath("Container/Grid")
+grid_default_min = 3
+grid_default_max = 8
+tool_box = NodePath("ToolBox")
+rng_panel_texture = NodePath("../Control/RNGPanel/Content/List/AgentTexture")
+rng_panel_label = NodePath("../Control/RNGPanel/Content/List/AgentName")
+metadata/_custom_type_script = "uid://bauutfv3j6atf"
+
+[node name="ToolBox" type="MarginContainer" parent="Agents" unique_id=218887349 node_paths=PackedStringArray("toggle_selection_button", "enable_all_button", "disable_all_button", "save_button", "load_button", "scale_slider")]
+custom_minimum_size = Vector2(1840, 0)
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 40.0
+offset_top = 20.0
+offset_right = -40.0
+offset_bottom = 60.0
+grow_horizontal = 2
+script = ExtResource("3_el2nl")
+toggle_selection_button = NodePath("List/ToggleSelection")
+enable_all_button = NodePath("List/SelectAll")
+disable_all_button = NodePath("List/DeselectAll")
+save_button = NodePath("List/Save")
+load_button = NodePath("List/Load")
+scale_slider = NodePath("List/GridSize")
+metadata/_custom_type_script = "uid://dw0adfr5tc5fg"
+
+[node name="List" type="HBoxContainer" parent="Agents/ToolBox" unique_id=1148717853]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+alignment = 1
+
+[node name="ToggleSelection" type="Button" parent="Agents/ToolBox/List" unique_id=631497138 groups=["Button"]]
+custom_minimum_size = Vector2(280, 40)
+layout_mode = 2
+theme_override_font_sizes/font_size = 26
+text = "Toggle Selection"
+
+[node name="SelectAll" type="Button" parent="Agents/ToolBox/List" unique_id=816297144 groups=["Button"]]
+custom_minimum_size = Vector2(280, 40)
+layout_mode = 2
+theme_override_font_sizes/font_size = 26
+text = "Select All"
+
+[node name="DeselectAll" type="Button" parent="Agents/ToolBox/List" unique_id=457989223 groups=["Button"]]
+custom_minimum_size = Vector2(280, 40)
+layout_mode = 2
+theme_override_font_sizes/font_size = 26
+text = "Deselect All"
+
+[node name="Save" type="Button" parent="Agents/ToolBox/List" unique_id=1525201648 groups=["Button"]]
+custom_minimum_size = Vector2(280, 40)
+layout_mode = 2
+theme_override_font_sizes/font_size = 26
+text = "Save Preset"
+
+[node name="Load" type="Button" parent="Agents/ToolBox/List" unique_id=1431045484 groups=["Button"]]
+custom_minimum_size = Vector2(280, 40)
+layout_mode = 2
+theme_override_font_sizes/font_size = 26
+text = "Load Preset"
+
+[node name="GridSize" type="HSlider" parent="Agents/ToolBox/List" unique_id=1777772814]
+custom_minimum_size = Vector2(200, 40)
+layout_mode = 2
+min_value = 1.0
+max_value = 6.0
+value = 5.0
+tick_count = 6
+ticks_on_borders = true
+
+[node name="Container" type="ScrollContainer" parent="Agents" unique_id=1122678896]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 80.0
+offset_top = 80.0
+offset_right = -80.0
+offset_bottom = -120.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Grid" type="GridContainer" parent="Agents/Container" unique_id=477399600]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+columns = 7
+
+[node name="RandomizeButton" type="Button" parent="Agents" unique_id=401012530 groups=["Button"]]
+custom_minimum_size = Vector2(450, 60)
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -225.0
+offset_top = -100.0
+offset_right = 225.0
+offset_bottom = -40.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 36
+text = "Randomize"
+
+[node name="Control" type="CanvasLayer" parent="." unique_id=534211207]
+
+[node name="RNGPanel" type="Control" parent="Control" unique_id=197436707 node_paths=PackedStringArray("title_label", "exit_button", "animation_player")]
+visible = false
+z_index = 1
+custom_minimum_size = Vector2(1920, 1080)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset_ratio = Vector2(0.5, 0.5)
+theme = ExtResource("4_el2nl")
+script = ExtResource("4_cl51i")
+title_label = NodePath("Content/List/Title")
+title_text = "agent"
+exit_button = NodePath("Exit")
+animation_player = NodePath("AnimationPlayer")
+metadata/_custom_type_script = "uid://qc4ro5roqxb0"
+
+[node name="Background" type="ColorRect" parent="Control/RNGPanel" unique_id=338624655]
+material = SubResource("ShaderMaterial_el2nl")
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Content" type="MarginContainer" parent="Control/RNGPanel" unique_id=1765046527]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="List" type="VBoxContainer" parent="Control/RNGPanel/Content" unique_id=2068840145]
+layout_mode = 2
+size_flags_horizontal = 4
+alignment = 1
+
+[node name="Title" type="Label" parent="Control/RNGPanel/Content/List" unique_id=930075381]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Your today's lucky agent is..."
+label_settings = SubResource("LabelSettings_pbx3d")
+horizontal_alignment = 1
+
+[node name="AgentTexture" type="TextureRect" parent="Control/RNGPanel/Content/List" unique_id=169432576]
+custom_minimum_size = Vector2(0, 550)
+custom_maximum_size = Vector2(1920, 550)
+layout_mode = 2
+size_flags_horizontal = 4
+stretch_mode = 5
+
+[node name="AgentName" type="Label" parent="Control/RNGPanel/Content/List" unique_id=730806798]
+custom_minimum_size = Vector2(0, 80)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "test"
+label_settings = SubResource("LabelSettings_p7n6o")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Exit" type="Button" parent="Control/RNGPanel" unique_id=2026169988 groups=["Button"]]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 0
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -60.0
+offset_right = -60.0
+theme_override_font_sizes/font_size = 34
+text = "X"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Control/RNGPanel" unique_id=1814324315]
+libraries/ = ExtResource("6_yfsj8")
+
+[node name="WindowPanel" parent="." unique_id=2067766998 instance=ExtResource("7_br06w")]
+
+[node name="RandomizerHandler" type="Node" parent="." unique_id=5585762 node_paths=PackedStringArray("randomize_button", "rng_panel", "list_of_panels", "window_panel", "tool_box")]
+script = ExtResource("8_6jc48")
+randomize_button = NodePath("../Agents/RandomizeButton")
+rng_panel = NodePath("../Control/RNGPanel")
+list_of_panels = [NodePath("../Agents")]
+window_panel = NodePath("../WindowPanel")
+tool_box = NodePath("../Agents/ToolBox")
+metadata/_custom_type_script = "uid://dbuy3j6tycmbr"

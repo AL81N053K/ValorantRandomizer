@@ -1,0 +1,10 @@
+[gd_resource type="AnimationLibrary" format=3 uid="uid://babvobvm7lhum"]
+
+[ext_resource type="Animation" uid="uid://criad5cyrgel1" path="res://animations/rng_panel/reset.tres" id="1_hf737"]
+[ext_resource type="Animation" uid="uid://bxpp8lup4cw4v" path="res://animations/rng_panel/toggle.tres" id="2_612eu"]
+
+[resource]
+_data = {
+&"RESET": ExtResource("1_hf737"),
+&"toggle": ExtResource("2_612eu")
+}

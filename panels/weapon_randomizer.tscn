@@ -1,0 +1,420 @@
+[gd_scene format=3 uid="uid://chhjmht10ogvi"]
+
+[ext_resource type="Theme" uid="uid://4brdb7s7jq0f" path="res://style/main_theme.tres" id="1_voq0h"]
+[ext_resource type="Script" uid="uid://cempr7kaosims" path="res://class_scripts/box_menu.gd" id="1_wp0sl"]
+[ext_resource type="Script" uid="uid://bauutfv3j6atf" path="res://scripts/content_panel.gd" id="2_voq0h"]
+[ext_resource type="Script" uid="uid://dw0adfr5tc5fg" path="res://scripts/tool_box.gd" id="4_d602t"]
+[ext_resource type="Theme" uid="uid://df42rq7nns074" path="res://style/buttons.tres" id="4_xt8vl"]
+[ext_resource type="PackedScene" uid="uid://c1qty05707v01" path="res://panels/window_panel.tscn" id="5_rirdn"]
+[ext_resource type="Script" uid="uid://qc4ro5roqxb0" path="res://scripts/rng_panel.gd" id="5_xj5wx"]
+[ext_resource type="Shader" uid="uid://cuo848tsgfofp" path="res://shaders/blur_darken.gdshader" id="6_voq0h"]
+[ext_resource type="AnimationLibrary" uid="uid://babvobvm7lhum" path="res://animations/rng_panel/rng_panel.tres" id="7_xt8vl"]
+[ext_resource type="Script" uid="uid://cd5kubo3suiah" path="res://panels/weapon_randomizer.gd" id="9_xt8vl"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_bhunq"]
+font_size = 48
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xt8vl"]
+resource_local_to_scene = true
+shader = ExtResource("6_voq0h")
+shader_parameter/strength = 3.3
+shader_parameter/mix_percentage = 0.70000003325
+
+[sub_resource type="LabelSettings" id="LabelSettings_qlgwm"]
+font_size = 64
+
+[sub_resource type="LabelSettings" id="LabelSettings_voq0h"]
+font_size = 32
+
+[node name="WeaponRandomizer" type="MarginContainer" unique_id=844036124]
+custom_minimum_size = Vector2(1920, 1080)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 0
+theme = ExtResource("1_voq0h")
+script = ExtResource("1_wp0sl")
+metadata/_custom_type_script = "uid://cempr7kaosims"
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1308916322]
+layout_mode = 2
+color = Color(0.341176, 0.137255, 0.0784314, 0.392157)
+
+[node name="Container" type="MarginContainer" parent="." unique_id=1792752833]
+custom_minimum_size = Vector2(1760, 1000)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+offset_transform_position = Vector2(0, 40)
+
+[node name="VBox" type="VBoxContainer" parent="Container" unique_id=899943828]
+layout_mode = 2
+alignment = 1
+
+[node name="HBox" type="HBoxContainer" parent="Container/VBox" unique_id=1288359165]
+layout_mode = 2
+size_flags_vertical = 3
+alignment = 1
+
+[node name="Options" type="Control" parent="Container/VBox/HBox" unique_id=524450412 node_paths=PackedStringArray("grid", "rng_panel_texture", "rng_panel_label")]
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("2_voq0h")
+min_size = Vector2(550, 80)
+max_size = Vector2(550, -1)
+button_style = ExtResource("4_xt8vl")
+list = [["IncludeKnife", "Include Knife 
+(adds to primary)", false], ["OneWeapon", "Only one Primary/Sidearm", false], ["ArmorRandom", "Randomize Shield 
+(uncheck = Heavy Shield)", true]]
+grid = NodePath("VBox/Scroll/List")
+grid_default_size_tick = 1
+grid_default_max = 1
+rng_panel_texture = NodePath("../../../../Control/RNGPanel/Content/List/Content/H/Side/Shield/STexture")
+rng_panel_label = NodePath("../../../../Control/RNGPanel/Content/List/Content/H/Side/Shield/SLabel")
+metadata/_custom_type_script = "uid://bauutfv3j6atf"
+
+[node name="VBox" type="VBoxContainer" parent="Container/VBox/HBox/Options" unique_id=2002059728]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 15
+
+[node name="Label" type="Label" parent="Container/VBox/HBox/Options/VBox" unique_id=1447562574]
+layout_mode = 2
+text = "Options"
+label_settings = SubResource("LabelSettings_bhunq")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Scroll" type="ScrollContainer" parent="Container/VBox/HBox/Options/VBox" unique_id=816732946]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="List" type="GridContainer" parent="Container/VBox/HBox/Options/VBox/Scroll" unique_id=310541865]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ToolBox" type="MarginContainer" parent="Container/VBox/HBox/Options/VBox" unique_id=725127016 node_paths=PackedStringArray("save_button", "load_button")]
+layout_mode = 2
+script = ExtResource("4_d602t")
+save_button = NodePath("H/Save")
+load_button = NodePath("H/Load")
+metadata/_custom_type_script = "uid://dw0adfr5tc5fg"
+
+[node name="H" type="HBoxContainer" parent="Container/VBox/HBox/Options/VBox/ToolBox" unique_id=2002478793]
+layout_mode = 2
+alignment = 1
+
+[node name="Save" type="Button" parent="Container/VBox/HBox/Options/VBox/ToolBox/H" unique_id=1008313191 groups=["Button"]]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 26
+text = "Save Preset"
+
+[node name="Load" type="Button" parent="Container/VBox/HBox/Options/VBox/ToolBox/H" unique_id=588788609 groups=["Button"]]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 26
+text = "Load Preset"
+
+[node name="MainWeapons" type="Control" parent="Container/VBox/HBox" unique_id=1500263258 node_paths=PackedStringArray("grid", "tool_box", "rng_panel_texture", "rng_panel_label")]
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("2_voq0h")
+name_icon = &"weapons_killfeed"
+min_size = Vector2(550, 115)
+max_size = Vector2(550, 400)
+button_style = ExtResource("4_xt8vl")
+list = ["Stinger", "Spectre", "Bucky", "Judge", "Bulldog", "Guardian", "Phantom", "Warden", "Vandal", "Marshal", "Outlaw", "Operator", "Ares", "Odin"]
+grid = NodePath("VBox/Scroll/List")
+grid_default_size_tick = 1
+grid_default_max = 1
+tool_box = NodePath("VBox/ToolBox")
+rng_panel_texture = NodePath("../../../../Control/RNGPanel/Content/List/Content/H/MainWeapon/MWTexture")
+rng_panel_label = NodePath("../../../../Control/RNGPanel/Content/List/Content/H/MainWeapon/MWLabel")
+metadata/_custom_type_script = "uid://bauutfv3j6atf"
+
+[node name="VBox" type="VBoxContainer" parent="Container/VBox/HBox/MainWeapons" unique_id=439120543]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 15
+
+[node name="Label" type="Label" parent="Container/VBox/HBox/MainWeapons/VBox" unique_id=1531597680]
+layout_mode = 2
+text = "Main Weapon"
+label_settings = SubResource("LabelSettings_bhunq")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ToolBox" type="MarginContainer" parent="Container/VBox/HBox/MainWeapons/VBox" unique_id=1247633279 node_paths=PackedStringArray("toggle_selection_button", "enable_all_button", "disable_all_button")]
+layout_mode = 2
+script = ExtResource("4_d602t")
+toggle_selection_button = NodePath("H/Toggle")
+enable_all_button = NodePath("H/EnableAll")
+disable_all_button = NodePath("H/DisableAll")
+metadata/_custom_type_script = "uid://dw0adfr5tc5fg"
+
+[node name="H" type="HBoxContainer" parent="Container/VBox/HBox/MainWeapons/VBox/ToolBox" unique_id=1466319717]
+layout_mode = 2
+alignment = 1
+
+[node name="Toggle" type="Button" parent="Container/VBox/HBox/MainWeapons/VBox/ToolBox/H" unique_id=849639094 groups=["Button"]]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 26
+text = "Toggle"
+
+[node name="EnableAll" type="Button" parent="Container/VBox/HBox/MainWeapons/VBox/ToolBox/H" unique_id=427794737 groups=["Button"]]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 26
+text = "Enable All"
+
+[node name="DisableAll" type="Button" parent="Container/VBox/HBox/MainWeapons/VBox/ToolBox/H" unique_id=963818470 groups=["Button"]]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 26
+text = "Disable All"
+
+[node name="Scroll" type="ScrollContainer" parent="Container/VBox/HBox/MainWeapons/VBox" unique_id=104061780]
+custom_minimum_size = Vector2(550, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 3
+
+[node name="List" type="GridContainer" parent="Container/VBox/HBox/MainWeapons/VBox/Scroll" unique_id=1233157332]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Sidearms" type="Control" parent="Container/VBox/HBox" unique_id=1028484672 node_paths=PackedStringArray("grid", "tool_box", "rng_panel_texture", "rng_panel_label")]
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("2_voq0h")
+name_icon = &"weapons_killfeed"
+min_size = Vector2(550, 115)
+max_size = Vector2(550, 400)
+button_style = ExtResource("4_xt8vl")
+list = ["Classic", "Shorty", "Frenzy", "Ghost", "Bandit", "Sheriff"]
+grid = NodePath("VBox/Scroll/List")
+grid_default_size_tick = 1
+grid_default_max = 1
+tool_box = NodePath("VBox/ToolBox")
+rng_panel_texture = NodePath("../../../../Control/RNGPanel/Content/List/Content/H/Side/SideArm/SATexture")
+rng_panel_label = NodePath("../../../../Control/RNGPanel/Content/List/Content/H/Side/SideArm/SALabel")
+metadata/_custom_type_script = "uid://bauutfv3j6atf"
+
+[node name="VBox" type="VBoxContainer" parent="Container/VBox/HBox/Sidearms" unique_id=867352687]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 15
+
+[node name="Label" type="Label" parent="Container/VBox/HBox/Sidearms/VBox" unique_id=1834814537]
+layout_mode = 2
+text = "Sidearms"
+label_settings = SubResource("LabelSettings_bhunq")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ToolBox" type="MarginContainer" parent="Container/VBox/HBox/Sidearms/VBox" unique_id=591575658 node_paths=PackedStringArray("toggle_selection_button", "enable_all_button", "disable_all_button")]
+layout_mode = 2
+script = ExtResource("4_d602t")
+toggle_selection_button = NodePath("H/Toggle")
+enable_all_button = NodePath("H/EnableAll")
+disable_all_button = NodePath("H/DisableAll")
+metadata/_custom_type_script = "uid://dw0adfr5tc5fg"
+
+[node name="H" type="HBoxContainer" parent="Container/VBox/HBox/Sidearms/VBox/ToolBox" unique_id=121827295]
+layout_mode = 2
+alignment = 1
+
+[node name="Toggle" type="Button" parent="Container/VBox/HBox/Sidearms/VBox/ToolBox/H" unique_id=1063819871 groups=["Button"]]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 26
+text = "Toggle"
+
+[node name="EnableAll" type="Button" parent="Container/VBox/HBox/Sidearms/VBox/ToolBox/H" unique_id=39888674 groups=["Button"]]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 26
+text = "Enable All"
+
+[node name="DisableAll" type="Button" parent="Container/VBox/HBox/Sidearms/VBox/ToolBox/H" unique_id=1359506326 groups=["Button"]]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 26
+text = "Disable All"
+
+[node name="Scroll" type="ScrollContainer" parent="Container/VBox/HBox/Sidearms/VBox" unique_id=1338063186]
+custom_minimum_size = Vector2(550, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 3
+
+[node name="List" type="GridContainer" parent="Container/VBox/HBox/Sidearms/VBox/Scroll" unique_id=513290697]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Control" type="Control" parent="Container/VBox" unique_id=1949567468]
+custom_minimum_size = Vector2(450, 60)
+layout_mode = 2
+size_flags_horizontal = 4
+offset_transform_position = Vector2(0, -40)
+
+[node name="RandomizeButton" type="Button" parent="Container/VBox/Control" unique_id=1142472881 groups=["Button"]]
+custom_minimum_size = Vector2(450, 60)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+offset_transform_position = Vector2(0, -40)
+theme_override_font_sizes/font_size = 36
+text = "Randomize"
+
+[node name="Control" type="CanvasLayer" parent="." unique_id=315898835]
+
+[node name="RNGPanel" type="Control" parent="Control" unique_id=1067638258 node_paths=PackedStringArray("title_label", "exit_button", "animation_player")]
+visible = false
+z_index = 1
+custom_minimum_size = Vector2(1920, 1080)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset_ratio = Vector2(0.5, 0.5)
+theme = ExtResource("1_voq0h")
+script = ExtResource("5_xj5wx")
+title_label = NodePath("Content/List/Title")
+title_text = "weapon loadout"
+exit_button = NodePath("Exit")
+animation_player = NodePath("AnimationPlayer")
+metadata/_custom_type_script = "uid://qc4ro5roqxb0"
+
+[node name="Background" type="ColorRect" parent="Control/RNGPanel" unique_id=184761830]
+material = SubResource("ShaderMaterial_xt8vl")
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Content" type="MarginContainer" parent="Control/RNGPanel" unique_id=106838100]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="List" type="VBoxContainer" parent="Control/RNGPanel/Content" unique_id=1816125497]
+layout_mode = 2
+alignment = 1
+
+[node name="Title" type="Label" parent="Control/RNGPanel/Content/List" unique_id=1705918046]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+text = "Your today's lucky weapon loadout is..."
+label_settings = SubResource("LabelSettings_qlgwm")
+horizontal_alignment = 1
+
+[node name="Content" type="MarginContainer" parent="Control/RNGPanel/Content/List" unique_id=630413613]
+custom_minimum_size = Vector2(0, 500)
+layout_mode = 2
+
+[node name="H" type="HBoxContainer" parent="Control/RNGPanel/Content/List/Content" unique_id=2053974479]
+layout_mode = 2
+alignment = 1
+
+[node name="MainWeapon" type="VBoxContainer" parent="Control/RNGPanel/Content/List/Content/H" unique_id=1606206891]
+layout_mode = 2
+alignment = 1
+
+[node name="MWTexture" type="TextureRect" parent="Control/RNGPanel/Content/List/Content/H/MainWeapon" unique_id=972249494]
+custom_maximum_size = Vector2(800, 450)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+stretch_mode = 5
+
+[node name="MWLabel" type="Label" parent="Control/RNGPanel/Content/List/Content/H/MainWeapon" unique_id=1270077031]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+label_settings = SubResource("LabelSettings_voq0h")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Side" type="VBoxContainer" parent="Control/RNGPanel/Content/List/Content/H" unique_id=469013131]
+layout_mode = 2
+alignment = 1
+
+[node name="SideArm" type="VBoxContainer" parent="Control/RNGPanel/Content/List/Content/H/Side" unique_id=1365286487]
+custom_minimum_size = Vector2(0, 325)
+layout_mode = 2
+alignment = 1
+
+[node name="SATexture" type="TextureRect" parent="Control/RNGPanel/Content/List/Content/H/Side/SideArm" unique_id=350256081]
+custom_maximum_size = Vector2(-1, 275)
+layout_mode = 2
+size_flags_horizontal = 4
+stretch_mode = 5
+
+[node name="SALabel" type="Label" parent="Control/RNGPanel/Content/List/Content/H/Side/SideArm" unique_id=780152981]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+label_settings = SubResource("LabelSettings_voq0h")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Shield" type="VBoxContainer" parent="Control/RNGPanel/Content/List/Content/H/Side" unique_id=1754964358]
+custom_minimum_size = Vector2(0, 325)
+layout_mode = 2
+alignment = 1
+
+[node name="STexture" type="TextureRect" parent="Control/RNGPanel/Content/List/Content/H/Side/Shield" unique_id=1708510441]
+custom_maximum_size = Vector2(-1, 275)
+layout_mode = 2
+size_flags_horizontal = 4
+stretch_mode = 5
+
+[node name="SLabel" type="Label" parent="Control/RNGPanel/Content/List/Content/H/Side/Shield" unique_id=786878360]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+label_settings = SubResource("LabelSettings_voq0h")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Exit" type="Button" parent="Control/RNGPanel" unique_id=1505673130 groups=["Button"]]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 0
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -60.0
+offset_right = -60.0
+theme_override_font_sizes/font_size = 34
+text = "X"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Control/RNGPanel" unique_id=19414141]
+libraries/ = ExtResource("7_xt8vl")
+
+[node name="WindowPanel" parent="." unique_id=2067766998 instance=ExtResource("5_rirdn")]
+
+[node name="RandomizerHandler" type="Node" parent="." unique_id=583440628 node_paths=PackedStringArray("randomize_button", "rng_panel", "list_of_panels", "window_panel", "tool_box")]
+script = ExtResource("9_xt8vl")
+randomize_button = NodePath("../Container/VBox/Control/RandomizeButton")
+rng_panel = NodePath("../Control/RNGPanel")
+list_of_panels = [NodePath("../Container/VBox/HBox/Options"), NodePath("../Container/VBox/HBox/MainWeapons"), NodePath("../Container/VBox/HBox/Sidearms")]
+window_panel = NodePath("../WindowPanel")
+tool_box = NodePath("../Container/VBox/HBox/Options/VBox/ToolBox")
+metadata/_custom_type_script = "uid://dbuy3j6tycmbr"

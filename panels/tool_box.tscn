@@ -1,0 +1,68 @@
+[gd_scene format=3 uid="uid://ic0r0it7rqwc"]
+
+[ext_resource type="Theme" uid="uid://4brdb7s7jq0f" path="res://style/main_theme.tres" id="1_v1pgy"]
+[ext_resource type="Script" uid="uid://dw0adfr5tc5fg" path="res://scripts/tool_box.gd" id="2_quwbc"]
+
+[node name="ToolBox" type="MarginContainer" unique_id=577801262 node_paths=PackedStringArray("toggle_selection_button", "enable_all_button", "disable_all_button", "save_button", "load_button", "scale_slider")]
+custom_minimum_size = Vector2(1760, 60)
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 80.0
+grow_horizontal = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+theme = ExtResource("1_v1pgy")
+script = ExtResource("2_quwbc")
+toggle_selection_button = NodePath("List/ToggleSelection")
+enable_all_button = NodePath("List/EnableAll")
+disable_all_button = NodePath("List/DisableAll")
+save_button = NodePath("List/Save")
+load_button = NodePath("List/Load")
+scale_slider = NodePath("List/Scale")
+
+[node name="List" type="HBoxContainer" parent="." unique_id=891230547]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="ToggleSelection" type="Button" parent="List" unique_id=270827857]
+custom_minimum_size = Vector2(340, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+text = "Toggle selection"
+
+[node name="EnableAll" type="Button" parent="List" unique_id=228694791]
+custom_minimum_size = Vector2(260, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+text = "Enable All"
+
+[node name="DisableAll" type="Button" parent="List" unique_id=1809385842]
+custom_minimum_size = Vector2(260, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+text = "Disable All"
+
+[node name="Save" type="Button" parent="List" unique_id=701634077]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+text = "Save selection"
+
+[node name="Load" type="Button" parent="List" unique_id=1696372190]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+text = "Load selection"
+
+[node name="Scale" type="HSlider" parent="List" unique_id=755074363]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_vertical = 4
+min_value = 1.0
+max_value = 6.0
+value = 5.0
+rounded = true
+tick_count = 6
+ticks_on_borders = true
