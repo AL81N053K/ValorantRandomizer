@@ -1,0 +1,10 @@
+[gd_resource type="AnimationLibrary" format=3 uid="uid://knn68ra1d3l2"]
+
+[ext_resource type="Animation" uid="uid://dn3ux34i3p817" path="res://animations/side_menu/RESET.res" id="1_iewwf"]
+[ext_resource type="Animation" uid="uid://dvlauqvhfmvwn" path="res://animations/side_menu/toggle.res" id="1_mvvwk"]
+
+[resource]
+_data = {
+&"RESET": ExtResource("1_iewwf"),
+&"toggle": ExtResource("1_mvvwk")
+}

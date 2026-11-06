@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bictvqq80neby"
-path="res://.godot/imported/speakeron.png-ca71f57d1fb91ad348338ac07b10d9ce.ctex"
+uid="uid://c4k5vo0hc0cns"
+path="res://.godot/imported/Glitch.png-1b5799597961c5210da979fc41a82d32.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://images/svg/speakeron.png"
-dest_files=["res://.godot/imported/speakeron.png-ca71f57d1fb91ad348338ac07b10d9ce.ctex"]
+source_file="res://images/team_deathmatch/Glitch.png"
+dest_files=["res://.godot/imported/Glitch.png-1b5799597961c5210da979fc41a82d32.ctex"]
 
 [params]
 

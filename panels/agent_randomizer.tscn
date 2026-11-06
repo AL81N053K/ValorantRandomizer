@@ -7,9 +7,24 @@
 [ext_resource type="Theme" uid="uid://4brdb7s7jq0f" path="res://style/main_theme.tres" id="4_el2nl"]
 [ext_resource type="Theme" uid="uid://df42rq7nns074" path="res://style/buttons.tres" id="4_rrtdi"]
 [ext_resource type="Shader" uid="uid://cuo848tsgfofp" path="res://shaders/blur_darken.gdshader" id="5_kg456"]
+[ext_resource type="Script" uid="uid://ce6jmdc6g3bl2" path="res://panels/bottom_bar_agents.gd" id="5_r63wr"]
+[ext_resource type="Texture2D" uid="uid://cr31o05p5d17" path="res://images/classes/Controller.webp" id="6_np6wq"]
 [ext_resource type="AnimationLibrary" uid="uid://babvobvm7lhum" path="res://animations/rng_panel/rng_panel.tres" id="6_yfsj8"]
+[ext_resource type="Texture2D" uid="uid://c78smvijkcy2h" path="res://images/classes/Duelist.webp" id="7_7hfux"]
 [ext_resource type="PackedScene" uid="uid://c1qty05707v01" path="res://panels/window_panel.tscn" id="7_br06w"]
 [ext_resource type="Script" uid="uid://b2hffeh673l77" path="res://panels/agent_randomizer.gd" id="8_6jc48"]
+[ext_resource type="Texture2D" uid="uid://b5708qcvggpea" path="res://images/classes/Initiator.webp" id="8_am0gs"]
+[ext_resource type="Texture2D" uid="uid://bdh1ga7w7shx4" path="res://images/classes/Sentinel.webp" id="9_nfs76"]
+[ext_resource type="Texture2D" uid="uid://bhm30r7rpjlj0" path="res://images/icons/arrow_down_arrow_up.svg" id="11_2k7ys"]
+[ext_resource type="Texture2D" uid="uid://mrwr0ywb4tb0" path="res://images/icons/arrow_right_to_line.svg" id="12_ykesf"]
+[ext_resource type="Texture2D" uid="uid://5nhm0f3g0udt" path="res://images/icons/arrow_left_from_line.svg" id="13_psea2"]
+[ext_resource type="Texture2D" uid="uid://butwnlj6cdwam" path="res://images/icons/floppy_disk.svg" id="14_q7tbf"]
+[ext_resource type="Texture2D" uid="uid://d3leboenqtyho" path="res://images/icons/file_arrow_down.svg" id="15_4oeid"]
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_om7i6"]
+color = Color(0.73675454, 0.73675454, 0.73675454, 1)
+thickness = 6
+vertical = true
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_el2nl"]
 resource_local_to_scene = true
@@ -23,7 +38,15 @@ font_size = 64
 [sub_resource type="LabelSettings" id="LabelSettings_p7n6o"]
 font_size = 48
 
-[node name="AgentRandomizer" type="MarginContainer" unique_id=1700492940]
+[sub_resource type="InputEventKey" id="InputEventKey_r63wr"]
+device = -1
+shift_pressed = true
+keycode = 4194305
+
+[sub_resource type="Shortcut" id="Shortcut_np6wq"]
+events = [SubResource("InputEventKey_r63wr")]
+
+[node name="AgentRandomizer" type="MarginContainer" unique_id=1700492940 node_paths=PackedStringArray("background_node")]
 custom_minimum_size = Vector2(1920, 1080)
 anchors_preset = 15
 anchor_right = 1.0
@@ -33,6 +56,8 @@ grow_vertical = 2
 mouse_filter = 0
 theme = ExtResource("4_el2nl")
 script = ExtResource("1_8bixq")
+background_const = &"agent"
+background_node = NodePath("ColorRect")
 metadata/_custom_type_script = "uid://cempr7kaosims"
 
 [node name="ColorRect" type="ColorRect" parent="." unique_id=1662523091]
@@ -43,90 +68,26 @@ color = Color(0.0705882, 0.266667, 0.266667, 0.392157)
 layout_mode = 2
 script = ExtResource("2_kg456")
 name_icon = &"agents_icon"
-perfect_rect = true
 min_size = Vector2(50, 50)
 max_size = Vector2(50, 50)
 button_style = ExtResource("4_rrtdi")
 list = ["Brimstone", "Viper", "Omen", "Killjoy", "Cypher", "Sova", "Sage", "Phoenix", "Jett", "Reyna", "Raze", "Breach", "Skye", "Yoru", "Astra", "KAYO", "Chamber", "Neon", "Fade", "Harbor", "Gekko", "Deadlock", "Iso", "Clove", "Vyse", "Tejo", "Waylay", "Veto", "Miks", "Hush"]
 grid = NodePath("Container/Grid")
-grid_default_min = 3
-grid_default_max = 8
-tool_box = NodePath("ToolBox")
+grid_default_min = 4
+grid_default_max = 9
+tool_box = NodePath("BottomBar/List/ToolBox")
 rng_panel_texture = NodePath("../Control/RNGPanel/Content/List/AgentTexture")
 rng_panel_label = NodePath("../Control/RNGPanel/Content/List/AgentName")
 metadata/_custom_type_script = "uid://bauutfv3j6atf"
-
-[node name="ToolBox" type="MarginContainer" parent="Agents" unique_id=218887349 node_paths=PackedStringArray("toggle_selection_button", "enable_all_button", "disable_all_button", "save_button", "load_button", "scale_slider")]
-custom_minimum_size = Vector2(1840, 0)
-layout_mode = 1
-anchors_preset = 10
-anchor_right = 1.0
-offset_left = 40.0
-offset_top = 20.0
-offset_right = -40.0
-offset_bottom = 60.0
-grow_horizontal = 2
-script = ExtResource("3_el2nl")
-toggle_selection_button = NodePath("List/ToggleSelection")
-enable_all_button = NodePath("List/SelectAll")
-disable_all_button = NodePath("List/DeselectAll")
-save_button = NodePath("List/Save")
-load_button = NodePath("List/Load")
-scale_slider = NodePath("List/GridSize")
-metadata/_custom_type_script = "uid://dw0adfr5tc5fg"
-
-[node name="List" type="HBoxContainer" parent="Agents/ToolBox" unique_id=1148717853]
-custom_minimum_size = Vector2(0, 40)
-layout_mode = 2
-alignment = 1
-
-[node name="ToggleSelection" type="Button" parent="Agents/ToolBox/List" unique_id=631497138 groups=["Button"]]
-custom_minimum_size = Vector2(280, 40)
-layout_mode = 2
-theme_override_font_sizes/font_size = 26
-text = "Toggle Selection"
-
-[node name="SelectAll" type="Button" parent="Agents/ToolBox/List" unique_id=816297144 groups=["Button"]]
-custom_minimum_size = Vector2(280, 40)
-layout_mode = 2
-theme_override_font_sizes/font_size = 26
-text = "Select All"
-
-[node name="DeselectAll" type="Button" parent="Agents/ToolBox/List" unique_id=457989223 groups=["Button"]]
-custom_minimum_size = Vector2(280, 40)
-layout_mode = 2
-theme_override_font_sizes/font_size = 26
-text = "Deselect All"
-
-[node name="Save" type="Button" parent="Agents/ToolBox/List" unique_id=1525201648 groups=["Button"]]
-custom_minimum_size = Vector2(280, 40)
-layout_mode = 2
-theme_override_font_sizes/font_size = 26
-text = "Save Preset"
-
-[node name="Load" type="Button" parent="Agents/ToolBox/List" unique_id=1431045484 groups=["Button"]]
-custom_minimum_size = Vector2(280, 40)
-layout_mode = 2
-theme_override_font_sizes/font_size = 26
-text = "Load Preset"
-
-[node name="GridSize" type="HSlider" parent="Agents/ToolBox/List" unique_id=1777772814]
-custom_minimum_size = Vector2(200, 40)
-layout_mode = 2
-min_value = 1.0
-max_value = 6.0
-value = 5.0
-tick_count = 6
-ticks_on_borders = true
 
 [node name="Container" type="ScrollContainer" parent="Agents" unique_id=1122678896]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 80.0
+offset_left = 60.0
 offset_top = 80.0
-offset_right = -80.0
+offset_right = -60.0
 offset_bottom = -120.0
 grow_horizontal = 2
 grow_vertical = 2
@@ -137,20 +98,157 @@ size_flags_horizontal = 6
 size_flags_vertical = 6
 columns = 7
 
-[node name="RandomizeButton" type="Button" parent="Agents" unique_id=401012530 groups=["Button"]]
-custom_minimum_size = Vector2(450, 60)
+[node name="BottomBar" type="Control" parent="Agents" unique_id=2028785646 node_paths=PackedStringArray("button_controller", "button_duelist", "button_initiator", "button_sentinel", "randomizer_handler")]
+custom_minimum_size = Vector2(0, 60)
+custom_maximum_size = Vector2(1840, -1)
 layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
+anchors_preset = 12
 anchor_top = 1.0
-anchor_right = 0.5
+anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -225.0
+offset_left = 40.0
 offset_top = -100.0
-offset_right = 225.0
+offset_right = -40.0
 offset_bottom = -40.0
 grow_horizontal = 2
 grow_vertical = 0
+script = ExtResource("5_r63wr")
+button_controller = NodePath("List/Controller")
+button_duelist = NodePath("List/Duelist")
+button_initiator = NodePath("List/Initiator")
+button_sentinel = NodePath("List/Sentinel")
+list_controller = Array[StringName]([&"Brimstone", &"Viper", &"Omen", &"Astra", &"Harbor", &"Clove", &"Miks"])
+list_duelist = Array[StringName]([&"Phoenix", &"Jett", &"Reyna", &"Raze", &"Yoru", &"Neon", &"Iso", &"Waylay", &"Hush"])
+list_initiator = Array[StringName]([&"Sova", &"Breach", &"Skye", &"KAYO", &"Fade", &"Gekko", &"Tejo"])
+list_sentinel = Array[StringName]([&"Killjoy", &"Cypher", &"Sage", &"Chamber", &"Deadlock", &"Vyse", &"Veto"])
+randomizer_handler = NodePath("../../RandomizerHandler")
+metadata/_custom_type_script = "uid://b356w3yk88vdt"
+
+[node name="List" type="HBoxContainer" parent="Agents/BottomBar" unique_id=1321223911]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 15
+alignment = 1
+
+[node name="Controller" type="Button" parent="Agents/BottomBar/List" unique_id=1711342059]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+tooltip_text = "Conrollers Only"
+theme_override_font_sizes/font_size = 26
+icon = ExtResource("6_np6wq")
+icon_alignment = 1
+expand_icon = true
+
+[node name="Duelist" type="Button" parent="Agents/BottomBar/List" unique_id=572925274]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+tooltip_text = "Duelists Only"
+theme_override_font_sizes/font_size = 26
+icon = ExtResource("7_7hfux")
+icon_alignment = 1
+expand_icon = true
+
+[node name="Initiator" type="Button" parent="Agents/BottomBar/List" unique_id=1171072166]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+tooltip_text = "Initiators Only"
+theme_override_font_sizes/font_size = 26
+icon = ExtResource("8_am0gs")
+icon_alignment = 1
+expand_icon = true
+
+[node name="Sentinel" type="Button" parent="Agents/BottomBar/List" unique_id=962405736]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+tooltip_text = "Sentinels Only"
+theme_override_font_sizes/font_size = 26
+icon = ExtResource("9_nfs76")
+icon_alignment = 1
+expand_icon = true
+
+[node name="VSeparator" type="VSeparator" parent="Agents/BottomBar/List" unique_id=1322475468]
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxLine_om7i6")
+
+[node name="ToolBox" type="MarginContainer" parent="Agents/BottomBar/List" unique_id=218887349 node_paths=PackedStringArray("toggle_selection_button", "enable_all_button", "disable_all_button", "save_button", "load_button", "scale_slider")]
+layout_mode = 2
+script = ExtResource("3_el2nl")
+toggle_selection_button = NodePath("List/ToggleSelection")
+enable_all_button = NodePath("List/SelectAll")
+disable_all_button = NodePath("List/DeselectAll")
+save_button = NodePath("List/Save")
+load_button = NodePath("List/Load")
+scale_slider = NodePath("List/GridSize")
+metadata/_custom_type_script = "uid://dw0adfr5tc5fg"
+
+[node name="List" type="HBoxContainer" parent="Agents/BottomBar/List/ToolBox" unique_id=1148717853]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+theme_override_constants/separation = 15
+alignment = 1
+
+[node name="ToggleSelection" type="Button" parent="Agents/BottomBar/List/ToolBox/List" unique_id=326473009]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+tooltip_text = "Toggle Selection"
+theme_override_font_sizes/font_size = 26
+icon = ExtResource("11_2k7ys")
+icon_alignment = 1
+expand_icon = true
+
+[node name="SelectAll" type="Button" parent="Agents/BottomBar/List/ToolBox/List" unique_id=1411930762]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+tooltip_text = "Select All"
+theme_override_font_sizes/font_size = 26
+icon = ExtResource("12_ykesf")
+icon_alignment = 1
+expand_icon = true
+
+[node name="DeselectAll" type="Button" parent="Agents/BottomBar/List/ToolBox/List" unique_id=1893899402]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+tooltip_text = "Deselect All"
+theme_override_font_sizes/font_size = 26
+icon = ExtResource("13_psea2")
+icon_alignment = 1
+expand_icon = true
+
+[node name="Save" type="Button" parent="Agents/BottomBar/List/ToolBox/List" unique_id=164727861]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+tooltip_text = "Save Current Preset"
+theme_override_font_sizes/font_size = 26
+icon = ExtResource("14_q7tbf")
+icon_alignment = 1
+expand_icon = true
+
+[node name="Load" type="Button" parent="Agents/BottomBar/List/ToolBox/List" unique_id=1800080693]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+tooltip_text = "Load Current Preset"
+theme_override_font_sizes/font_size = 26
+icon = ExtResource("15_4oeid")
+icon_alignment = 1
+expand_icon = true
+
+[node name="GridSize" type="HSlider" parent="Agents/BottomBar/List/ToolBox/List" unique_id=144617087]
+custom_minimum_size = Vector2(200, 40)
+layout_mode = 2
+tooltip_text = "Zoom"
+min_value = 1.0
+max_value = 6.0
+value = 5.0
+tick_count = 6
+ticks_on_borders = true
+
+[node name="RandomizeButton" type="Button" parent="Agents/BottomBar/List" unique_id=401012530 groups=["Button"]]
+custom_minimum_size = Vector2(450, 60)
+layout_mode = 2
 theme_override_font_sizes/font_size = 36
 text = "Randomize"
 
@@ -223,6 +321,7 @@ anchor_right = 1.0
 offset_left = -60.0
 offset_right = -60.0
 theme_override_font_sizes/font_size = 34
+shortcut = SubResource("Shortcut_np6wq")
 text = "X"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Control/RNGPanel" unique_id=1814324315]
@@ -232,9 +331,9 @@ libraries/ = ExtResource("6_yfsj8")
 
 [node name="RandomizerHandler" type="Node" parent="." unique_id=5585762 node_paths=PackedStringArray("randomize_button", "rng_panel", "list_of_panels", "window_panel", "tool_box")]
 script = ExtResource("8_6jc48")
-randomize_button = NodePath("../Agents/RandomizeButton")
+randomize_button = NodePath("../Agents/BottomBar/List/RandomizeButton")
 rng_panel = NodePath("../Control/RNGPanel")
 list_of_panels = [NodePath("../Agents")]
 window_panel = NodePath("../WindowPanel")
-tool_box = NodePath("../Agents/ToolBox")
+tool_box = NodePath("../Agents/BottomBar/List/ToolBox")
 metadata/_custom_type_script = "uid://dbuy3j6tycmbr"

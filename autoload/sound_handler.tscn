@@ -3,14 +3,11 @@
 [ext_resource type="Script" uid="uid://dtpb3ev0awk5s" path="res://autoload/sound_handler.gd" id="1_ncukb"]
 [ext_resource type="AudioStream" uid="uid://blo4hp680qdjr" path="res://audio/map/Ascent.mp3" id="2_gbsje"]
 [ext_resource type="AudioStream" uid="uid://mtunoekqwerp" path="res://audio/sfx/Cursor.mp3" id="3_y6hhj"]
-[ext_resource type="AudioStream" uid="uid://jk20dy3qd1em" path="res://audio/sfx/button_hover.mp3" id="4_w3ppm"]
-[ext_resource type="AudioStream" uid="uid://da3o6ltrawq0l" path="res://audio/sfx/button_click.mp3" id="5_y1ohd"]
 
 [node name="SoundHandler" type="Node" unique_id=1646510650]
 script = ExtResource("1_ncukb")
 
 [node name="Music" type="AudioStreamPlayer" parent="." unique_id=2107978431]
-stream = ExtResource("2_gbsje")
 max_polyphony = 2
 bus = &"Music"
 
@@ -21,15 +18,5 @@ bus = &"SFX"
 
 [node name="SFX" type="AudioStreamPlayer" parent="." unique_id=201611425]
 stream = ExtResource("3_y6hhj")
-max_polyphony = 2
-bus = &"SFX"
-
-[node name="ButtonHover" type="AudioStreamPlayer" parent="." unique_id=1271482560]
-stream = ExtResource("4_w3ppm")
-max_polyphony = 2
-bus = &"SFX"
-
-[node name="ButtonClick" type="AudioStreamPlayer" parent="." unique_id=16496702]
-stream = ExtResource("5_y1ohd")
 max_polyphony = 2
 bus = &"SFX"

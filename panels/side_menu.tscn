@@ -1,0 +1,136 @@
+[gd_scene format=3 uid="uid://b2jcobbh3m55m"]
+
+[ext_resource type="FontFile" uid="uid://dqhr0ec5t82kb" path="res://style/Valorant Font.ttf" id="1_mgffr"]
+[ext_resource type="Script" uid="uid://u6j6h865h0ce" path="res://scripts/side_menu.gd" id="1_mlclo"]
+[ext_resource type="AnimationLibrary" uid="uid://knn68ra1d3l2" path="res://animations/side_menu/side_menu.tres" id="2_gvjm2"]
+[ext_resource type="Script" uid="uid://dkgfgxh27xsch" path="res://class_scripts/box_link_button.gd" id="3_f1yyh"]
+[ext_resource type="Texture2D" uid="uid://buewg0gc037h4" path="res://images/icons/cog.svg" id="5_ofgr6"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bhunq"]
+content_margin_top = 6.0
+bg_color = Color(0.8880144, 0.8880144, 0.8880144, 1)
+skew = Vector2(0.5, 0)
+expand_margin_left = 20.0
+expand_margin_right = 16.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_s678d"]
+content_margin_top = 6.0
+bg_color = Color(0.8880144, 0.8880144, 0.8880144, 1)
+skew = Vector2(0.5, 0)
+expand_margin_left = 20.0
+expand_margin_right = 16.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_b20xp"]
+content_margin_top = 6.0
+bg_color = Color(1, 1, 1, 1)
+skew = Vector2(0.5, 0)
+expand_margin_left = 20.0
+expand_margin_right = 16.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1xmiw"]
+content_margin_top = 6.0
+bg_color = Color(1, 1, 1, 1)
+skew = Vector2(0.5, 0)
+expand_margin_left = 20.0
+expand_margin_right = 16.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xfqan"]
+content_margin_top = 6.0
+bg_color = Color(0.26324546, 0.26324546, 0.26324546, 1)
+skew = Vector2(0.5, 0)
+expand_margin_left = 20.0
+expand_margin_right = 16.0
+
+[sub_resource type="InputEventKey" id="InputEventKey_gvjm2"]
+device = -1
+keycode = 4194305
+
+[sub_resource type="Shortcut" id="Shortcut_ipnyt"]
+events = [SubResource("InputEventKey_gvjm2")]
+
+[node name="SideMenu" type="Control" unique_id=653003465 node_paths=PackedStringArray("menu_button", "panel", "anim_player", "settings_button")]
+custom_minimum_size = Vector2(0, 74)
+custom_maximum_size = Vector2(-1, 74)
+layout_mode = 3
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 74.0
+grow_horizontal = 2
+script = ExtResource("1_mlclo")
+menu_button = NodePath("MenuButton")
+panel = NodePath("Panel")
+anim_player = NodePath("AnimationPlayer")
+toggle_animation = ExtResource("2_gvjm2")
+settings_button = NodePath("Panel/Settings/Button")
+
+[node name="Panel" type="Panel" parent="." unique_id=1829486541]
+custom_minimum_size = Vector2(0, 64)
+custom_maximum_size = Vector2(-1, 64)
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = -1920.0
+offset_right = -1920.0
+offset_bottom = 64.0
+grow_horizontal = 2
+
+[node name="List" type="HBoxContainer" parent="Panel" unique_id=1113791877]
+custom_minimum_size = Vector2(1856, 64)
+custom_maximum_size = Vector2(-1, 64)
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_right = -64.0
+offset_bottom = 64.0
+grow_horizontal = 2
+theme_override_constants/separation = 20
+
+[node name="EmptyBuffer" type="Control" parent="Panel/List" unique_id=828438789]
+custom_minimum_size = Vector2(260, 0)
+layout_mode = 2
+
+[node name="Settings" type="HBoxContainer" parent="Panel" unique_id=1097088851]
+custom_minimum_size = Vector2(0, 64)
+custom_maximum_size = Vector2(-1, 64)
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -56.0
+offset_bottom = 56.0
+grow_horizontal = 0
+alignment = 2
+
+[node name="Button" type="Button" parent="Panel/Settings" unique_id=546375618]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+icon = ExtResource("5_ofgr6")
+icon_alignment = 1
+expand_icon = true
+script = ExtResource("3_f1yyh")
+metadata/_custom_type_script = "uid://dkgfgxh27xsch"
+
+[node name="MenuButton" type="Button" parent="." unique_id=1039289009]
+custom_minimum_size = Vector2(240, 74)
+custom_maximum_size = Vector2(-1, 74)
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_right = 8.0
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("1_mgffr")
+theme_override_font_sizes/font_size = 48
+theme_override_styles/normal = SubResource("StyleBoxFlat_bhunq")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_s678d")
+theme_override_styles/hover = SubResource("StyleBoxFlat_b20xp")
+theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_1xmiw")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_xfqan")
+shortcut = SubResource("Shortcut_ipnyt")
+text = "MENU"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1286407558]

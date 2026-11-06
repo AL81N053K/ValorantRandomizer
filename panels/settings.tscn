@@ -1,0 +1,250 @@
+[gd_scene format=3 uid="uid://cg2y6plc5r17d"]
+
+[ext_resource type="Script" uid="uid://cempr7kaosims" path="res://class_scripts/box_menu.gd" id="1_a5q63"]
+[ext_resource type="Theme" uid="uid://4brdb7s7jq0f" path="res://style/main_theme.tres" id="1_flwlg"]
+[ext_resource type="Script" uid="uid://cof04c2kfoja7" path="res://scripts/settings_controler.gd" id="3_6dbyi"]
+[ext_resource type="Texture2D" uid="uid://bictvqq80neby" path="res://images/icons/speakeron.png" id="4_0y1kc"]
+[ext_resource type="Texture2D" uid="uid://bxurtkoypeeei" path="res://images/icons/checked.svg" id="4_ameub"]
+[ext_resource type="Texture2D" uid="uid://qsffe5kt54w7" path="res://images/icons/checked_disabled.svg" id="5_81hdt"]
+[ext_resource type="Texture2D" uid="uid://c8jy683h07gpv" path="res://images/icons/speakerond.png" id="5_puh3t"]
+[ext_resource type="Texture2D" uid="uid://dymwe6n2sltat" path="res://images/icons/speakeroff.png" id="6_1uw3g"]
+[ext_resource type="Texture2D" uid="uid://dlvqdiyl2tk2x" path="res://images/icons/unchecked.svg" id="6_sx6wx"]
+[ext_resource type="Texture2D" uid="uid://durxmm6et3xa6" path="res://images/icons/speakeroffd.png" id="7_ameub"]
+[ext_resource type="Texture2D" uid="uid://dfkdvd2ur278d" path="res://images/icons/unchecked_disabled.svg" id="7_xqkua"]
+
+[sub_resource type="Theme" id="Theme_qr0ht"]
+BoxContainer/styles/test = null
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_bhunq"]
+color = Color(0, 0, 0, 0)
+
+[sub_resource type="LabelSettings" id="LabelSettings_bhunq"]
+font_size = 32
+outline_size = 1
+
+[sub_resource type="Theme" id="Theme_odux7"]
+CheckButton/icons/checked = ExtResource("4_ameub")
+CheckButton/icons/checked_disabled = ExtResource("5_81hdt")
+CheckButton/icons/unchecked = ExtResource("6_sx6wx")
+CheckButton/icons/unchecked_disabled = ExtResource("7_xqkua")
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_ameub"]
+color = Color(0.671152, 0.671152, 0.671152, 0)
+
+[sub_resource type="Theme" id="Theme_81hdt"]
+CheckButton/icons/checked = ExtResource("4_0y1kc")
+CheckButton/icons/checked_disabled = ExtResource("5_puh3t")
+CheckButton/icons/checked_disabled_mirrored = ExtResource("5_puh3t")
+CheckButton/icons/checked_mirrored = ExtResource("4_0y1kc")
+CheckButton/icons/unchecked = ExtResource("6_1uw3g")
+CheckButton/icons/unchecked_disabled = ExtResource("7_ameub")
+CheckButton/icons/unchecked_disabled_mirrored = ExtResource("7_ameub")
+CheckButton/icons/unchecked_mirrored = ExtResource("6_1uw3g")
+
+[node name="Settings" type="MarginContainer" unique_id=1185818083 node_paths=PackedStringArray("background_node")]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 0
+theme = ExtResource("1_flwlg")
+script = ExtResource("1_a5q63")
+ignore_add = true
+background_const = &"settings"
+background_node = NodePath("BG")
+metadata/_custom_type_script = "uid://cempr7kaosims"
+
+[node name="BG" type="ColorRect" parent="." unique_id=1857891289]
+layout_mode = 2
+color = Color(0.54913926, 0.70387197, 0.19917819, 0.15686275)
+
+[node name="SettingsControler" type="Control" parent="." unique_id=179693541]
+layout_mode = 2
+theme = SubResource("Theme_qr0ht")
+script = ExtResource("3_6dbyi")
+
+[node name="Container" type="ScrollContainer" parent="SettingsControler" unique_id=453134801]
+custom_maximum_size = Vector2(1440, 965)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 240.0
+offset_top = 80.0
+offset_right = -240.0
+offset_bottom = -40.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="List" type="VBoxContainer" parent="SettingsControler/Container" unique_id=679130508]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 8
+
+[node name="HSeparator" type="HSeparator" parent="SettingsControler/Container/List" unique_id=2114314585]
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxLine_bhunq")
+
+[node name="GeneralTitle" type="Label" parent="SettingsControler/Container/List" unique_id=244028031]
+layout_mode = 2
+text = "GENERAL"
+label_settings = SubResource("LabelSettings_bhunq")
+
+[node name="TrueRandomizer" type="PanelContainer" parent="SettingsControler/Container/List" unique_id=493770654]
+custom_minimum_size = Vector2(1440, 90)
+layout_mode = 2
+tooltip_text = "When disabled, randomizers are prevented from rolling the same
+option from previous one. Enabling this option will disable that.
+
+Default: false"
+
+[node name="List" type="HBoxContainer" parent="SettingsControler/Container/List/TrueRandomizer" unique_id=550607106]
+custom_maximum_size = Vector2(1420, 80)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+alignment = 1
+
+[node name="Indicator" type="Label" parent="SettingsControler/Container/List/TrueRandomizer/List" unique_id=1582528681]
+custom_minimum_size = Vector2(710, 0)
+custom_maximum_size = Vector2(710, -1)
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+text = "True Randomness"
+
+[node name="H" type="HBoxContainer" parent="SettingsControler/Container/List/TrueRandomizer/List" unique_id=1949827773]
+custom_minimum_size = Vector2(710, 0)
+custom_maximum_size = Vector2(710, -1)
+layout_mode = 2
+theme_override_constants/separation = 10
+alignment = 2
+
+[node name="Toggle" type="CheckButton" parent="SettingsControler/Container/List/TrueRandomizer/List/H" unique_id=1826731219]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+theme = SubResource("Theme_odux7")
+flat = true
+
+[node name="SkipAnimations" type="PanelContainer" parent="SettingsControler/Container/List" unique_id=1524107892]
+custom_minimum_size = Vector2(1440, 90)
+layout_mode = 2
+tooltip_text = "Disables transitions between panels and result screen.
+
+Default: false"
+
+[node name="List" type="HBoxContainer" parent="SettingsControler/Container/List/SkipAnimations" unique_id=1112551619]
+custom_maximum_size = Vector2(1420, 80)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+alignment = 1
+
+[node name="Indicator" type="Label" parent="SettingsControler/Container/List/SkipAnimations/List" unique_id=1634756981]
+custom_minimum_size = Vector2(710, 0)
+custom_maximum_size = Vector2(710, -1)
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+text = "Skip Animations"
+
+[node name="H" type="HBoxContainer" parent="SettingsControler/Container/List/SkipAnimations/List" unique_id=538588096]
+custom_minimum_size = Vector2(710, 0)
+custom_maximum_size = Vector2(710, -1)
+layout_mode = 2
+theme_override_constants/separation = 10
+alignment = 2
+
+[node name="Toggle" type="CheckButton" parent="SettingsControler/Container/List/SkipAnimations/List/H" unique_id=55263982]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+theme = SubResource("Theme_odux7")
+flat = true
+
+[node name="HSeparator2" type="HSeparator" parent="SettingsControler/Container/List" unique_id=1267260458]
+layout_mode = 2
+theme_override_constants/separation = 20
+theme_override_styles/separator = SubResource("StyleBoxLine_ameub")
+
+[node name="AudioTitle" type="Label" parent="SettingsControler/Container/List" unique_id=171924547]
+layout_mode = 2
+text = "AUDIO"
+label_settings = SubResource("LabelSettings_bhunq")
+
+[node name="Music" type="PanelContainer" parent="SettingsControler/Container/List" unique_id=1165202425]
+custom_minimum_size = Vector2(1440, 90)
+layout_mode = 2
+
+[node name="List" type="HBoxContainer" parent="SettingsControler/Container/List/Music" unique_id=1632301876]
+custom_maximum_size = Vector2(1420, 80)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+alignment = 1
+
+[node name="Indicator" type="Label" parent="SettingsControler/Container/List/Music/List" unique_id=490222046]
+custom_minimum_size = Vector2(710, 0)
+custom_maximum_size = Vector2(710, -1)
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+text = "Music %s%"
+
+[node name="H" type="HBoxContainer" parent="SettingsControler/Container/List/Music/List" unique_id=906205997]
+custom_minimum_size = Vector2(710, 0)
+custom_maximum_size = Vector2(710, -1)
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Slider" type="HSlider" parent="SettingsControler/Container/List/Music/List/H" unique_id=500381558]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+max_value = 1.0
+step = 0.01
+value = 1.0
+ticks_on_borders = true
+
+[node name="Toggle" type="CheckButton" parent="SettingsControler/Container/List/Music/List/H" unique_id=985723757]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+theme = SubResource("Theme_81hdt")
+button_pressed = true
+
+[node name="SFX" type="PanelContainer" parent="SettingsControler/Container/List" unique_id=1104299740]
+custom_minimum_size = Vector2(1440, 90)
+layout_mode = 2
+
+[node name="List" type="HBoxContainer" parent="SettingsControler/Container/List/SFX" unique_id=835838096]
+custom_maximum_size = Vector2(1420, 80)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+alignment = 1
+
+[node name="Indicator" type="Label" parent="SettingsControler/Container/List/SFX/List" unique_id=891395401]
+custom_minimum_size = Vector2(710, 0)
+custom_maximum_size = Vector2(710, -1)
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+text = "Sound Effects %s%"
+
+[node name="H" type="HBoxContainer" parent="SettingsControler/Container/List/SFX/List" unique_id=548353738]
+custom_minimum_size = Vector2(710, 0)
+custom_maximum_size = Vector2(710, -1)
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Slider" type="HSlider" parent="SettingsControler/Container/List/SFX/List/H" unique_id=197721628]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+max_value = 1.0
+step = 0.01
+value = 1.0
+ticks_on_borders = true
+
+[node name="Toggle" type="CheckButton" parent="SettingsControler/Container/List/SFX/List/H" unique_id=1316613110]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+theme = SubResource("Theme_81hdt")
+button_pressed = true

@@ -16,6 +16,7 @@ extends MarginContainer
 		currently_visible = new_value
 		update_configuration_warnings()
 var previous_visible : BoxMenu
+var can_change : bool = true
 
 func _init() -> void:
 	self.set_anchors_preset(Control.PRESET_FULL_RECT)
@@ -26,6 +27,8 @@ func _ready() -> void:
 	pass
 
 func change_panel(new_panel) -> void:
+	if not can_change: return
+	can_change = false
 	currently_visible.slide_out(0.1)
 	currently_visible = new_panel
 	currently_visible.slide_in(0.4)

@@ -1,0 +1,183 @@
+[gd_scene format=3 uid="uid://b5ym6u4ibkd77"]
+
+[ext_resource type="Theme" uid="uid://4brdb7s7jq0f" path="res://style/main_theme.tres" id="1_1wxrk"]
+[ext_resource type="Script" uid="uid://de3fj8hxj0yis" path="res://scripts/side_menu_old.gd" id="2_f5g68"]
+[ext_resource type="Theme" uid="uid://dysvmnk6wb835" path="res://style/side_menu.tres" id="3_15drx"]
+[ext_resource type="FontFile" uid="uid://dqhr0ec5t82kb" path="res://style/Valorant Font.ttf" id="4_rd0r7"]
+[ext_resource type="Texture2D" uid="uid://bictvqq80neby" path="res://images/icons/speakeron.png" id="5_efi4a"]
+[ext_resource type="Texture2D" uid="uid://c8jy683h07gpv" path="res://images/icons/speakerond.png" id="6_u8j7y"]
+[ext_resource type="Texture2D" uid="uid://dymwe6n2sltat" path="res://images/icons/speakeroff.png" id="7_jklno"]
+[ext_resource type="Texture2D" uid="uid://durxmm6et3xa6" path="res://images/icons/speakeroffd.png" id="8_21rld"]
+
+[sub_resource type="InputEventKey" id="InputEventKey_3ls4m"]
+device = -1
+ctrl_pressed = true
+keycode = 32
+unicode = 32
+
+[sub_resource type="Shortcut" id="Shortcut_5h80m"]
+events = [SubResource("InputEventKey_3ls4m")]
+
+[sub_resource type="LabelSettings" id="LabelSettings_2v1id"]
+font = ExtResource("4_rd0r7")
+font_size = 36
+font_color = Color(0.835972, 0.88167, 0.934474, 1)
+
+[sub_resource type="Theme" id="Theme_brai7"]
+CheckButton/icons/checked = ExtResource("5_efi4a")
+CheckButton/icons/checked_disabled = ExtResource("6_u8j7y")
+CheckButton/icons/checked_disabled_mirrored = ExtResource("6_u8j7y")
+CheckButton/icons/checked_mirrored = ExtResource("5_efi4a")
+CheckButton/icons/unchecked = ExtResource("7_jklno")
+CheckButton/icons/unchecked_disabled = ExtResource("8_21rld")
+CheckButton/icons/unchecked_disabled_mirrored = ExtResource("8_21rld")
+CheckButton/icons/unchecked_mirrored = ExtResource("7_jklno")
+
+[node name="SideMenu" type="Control" unique_id=55730398 node_paths=PackedStringArray("toggle_menu_button", "button_list", "volume_list", "block_shade", "menu_container")]
+visible = false
+z_index = 3
+custom_minimum_size = Vector2(500, 0)
+layout_mode = 3
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_left = -440.0
+offset_right = 60.0
+offset_bottom = 10.0
+grow_vertical = 2
+mouse_filter = 2
+mouse_default_cursor_shape = 2
+theme = ExtResource("1_1wxrk")
+theme_type_variation = &"SideMenu"
+script = ExtResource("2_f5g68")
+toggle_menu_button = NodePath("ToggleMenu")
+button_list = NodePath("Container/List/ButtonList")
+volume_list = NodePath("Container/List/VolumeList")
+block_shade = NodePath("")
+menu_container = NodePath("")
+
+[node name="Background" type="ColorRect" parent="." unique_id=920954642]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.07450981, 0.07450981, 0.07450981, 0.88235295)
+
+[node name="ToggleMenu" type="Button" parent="." unique_id=650830040]
+custom_minimum_size = Vector2(60, 1090)
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -29.0
+grow_horizontal = 0
+grow_vertical = 2
+theme = ExtResource("3_15drx")
+theme_override_font_sizes/font_size = 64
+toggle_mode = true
+shortcut = SubResource("Shortcut_5h80m")
+text = ">
+
+>
+
+>
+
+>
+
+>"
+
+[node name="Container" type="MarginContainer" parent="." unique_id=1752653587]
+custom_minimum_size = Vector2(360, 1000)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 80
+theme_override_constants/margin_bottom = 20
+
+[node name="List" type="VBoxContainer" parent="Container" unique_id=580510687]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Label" type="Label" parent="Container/List" unique_id=124048697]
+layout_mode = 2
+text = "Select
+Randomizer"
+label_settings = SubResource("LabelSettings_2v1id")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ButtonList" type="VBoxContainer" parent="Container/List" unique_id=378531548]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="VolumeList" type="VBoxContainer" parent="Container/List" unique_id=2140230819]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Music" type="HBoxContainer" parent="Container/List/VolumeList" unique_id=1802917565]
+custom_minimum_size = Vector2(0, 80)
+layout_mode = 2
+
+[node name="ToggleAudio" type="CheckButton" parent="Container/List/VolumeList/Music" unique_id=608635584]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+theme = SubResource("Theme_brai7")
+button_pressed = true
+
+[node name="V" type="VBoxContainer" parent="Container/List/VolumeList/Music" unique_id=1468047328]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="Indicator" type="Label" parent="Container/List/VolumeList/Music/V" unique_id=799853724]
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+text = "Music %s%"
+
+[node name="Slider" type="HSlider" parent="Container/List/VolumeList/Music/V" unique_id=356863770]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+max_value = 1.0
+step = 0.01
+value = 1.0
+ticks_on_borders = true
+
+[node name="SFX" type="HBoxContainer" parent="Container/List/VolumeList" unique_id=2086643944]
+custom_minimum_size = Vector2(0, 80)
+layout_mode = 2
+
+[node name="ToggleAudio" type="CheckButton" parent="Container/List/VolumeList/SFX" unique_id=2101632563]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+theme = SubResource("Theme_brai7")
+button_pressed = true
+
+[node name="V" type="VBoxContainer" parent="Container/List/VolumeList/SFX" unique_id=749121590]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="Indicator" type="Label" parent="Container/List/VolumeList/SFX/V" unique_id=51917483]
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+text = "Sound FX %s%"
+
+[node name="Slider" type="HSlider" parent="Container/List/VolumeList/SFX/V" unique_id=14458703]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+max_value = 1.0
+step = 0.01
+value = 1.0
+ticks_on_borders = true

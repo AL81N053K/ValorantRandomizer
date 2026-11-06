@@ -4,5 +4,6 @@
 
 [resource]
 default_base_scale = 1.0
+default_font_size = 24
 AcceptDialog/fonts/title_font = ExtResource("1_ct0sj")
 FileDialog/fonts/title_font = ExtResource("1_ct0sj")

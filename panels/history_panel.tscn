@@ -1,0 +1,89 @@
+[gd_scene format=3 uid="uid://cchankv6tqqy2"]
+
+[ext_resource type="Script" uid="uid://cempr7kaosims" path="res://class_scripts/box_menu.gd" id="1_kcki0"]
+[ext_resource type="Theme" uid="uid://4brdb7s7jq0f" path="res://style/main_theme.tres" id="1_l4ifu"]
+[ext_resource type="Texture2D" uid="uid://b0rrkdgjgmp5o" path="res://images/icons/recover.svg" id="3_ju75o"]
+[ext_resource type="Script" uid="uid://b7y1bx017ie2m" path="res://scripts/history_content.gd" id="4_3utka"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_bhunq"]
+font_size = 32
+
+[node name="History" type="MarginContainer" unique_id=800893133 node_paths=PackedStringArray("background_node")]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 0
+theme = ExtResource("1_l4ifu")
+script = ExtResource("1_kcki0")
+button_icon = ExtResource("3_ju75o")
+background_const = &"history"
+background_node = NodePath("BG")
+metadata/_custom_type_script = "uid://cempr7kaosims"
+
+[node name="BG" type="ColorRect" parent="." unique_id=1810833652]
+layout_mode = 2
+color = Color(0.8419788, 0.79560435, 0.5261978, 0.39215687)
+
+[node name="Content" type="Control" parent="." unique_id=1339035577 node_paths=PackedStringArray("content_list", "page_numbers", "next_button", "back_button", "delete_history")]
+layout_mode = 2
+script = ExtResource("4_3utka")
+content_list = NodePath("V/Scroll/List")
+page_numbers = NodePath("V/Buttons/PageNumbers")
+next_button = NodePath("V/Buttons/NextButton")
+back_button = NodePath("V/Buttons/BackButton")
+delete_history = NodePath("V/Buttons/DeleteHistory")
+
+[node name="V" type="VBoxContainer" parent="Content" unique_id=1251701203]
+custom_maximum_size = Vector2(1720, 940)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 100.0
+offset_top = 100.0
+offset_right = -100.0
+offset_bottom = -40.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Scroll" type="ScrollContainer" parent="Content/V" unique_id=136345951]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="List" type="VBoxContainer" parent="Content/V/Scroll" unique_id=1397219326]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 8
+
+[node name="Buttons" type="HBoxContainer" parent="Content/V" unique_id=1821474132]
+custom_minimum_size = Vector2(0, 80)
+layout_mode = 2
+alignment = 1
+
+[node name="BackButton" type="Button" parent="Content/V/Buttons" unique_id=513358426]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "< Previous"
+
+[node name="PageNumbers" type="Label" parent="Content/V/Buttons" unique_id=1967042995]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+text = "%s out of %s"
+label_settings = SubResource("LabelSettings_bhunq")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="NextButton" type="Button" parent="Content/V/Buttons" unique_id=104798654]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Next >"
+
+[node name="DeleteHistory" type="Button" parent="Content/V/Buttons" unique_id=1555761536]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Delete History"

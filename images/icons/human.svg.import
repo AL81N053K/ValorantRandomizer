@@ -2,16 +2,17 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://durxmm6et3xa6"
-path="res://.godot/imported/speakeroffd.png-2e17c66aee2d394789c20c86e9cc125a.ctex"
+uid="uid://cpc4kswnj6hx2"
+path="res://.godot/imported/human.svg-d9c4726cd8c13e72e0cf64debb87e678.ctex"
 metadata={
+"has_editor_variant": true,
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://images/svg/speakeroffd.png"
-dest_files=["res://.godot/imported/speakeroffd.png-2e17c66aee2d394789c20c86e9cc125a.ctex"]
+source_file="res://images/icons/human.svg"
+dest_files=["res://.godot/imported/human.svg-d9c4726cd8c13e72e0cf64debb87e678.ctex"]
 
 [params]
 
@@ -38,3 +39,6 @@ process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
 detect_3d/compress_to=1
+svg/scale=3.0
+editor/scale_with_editor_scale=true
+editor/convert_colors_with_editor_theme=true

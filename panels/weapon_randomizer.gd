@@ -4,15 +4,18 @@ var options : Array[String]
 var weapon_list : Array[String]
 var sidearm_list : Array[String]
 var shield_list : Array[String]
+var history_list : Array = []
 
 var result : String
 
 func randomize_result() -> void:
+	if rng_panel.visible: return
 	randomize()
 	options.clear()
 	weapon_list.clear()
 	sidearm_list.clear()
 	shield_list.clear()
+	
 	for option:CheckBox in list_of_panels[0].grid.get_children():
 		if option.button_pressed: options.append(option.name)
 	for weapon:Button in list_of_panels[1].grid.get_children():
@@ -27,22 +30,49 @@ func randomize_result() -> void:
 	if options.has("OneWeapon"): 
 		weapon_list.append_array(sidearm_list)
 		sidearm_list.clear()
-	print("main: ",weapon_list,"\nside: ",sidearm_list,"\nshield: ",shield_list)
+	
+	if not GlobalSettings.get_setting(&"General",&"true_randomness"):
+		for history in history_list:
+			var slot : int
+			if weapon_list.size() > 3:
+				slot = weapon_list.find(history)
+				if slot != -1: weapon_list.remove_at(slot)
+			if sidearm_list.size() > 3:
+				slot = sidearm_list.find(history)
+				if slot != 1: sidearm_list.remove_at(slot)
+	
+	var temp_history_save : Array = []
+	
 	result = weapon_list.pick_random()
+	temp_history_save.append([&"weapon",result])
+	history_list.push_front(result)
+	if history_list.size() >= 5:
+		history_list.pop_back()
 	list_of_panels[1].rng_panel_label.text = result
 	list_of_panels[1].rng_panel_texture.texture = ResourceLoader.load(str(Constants.PATHS.get(&"weapons_normal"),result,".png"))
 	if sidearm_list.size() > 0:
 		result = sidearm_list.pick_random()
+		temp_history_save.append([&"weapon",result])
+		history_list.push_front(result)
+		if history_list.size() >= 5:
+			history_list.pop_back()
 		list_of_panels[2].rng_panel_label.text = result
 		list_of_panels[2].rng_panel_texture.texture = ResourceLoader.load(str(Constants.PATHS.get(&"weapons_normal"),result,".png"))
 	else:
 		list_of_panels[2].rng_panel_label.text = ""
 		list_of_panels[2].rng_panel_texture.texture = null
 	result = shield_list.pick_random()
+	temp_history_save.append([&"shield",result])
 	list_of_panels[0].rng_panel_label.text = result.capitalize()
 	list_of_panels[0].rng_panel_texture.texture = ResourceLoader.load(str(Constants.PATHS.get(&"images"),"weapons/",result,".png"))
 	
 	rng_panel.open_panel()
+	HistoryHandler.add_data({
+		&"type": &"weapon",
+		&"time": Time.get_time_string_from_system(),
+		&"date": Time.get_date_string_from_system(),
+		&"content": temp_history_save,
+	})
 	SoundHandler.play_sfx_sound("Coin Flung",0.5,randf_range(0.825,1.325))
 
 

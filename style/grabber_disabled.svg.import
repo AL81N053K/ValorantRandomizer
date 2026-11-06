@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c8jy683h07gpv"
-path="res://.godot/imported/speakerond.png-bf9e5551ec3cdc2867c0e428b2cf8549.ctex"
+uid="uid://bbpp6mpawcdlb"
+path="res://.godot/imported/grabber_disabled.svg-7bb38cce6dc12534fa73330257f955da.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://images/svg/speakerond.png"
-dest_files=["res://.godot/imported/speakerond.png-bf9e5551ec3cdc2867c0e428b2cf8549.ctex"]
+source_file="res://style/grabber_disabled.svg"
+dest_files=["res://.godot/imported/grabber_disabled.svg-7bb38cce6dc12534fa73330257f955da.ctex"]
 
 [params]
 
@@ -38,3 +38,6 @@ process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
 detect_3d/compress_to=1
+svg/scale=0.4
+editor/scale_with_editor_scale=false
+editor/convert_colors_with_editor_theme=false

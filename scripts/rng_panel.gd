@@ -96,10 +96,19 @@ func _add_background() -> void:
 	background.owner = get_tree().edited_scene_root
 
 func open_panel() -> void:
-	animation_player.play(&"toggle")
+	if GlobalSettings.get_setting(&"General",&"skip_animations"):
+		self.visible = true
+		self.scale = Vector2(1,1)
+	else:
+		animation_player.play(&"toggle")
 
 func close_panel() -> void:
-	animation_player.play_backwards(&"toggle")
+	if not self.visible: return
+	if GlobalSettings.get_setting(&"General",&"skip_animations"):
+		self.visible = false
+		self.scale = Vector2(0,0)
+	else:
+		animation_player.play_backwards(&"toggle")
 
 func set_results(texture_path:String,texture_node:TextureRect,result_name_text:String,result_name_label:Label) -> void:
 	if is_instance_valid(texture_node) == false: return printerr("texture_node is not valid")

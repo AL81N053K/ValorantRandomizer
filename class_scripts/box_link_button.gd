@@ -13,6 +13,6 @@ func _ready() -> void:
 func _change_view():
 	if box_to_link != null:
 		emit_signal("box_link_pressed", box_to_link)
-		SoundHandler.play_sfx_sound("Cursor",0.35,0.7)
+		#SoundHandler.play_sfx_sound("Cursor",0.35,0.7)
 	else:
 		printerr("Button \"%s\" doesn't have a link." % [self.name])

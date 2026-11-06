@@ -4,7 +4,6 @@ extends Control
 
 @export_group("Defaults")
 @export var name_icon : StringName
-@export var perfect_rect : bool = false
 @export var min_size : Vector2 = Vector2(1500,1000)
 @export var max_size : Vector2 = Vector2(-1,-1)
 @export var button_style : Theme = preload("uid://4brdb7s7jq0f")
@@ -26,21 +25,58 @@ extends Control
 @export var rng_panel_label : Label
 
 var grid_count : int 
+var time_start : int
+var time_finish : int
 
 func _ready() -> void:
+	time_start = Time.get_ticks_msec()
+	prints("Creating Panel:",self.name)
 	if tool_box != null:
 		ToolBox._is_toolbox_option_valid(tool_box,tool_box.toggle_selection_button,"pressed",Callable(toggle_selection))
 		ToolBox._is_toolbox_option_valid(tool_box,tool_box.enable_all_button,"pressed",Callable(enable_all))
 		ToolBox._is_toolbox_option_valid(tool_box,tool_box.disable_all_button,"pressed",Callable(disable_all))
 		ToolBox._is_toolbox_option_valid(tool_box,tool_box.scale_slider,"value_changed",Callable(scale_value_changed))
-	
-	grid_count = Constants.linear_interpolation(grid_default_min,grid_default_max,float(grid_default_size_tick-1)/5)
+		if tool_box.scale_slider != null : tool_box.scale_slider.call_deferred("set","value",grid_default_size_tick)
 	if sort_list: list.sort()
+	
+	grid_count = int(Constants.linear_interpolation(grid_default_min,grid_default_max,float(grid_default_size_tick-1)/5))
 	grid.columns = grid_count
-	if tool_box != null and tool_box.scale_slider != null:tool_box.scale_slider.call_deferred("set","value",grid_default_size_tick)
 	
-	print(self.name,"\nstart: ",min_size.x * grid_count,"\ndefault max (",grid_default_max,") - default tick (",grid_default_size_tick,") + 1 = grid count (",grid_default_max - grid_default_size_tick + 1,")\nActual grid count: ",grid_count,"\n--------------------")
+	_create_buttons_from_list()
 	
+	self.ready.connect(func (): 
+		time_finish = Time.get_ticks_msec()
+		prints("Panel",self.name,"took",time_finish-time_start,"ms to finish.")
+		await get_tree().create_timer(0.2).timeout
+		scale_value_changed(grid_default_size_tick)
+		)
+
+func toggle_selection() -> void:
+	for btn:Button in grid.get_children():
+		btn.button_pressed = not btn.button_pressed 
+
+func enable_all() -> void:
+	for btn:Button in grid.get_children():
+		btn.button_pressed = true
+
+func disable_all() -> void:
+	for btn:Button in grid.get_children():
+		btn.button_pressed = false
+
+func scale_value_changed(value: float) -> void:
+	grid.columns = Constants.linear_interpolation(grid_default_max,grid_default_min,float(value -1)/5)
+	value = calc_size(value)
+	for button:Button in grid.get_children():
+		button.custom_minimum_size = Vector2(min_size.x*value,min_size.y*value)
+		button.custom_maximum_size = Vector2(max_size.x*value,max_size.y*value)
+
+func calc_size(value: float) -> float:
+	value = clampf(grid_default_min + value - 1,grid_default_min,grid_default_max)
+	if (min_size.x * value) * grid.columns > grid.get_parent().size.x - 40: 
+		value = ((grid.get_parent().size.x - 40) / grid.columns) / min_size.x
+	return value
+
+func _create_buttons_from_list() -> void:
 	for object in list:
 		if object is String:
 			var button = Button.new()
@@ -48,7 +84,7 @@ func _ready() -> void:
 			button.vertical_icon_alignment = VERTICAL_ALIGNMENT_TOP
 			button.expand_icon = true
 			button.custom_minimum_size = Vector2(min_size.x * grid_count,min_size.y * grid_count)
-			button.custom_maximum_size = Vector2(max_size.x * grid_count,max_size.y * grid_count) if perfect_rect else max_size
+			button.custom_maximum_size = Vector2(max_size.x * grid_count,max_size.y * grid_count)
 			button.toggle_mode = true
 			var file = ResourceLoader.load(str(Constants.PATHS.get(name_icon),"%s.png" % [object]))
 			var icon = file if file else ResourceLoader.load(str(Constants.PATHS.get(&"images"),"unknown.png"))
@@ -76,34 +112,3 @@ func _ready() -> void:
 			button.add_theme_font_size_override("font_size",32)
 			grid.call_deferred("add_child",button)
 		else: return printerr(object," is not String or Array.")
-	
-	self.ready.connect(func (): 
-		await get_tree().create_timer(0.2).timeout
-		scale_value_changed(grid_default_size_tick)
-		)
-
-func toggle_selection() -> void:
-	for btn:Button in grid.get_children():
-		btn.button_pressed = not btn.button_pressed 
-
-func enable_all() -> void:
-	for btn:Button in grid.get_children():
-		btn.button_pressed = true
-
-func disable_all() -> void:
-	for btn:Button in grid.get_children():
-		btn.button_pressed = false
-
-func scale_value_changed(value: float) -> void:
-	grid.columns = Constants.linear_interpolation(grid_default_max,grid_default_min,float(value -1)/5)
-	value = calc_size(value)
-	print(min_size.x*value,"|",value)
-	for button:Button in grid.get_children():
-		button.custom_minimum_size = Vector2(min_size.x*value,min_size.y*value)
-		button.custom_maximum_size = Vector2(max_size.x*value,max_size.y*value) if perfect_rect else max_size
-
-func calc_size(value: float) -> float:
-	value = clampf(grid_default_min + value - 1,grid_default_min,grid_default_max)
-	if (min_size.x * value) * grid.columns > grid.get_parent().size.x - 40: 
-		value = ((grid.get_parent().size.x - 40) / grid.columns) / min_size.x
-	return value

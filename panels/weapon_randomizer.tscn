@@ -7,9 +7,14 @@
 [ext_resource type="Theme" uid="uid://df42rq7nns074" path="res://style/buttons.tres" id="4_xt8vl"]
 [ext_resource type="PackedScene" uid="uid://c1qty05707v01" path="res://panels/window_panel.tscn" id="5_rirdn"]
 [ext_resource type="Script" uid="uid://qc4ro5roqxb0" path="res://scripts/rng_panel.gd" id="5_xj5wx"]
+[ext_resource type="Texture2D" uid="uid://butwnlj6cdwam" path="res://images/icons/floppy_disk.svg" id="6_j06j1"]
 [ext_resource type="Shader" uid="uid://cuo848tsgfofp" path="res://shaders/blur_darken.gdshader" id="6_voq0h"]
+[ext_resource type="Texture2D" uid="uid://d3leboenqtyho" path="res://images/icons/file_arrow_down.svg" id="7_lg3y5"]
 [ext_resource type="AnimationLibrary" uid="uid://babvobvm7lhum" path="res://animations/rng_panel/rng_panel.tres" id="7_xt8vl"]
+[ext_resource type="Texture2D" uid="uid://bhm30r7rpjlj0" path="res://images/icons/arrow_down_arrow_up.svg" id="8_0h6nh"]
+[ext_resource type="Texture2D" uid="uid://mrwr0ywb4tb0" path="res://images/icons/arrow_right_to_line.svg" id="9_fe365"]
 [ext_resource type="Script" uid="uid://cd5kubo3suiah" path="res://panels/weapon_randomizer.gd" id="9_xt8vl"]
+[ext_resource type="Texture2D" uid="uid://5nhm0f3g0udt" path="res://images/icons/arrow_left_from_line.svg" id="10_cg241"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_bhunq"]
 font_size = 48
@@ -26,7 +31,15 @@ font_size = 64
 [sub_resource type="LabelSettings" id="LabelSettings_voq0h"]
 font_size = 32
 
-[node name="WeaponRandomizer" type="MarginContainer" unique_id=844036124]
+[sub_resource type="InputEventKey" id="InputEventKey_j06j1"]
+device = -1
+shift_pressed = true
+keycode = 4194305
+
+[sub_resource type="Shortcut" id="Shortcut_ebmac"]
+events = [SubResource("InputEventKey_j06j1")]
+
+[node name="WeaponRandomizer" type="MarginContainer" unique_id=844036124 node_paths=PackedStringArray("background_node")]
 custom_minimum_size = Vector2(1920, 1080)
 anchors_preset = 15
 anchor_right = 1.0
@@ -36,6 +49,8 @@ grow_vertical = 2
 mouse_filter = 0
 theme = ExtResource("1_voq0h")
 script = ExtResource("1_wp0sl")
+background_const = &"weapon"
+background_node = NodePath("ColorRect")
 metadata/_custom_type_script = "uid://cempr7kaosims"
 
 [node name="ColorRect" type="ColorRect" parent="." unique_id=1308916322]
@@ -66,7 +81,7 @@ min_size = Vector2(550, 80)
 max_size = Vector2(550, -1)
 button_style = ExtResource("4_xt8vl")
 list = [["IncludeKnife", "Include Knife 
-(adds to primary)", false], ["OneWeapon", "Only one Primary/Sidearm", false], ["ArmorRandom", "Randomize Shield 
+(adds to main weapon pool)", false], ["OneWeapon", "Only one weapon (Primary/Sidearm)", false], ["ArmorRandom", "Randomize Shield 
 (uncheck = Heavy Shield)", true]]
 grid = NodePath("VBox/Scroll/List")
 grid_default_size_tick = 1
@@ -108,19 +123,26 @@ metadata/_custom_type_script = "uid://dw0adfr5tc5fg"
 
 [node name="H" type="HBoxContainer" parent="Container/VBox/HBox/Options/VBox/ToolBox" unique_id=2002478793]
 layout_mode = 2
+theme_override_constants/separation = 15
 alignment = 1
 
-[node name="Save" type="Button" parent="Container/VBox/HBox/Options/VBox/ToolBox/H" unique_id=1008313191 groups=["Button"]]
+[node name="Save" type="Button" parent="Container/VBox/HBox/Options/VBox/ToolBox/H" unique_id=997495987]
+custom_minimum_size = Vector2(60, 60)
 layout_mode = 2
-size_flags_horizontal = 3
+tooltip_text = "Save Current Preset"
 theme_override_font_sizes/font_size = 26
-text = "Save Preset"
+icon = ExtResource("6_j06j1")
+icon_alignment = 1
+expand_icon = true
 
-[node name="Load" type="Button" parent="Container/VBox/HBox/Options/VBox/ToolBox/H" unique_id=588788609 groups=["Button"]]
+[node name="Load" type="Button" parent="Container/VBox/HBox/Options/VBox/ToolBox/H" unique_id=2146674167]
+custom_minimum_size = Vector2(60, 60)
 layout_mode = 2
-size_flags_horizontal = 3
+tooltip_text = "Load Current Preset"
 theme_override_font_sizes/font_size = 26
-text = "Load Preset"
+icon = ExtResource("7_lg3y5")
+icon_alignment = 1
+expand_icon = true
 
 [node name="MainWeapons" type="Control" parent="Container/VBox/HBox" unique_id=1500263258 node_paths=PackedStringArray("grid", "tool_box", "rng_panel_texture", "rng_panel_label")]
 layout_mode = 2
@@ -158,32 +180,42 @@ vertical_alignment = 1
 [node name="ToolBox" type="MarginContainer" parent="Container/VBox/HBox/MainWeapons/VBox" unique_id=1247633279 node_paths=PackedStringArray("toggle_selection_button", "enable_all_button", "disable_all_button")]
 layout_mode = 2
 script = ExtResource("4_d602t")
-toggle_selection_button = NodePath("H/Toggle")
-enable_all_button = NodePath("H/EnableAll")
-disable_all_button = NodePath("H/DisableAll")
+toggle_selection_button = NodePath("H/ToggleSelection")
+enable_all_button = NodePath("H/SelectAll")
+disable_all_button = NodePath("H/DeselectAll")
 metadata/_custom_type_script = "uid://dw0adfr5tc5fg"
 
 [node name="H" type="HBoxContainer" parent="Container/VBox/HBox/MainWeapons/VBox/ToolBox" unique_id=1466319717]
 layout_mode = 2
+theme_override_constants/separation = 15
 alignment = 1
 
-[node name="Toggle" type="Button" parent="Container/VBox/HBox/MainWeapons/VBox/ToolBox/H" unique_id=849639094 groups=["Button"]]
+[node name="ToggleSelection" type="Button" parent="Container/VBox/HBox/MainWeapons/VBox/ToolBox/H" unique_id=25709058]
+custom_minimum_size = Vector2(60, 60)
 layout_mode = 2
-size_flags_horizontal = 3
+tooltip_text = "Toggle Selection"
 theme_override_font_sizes/font_size = 26
-text = "Toggle"
+icon = ExtResource("8_0h6nh")
+icon_alignment = 1
+expand_icon = true
 
-[node name="EnableAll" type="Button" parent="Container/VBox/HBox/MainWeapons/VBox/ToolBox/H" unique_id=427794737 groups=["Button"]]
+[node name="SelectAll" type="Button" parent="Container/VBox/HBox/MainWeapons/VBox/ToolBox/H" unique_id=1354050812]
+custom_minimum_size = Vector2(60, 60)
 layout_mode = 2
-size_flags_horizontal = 3
+tooltip_text = "Select All"
 theme_override_font_sizes/font_size = 26
-text = "Enable All"
+icon = ExtResource("9_fe365")
+icon_alignment = 1
+expand_icon = true
 
-[node name="DisableAll" type="Button" parent="Container/VBox/HBox/MainWeapons/VBox/ToolBox/H" unique_id=963818470 groups=["Button"]]
+[node name="DeselectAll" type="Button" parent="Container/VBox/HBox/MainWeapons/VBox/ToolBox/H" unique_id=164697661]
+custom_minimum_size = Vector2(60, 60)
 layout_mode = 2
-size_flags_horizontal = 3
+tooltip_text = "Deselect All"
 theme_override_font_sizes/font_size = 26
-text = "Disable All"
+icon = ExtResource("10_cg241")
+icon_alignment = 1
+expand_icon = true
 
 [node name="Scroll" type="ScrollContainer" parent="Container/VBox/HBox/MainWeapons/VBox" unique_id=104061780]
 custom_minimum_size = Vector2(550, 0)
@@ -231,32 +263,42 @@ vertical_alignment = 1
 [node name="ToolBox" type="MarginContainer" parent="Container/VBox/HBox/Sidearms/VBox" unique_id=591575658 node_paths=PackedStringArray("toggle_selection_button", "enable_all_button", "disable_all_button")]
 layout_mode = 2
 script = ExtResource("4_d602t")
-toggle_selection_button = NodePath("H/Toggle")
-enable_all_button = NodePath("H/EnableAll")
-disable_all_button = NodePath("H/DisableAll")
+toggle_selection_button = NodePath("H/ToggleSelection")
+enable_all_button = NodePath("H/SelectAll")
+disable_all_button = NodePath("H/DeselectAll")
 metadata/_custom_type_script = "uid://dw0adfr5tc5fg"
 
 [node name="H" type="HBoxContainer" parent="Container/VBox/HBox/Sidearms/VBox/ToolBox" unique_id=121827295]
 layout_mode = 2
+theme_override_constants/separation = 15
 alignment = 1
 
-[node name="Toggle" type="Button" parent="Container/VBox/HBox/Sidearms/VBox/ToolBox/H" unique_id=1063819871 groups=["Button"]]
+[node name="ToggleSelection" type="Button" parent="Container/VBox/HBox/Sidearms/VBox/ToolBox/H" unique_id=1297309687]
+custom_minimum_size = Vector2(60, 60)
 layout_mode = 2
-size_flags_horizontal = 3
+tooltip_text = "Toggle Selection"
 theme_override_font_sizes/font_size = 26
-text = "Toggle"
+icon = ExtResource("8_0h6nh")
+icon_alignment = 1
+expand_icon = true
 
-[node name="EnableAll" type="Button" parent="Container/VBox/HBox/Sidearms/VBox/ToolBox/H" unique_id=39888674 groups=["Button"]]
+[node name="SelectAll" type="Button" parent="Container/VBox/HBox/Sidearms/VBox/ToolBox/H" unique_id=697160381]
+custom_minimum_size = Vector2(60, 60)
 layout_mode = 2
-size_flags_horizontal = 3
+tooltip_text = "Select All"
 theme_override_font_sizes/font_size = 26
-text = "Enable All"
+icon = ExtResource("9_fe365")
+icon_alignment = 1
+expand_icon = true
 
-[node name="DisableAll" type="Button" parent="Container/VBox/HBox/Sidearms/VBox/ToolBox/H" unique_id=1359506326 groups=["Button"]]
+[node name="DeselectAll" type="Button" parent="Container/VBox/HBox/Sidearms/VBox/ToolBox/H" unique_id=224550473]
+custom_minimum_size = Vector2(60, 60)
 layout_mode = 2
-size_flags_horizontal = 3
+tooltip_text = "Deselect All"
 theme_override_font_sizes/font_size = 26
-text = "Disable All"
+icon = ExtResource("10_cg241")
+icon_alignment = 1
+expand_icon = true
 
 [node name="Scroll" type="ScrollContainer" parent="Container/VBox/HBox/Sidearms/VBox" unique_id=1338063186]
 custom_minimum_size = Vector2(550, 0)
@@ -403,6 +445,7 @@ anchor_right = 1.0
 offset_left = -60.0
 offset_right = -60.0
 theme_override_font_sizes/font_size = 34
+shortcut = SubResource("Shortcut_ebmac")
 text = "X"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Control/RNGPanel" unique_id=19414141]

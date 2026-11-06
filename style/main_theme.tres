@@ -6,6 +6,76 @@
 [ext_resource type="StyleBox" uid="uid://cs0nht06o8bny" path="res://style/button_style_pressed_hover.stylebox" id="4_qjp3g"]
 [ext_resource type="StyleBox" uid="uid://dl412oouaq82u" path="res://style/button_style_default.stylebox" id="5_4gl0m"]
 [ext_resource type="StyleBox" uid="uid://bmnq3xbsfywty" path="res://style/button_style_pressed.tres" id="6_wibmb"]
+[ext_resource type="Texture2D" uid="uid://bxurtkoypeeei" path="res://images/icons/checked.svg" id="7_3rwe2"]
+[ext_resource type="Texture2D" uid="uid://bydarfh2pj58n" path="res://style/grabber.svg" id="7_qjp3g"]
+[ext_resource type="Texture2D" uid="uid://bbpp6mpawcdlb" path="res://style/grabber_disabled.svg" id="8_4gl0m"]
+[ext_resource type="Texture2D" uid="uid://qsffe5kt54w7" path="res://images/icons/checked_disabled.svg" id="8_a6s7j"]
+[ext_resource type="Texture2D" uid="uid://dlvqdiyl2tk2x" path="res://images/icons/unchecked.svg" id="9_n0wph"]
+[ext_resource type="Texture2D" uid="uid://c5ef13ynfp7l1" path="res://style/grabber_highlight.svg" id="9_wibmb"]
+[ext_resource type="FontFile" uid="uid://dhqd36ap5bfr3" path="res://style/DINNextW1G-Bold.otf" id="10_4gl0m"]
+[ext_resource type="Texture2D" uid="uid://dfkdvd2ur278d" path="res://images/icons/unchecked_disabled.svg" id="10_evnxf"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4a1ve"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.8808251, 0.8808251, 0.8808251, 0.4)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+corner_detail = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wswb1"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(1, 1, 1, 0.75)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+corner_detail = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3rwe2"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.101960786, 0.101960786, 0.101960786, 0.6)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+corner_detail = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qjp3g"]
+content_margin_left = 8.0
+content_margin_top = 2.0
+content_margin_right = 8.0
+content_margin_bottom = 2.0
+bg_color = Color(0, 0, 0, 0.5)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.16409835, 0.16409835, 0.16409835, 0.4)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+expand_margin_left = 1.0
+expand_margin_top = 1.0
+expand_margin_right = 1.0
+expand_margin_bottom = 1.0
 
 [resource]
 default_font = ExtResource("1_odtvt")
@@ -15,8 +85,21 @@ Button/styles/hover = ExtResource("3_0bh3v")
 Button/styles/hover_pressed = ExtResource("4_qjp3g")
 Button/styles/normal = ExtResource("5_4gl0m")
 Button/styles/pressed = ExtResource("6_wibmb")
+CheckBox/icons/checked = ExtResource("7_3rwe2")
+CheckBox/icons/checked_disabled = ExtResource("8_a6s7j")
+CheckBox/icons/unchecked = ExtResource("9_n0wph")
+CheckBox/icons/unchecked_disabled = ExtResource("10_evnxf")
 CheckBox/styles/disabled = ExtResource("2_r8o2x")
 CheckBox/styles/hover = ExtResource("3_0bh3v")
 CheckBox/styles/hover_pressed = ExtResource("3_0bh3v")
 CheckBox/styles/normal = ExtResource("5_4gl0m")
 CheckBox/styles/pressed = ExtResource("6_wibmb")
+HSlider/icons/grabber = ExtResource("7_qjp3g")
+HSlider/icons/grabber_disabled = ExtResource("8_4gl0m")
+HSlider/icons/grabber_highlight = ExtResource("9_wibmb")
+HSlider/styles/grabber_area = SubResource("StyleBoxFlat_4a1ve")
+HSlider/styles/grabber_area_highlight = SubResource("StyleBoxFlat_wswb1")
+HSlider/styles/slider = SubResource("StyleBoxFlat_3rwe2")
+TooltipLabel/font_sizes/font_size = 21
+TooltipLabel/fonts/font = ExtResource("10_4gl0m")
+TooltipPanel/styles/panel = SubResource("StyleBoxFlat_qjp3g")

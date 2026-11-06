@@ -11,7 +11,8 @@ class_name RandomizerHandler
 var file_path : String
 
 func _ready() -> void:
-	if randomize_button != null: randomize_button.pressed.connect(randomize_result)
+	if randomize_button != null: 
+		randomize_button.pressed.connect(randomize_result)
 	if window_panel != null:
 		if window_panel.save_dialog != null: 
 			window_panel.save_dialog.file_selected.connect(func(path): 

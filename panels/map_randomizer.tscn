@@ -6,10 +6,16 @@
 [ext_resource type="Script" uid="uid://dw0adfr5tc5fg" path="res://scripts/tool_box.gd" id="4_iy2hl"]
 [ext_resource type="Theme" uid="uid://df42rq7nns074" path="res://style/buttons.tres" id="4_sgbyu"]
 [ext_resource type="Script" uid="uid://qc4ro5roqxb0" path="res://scripts/rng_panel.gd" id="5_sgbyu"]
+[ext_resource type="Script" uid="uid://b356w3yk88vdt" path="res://class_scripts/bottom_bar.gd" id="5_xij44"]
+[ext_resource type="Texture2D" uid="uid://bhm30r7rpjlj0" path="res://images/icons/arrow_down_arrow_up.svg" id="6_1rd8k"]
 [ext_resource type="Shader" uid="uid://cuo848tsgfofp" path="res://shaders/blur_darken.gdshader" id="6_dtovj"]
 [ext_resource type="AnimationLibrary" uid="uid://babvobvm7lhum" path="res://animations/rng_panel/rng_panel.tres" id="7_n43wf"]
+[ext_resource type="Texture2D" uid="uid://mrwr0ywb4tb0" path="res://images/icons/arrow_right_to_line.svg" id="7_xij44"]
+[ext_resource type="Texture2D" uid="uid://5nhm0f3g0udt" path="res://images/icons/arrow_left_from_line.svg" id="8_ipnyt"]
 [ext_resource type="PackedScene" uid="uid://c1qty05707v01" path="res://panels/window_panel.tscn" id="8_x3g56"]
 [ext_resource type="Script" uid="uid://bnptwujhqclqh" path="res://panels/map_randomizer.gd" id="9_dtovj"]
+[ext_resource type="Texture2D" uid="uid://butwnlj6cdwam" path="res://images/icons/floppy_disk.svg" id="9_lc0vl"]
+[ext_resource type="Texture2D" uid="uid://d3leboenqtyho" path="res://images/icons/file_arrow_down.svg" id="10_ebmac"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_iy2hl"]
 resource_local_to_scene = true
@@ -23,7 +29,15 @@ font_size = 64
 [sub_resource type="LabelSettings" id="LabelSettings_iy2hl"]
 font_size = 48
 
-[node name="MapRandomizer" type="MarginContainer" unique_id=1177717129]
+[sub_resource type="InputEventKey" id="InputEventKey_xij44"]
+device = -1
+shift_pressed = true
+keycode = 4194305
+
+[sub_resource type="Shortcut" id="Shortcut_ipnyt"]
+events = [SubResource("InputEventKey_xij44")]
+
+[node name="DefaultMapRandomizer" type="MarginContainer" unique_id=1177717129 node_paths=PackedStringArray("background_node")]
 custom_minimum_size = Vector2(1920, 1080)
 anchors_preset = 15
 anchor_right = 1.0
@@ -33,6 +47,8 @@ grow_vertical = 2
 mouse_filter = 0
 theme = ExtResource("1_0jc3r")
 script = ExtResource("1_x1f0e")
+background_const = &"map_normal"
+background_node = NodePath("BG")
 metadata/_custom_type_script = "uid://cempr7kaosims"
 
 [node name="BG" type="ColorRect" parent="." unique_id=963633114]
@@ -43,7 +59,6 @@ color = Color(0, 0, 0.392157, 0.392157)
 layout_mode = 2
 script = ExtResource("3_dtovj")
 name_icon = &"maps"
-perfect_rect = true
 min_size = Vector2(89, 52)
 max_size = Vector2(89, 52)
 button_style = ExtResource("4_sgbyu")
@@ -52,82 +67,19 @@ grid = NodePath("Container/Grid")
 grid_default_size_tick = 4
 grid_default_min = 2
 grid_default_max = 7
-tool_box = NodePath("ToolBox")
+tool_box = NodePath("BottomBar/List/ToolBox")
 rng_panel_texture = NodePath("../Control/RNGPanel/Content/List/MapTexture")
 rng_panel_label = NodePath("../Control/RNGPanel/Content/List/MapName")
 metadata/_custom_type_script = "uid://bauutfv3j6atf"
-
-[node name="ToolBox" type="MarginContainer" parent="Maps" unique_id=35897621 node_paths=PackedStringArray("toggle_selection_button", "enable_all_button", "disable_all_button", "save_button", "load_button", "scale_slider")]
-custom_minimum_size = Vector2(1840, 0)
-layout_mode = 1
-anchors_preset = 10
-anchor_right = 1.0
-offset_left = 40.0
-offset_top = 20.0
-offset_right = -40.0
-offset_bottom = 60.0
-grow_horizontal = 2
-script = ExtResource("4_iy2hl")
-toggle_selection_button = NodePath("List/ToggleSelection")
-enable_all_button = NodePath("List/SelectAll")
-disable_all_button = NodePath("List/DeselectAll")
-save_button = NodePath("List/Save")
-load_button = NodePath("List/Load")
-scale_slider = NodePath("List/GridSize")
-metadata/_custom_type_script = "uid://dw0adfr5tc5fg"
-
-[node name="List" type="HBoxContainer" parent="Maps/ToolBox" unique_id=1298967949]
-custom_minimum_size = Vector2(0, 40)
-layout_mode = 2
-alignment = 1
-
-[node name="ToggleSelection" type="Button" parent="Maps/ToolBox/List" unique_id=268770286]
-custom_minimum_size = Vector2(280, 40)
-layout_mode = 2
-theme_override_font_sizes/font_size = 26
-text = "Toggle Selection"
-
-[node name="SelectAll" type="Button" parent="Maps/ToolBox/List" unique_id=1098202886]
-custom_minimum_size = Vector2(280, 40)
-layout_mode = 2
-theme_override_font_sizes/font_size = 26
-text = "Select All"
-
-[node name="DeselectAll" type="Button" parent="Maps/ToolBox/List" unique_id=1509366935]
-custom_minimum_size = Vector2(280, 40)
-layout_mode = 2
-theme_override_font_sizes/font_size = 26
-text = "Deselect All"
-
-[node name="Save" type="Button" parent="Maps/ToolBox/List" unique_id=210018307]
-custom_minimum_size = Vector2(280, 40)
-layout_mode = 2
-theme_override_font_sizes/font_size = 26
-text = "Save Preset"
-
-[node name="Load" type="Button" parent="Maps/ToolBox/List" unique_id=9447034]
-custom_minimum_size = Vector2(280, 40)
-layout_mode = 2
-theme_override_font_sizes/font_size = 26
-text = "Load Preset"
-
-[node name="GridSize" type="HSlider" parent="Maps/ToolBox/List" unique_id=710856459]
-custom_minimum_size = Vector2(200, 40)
-layout_mode = 2
-min_value = 1.0
-max_value = 6.0
-value = 5.0
-tick_count = 6
-ticks_on_borders = true
 
 [node name="Container" type="ScrollContainer" parent="Maps" unique_id=1758591511]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 80.0
+offset_left = 60.0
 offset_top = 80.0
-offset_right = -80.0
+offset_right = -60.0
 offset_bottom = -120.0
 grow_horizontal = 2
 grow_vertical = 2
@@ -139,20 +91,108 @@ size_flags_horizontal = 6
 size_flags_vertical = 6
 columns = 5
 
-[node name="RandomizeButton" type="Button" parent="Maps" unique_id=1246305686 groups=["Button"]]
-custom_minimum_size = Vector2(450, 60)
+[node name="BottomBar" type="Control" parent="Maps" unique_id=854311557]
+custom_minimum_size = Vector2(0, 60)
+custom_maximum_size = Vector2(1840, -1)
 layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
+anchors_preset = 12
 anchor_top = 1.0
-anchor_right = 0.5
+anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -225.0
+offset_left = 40.0
 offset_top = -100.0
-offset_right = 225.0
+offset_right = -40.0
 offset_bottom = -40.0
 grow_horizontal = 2
 grow_vertical = 0
+script = ExtResource("5_xij44")
+metadata/_custom_type_script = "uid://b356w3yk88vdt"
+
+[node name="List" type="HBoxContainer" parent="Maps/BottomBar" unique_id=1320714744]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 15
+alignment = 1
+
+[node name="ToolBox" type="MarginContainer" parent="Maps/BottomBar/List" unique_id=35897621 node_paths=PackedStringArray("toggle_selection_button", "enable_all_button", "disable_all_button", "save_button", "load_button", "scale_slider")]
+layout_mode = 2
+script = ExtResource("4_iy2hl")
+toggle_selection_button = NodePath("List/ToggleSelection")
+enable_all_button = NodePath("List/SelectAll")
+disable_all_button = NodePath("List/DeselectAll")
+save_button = NodePath("List/Save")
+load_button = NodePath("List/Load")
+scale_slider = NodePath("List/GridSize")
+metadata/_custom_type_script = "uid://dw0adfr5tc5fg"
+
+[node name="List" type="HBoxContainer" parent="Maps/BottomBar/List/ToolBox" unique_id=1298967949]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+theme_override_constants/separation = 15
+alignment = 1
+
+[node name="ToggleSelection" type="Button" parent="Maps/BottomBar/List/ToolBox/List" unique_id=268770286]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+tooltip_text = "Toggle Selection"
+theme_override_font_sizes/font_size = 26
+icon = ExtResource("6_1rd8k")
+icon_alignment = 1
+expand_icon = true
+
+[node name="SelectAll" type="Button" parent="Maps/BottomBar/List/ToolBox/List" unique_id=1098202886]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+tooltip_text = "Select All"
+theme_override_font_sizes/font_size = 26
+icon = ExtResource("7_xij44")
+icon_alignment = 1
+expand_icon = true
+
+[node name="DeselectAll" type="Button" parent="Maps/BottomBar/List/ToolBox/List" unique_id=1509366935]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+tooltip_text = "Deselect All"
+theme_override_font_sizes/font_size = 26
+icon = ExtResource("8_ipnyt")
+icon_alignment = 1
+expand_icon = true
+
+[node name="Save" type="Button" parent="Maps/BottomBar/List/ToolBox/List" unique_id=210018307]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+tooltip_text = "Save Current Preset"
+theme_override_font_sizes/font_size = 26
+icon = ExtResource("9_lc0vl")
+icon_alignment = 1
+expand_icon = true
+
+[node name="Load" type="Button" parent="Maps/BottomBar/List/ToolBox/List" unique_id=9447034]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+tooltip_text = "Load Current Preset"
+theme_override_font_sizes/font_size = 26
+icon = ExtResource("10_ebmac")
+icon_alignment = 1
+expand_icon = true
+
+[node name="GridSize" type="HSlider" parent="Maps/BottomBar/List/ToolBox/List" unique_id=710856459]
+custom_minimum_size = Vector2(200, 40)
+layout_mode = 2
+tooltip_text = "Zoom"
+min_value = 1.0
+max_value = 6.0
+value = 5.0
+tick_count = 6
+ticks_on_borders = true
+
+[node name="RandomizeButton" type="Button" parent="Maps/BottomBar/List" unique_id=1246305686 groups=["Button"]]
+custom_minimum_size = Vector2(450, 60)
+layout_mode = 2
 theme_override_font_sizes/font_size = 36
 text = "Randomize"
 
@@ -221,6 +261,7 @@ anchor_right = 1.0
 offset_left = -60.0
 offset_right = -60.0
 theme_override_font_sizes/font_size = 34
+shortcut = SubResource("Shortcut_ipnyt")
 text = "X"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Control/RNGPanel" unique_id=638803868]
@@ -230,9 +271,9 @@ libraries/ = ExtResource("7_n43wf")
 
 [node name="RandomizerHandler" type="Node" parent="." unique_id=2066114305 node_paths=PackedStringArray("randomize_button", "rng_panel", "list_of_panels", "window_panel", "tool_box")]
 script = ExtResource("9_dtovj")
-randomize_button = NodePath("../Maps/RandomizeButton")
+randomize_button = NodePath("../Maps/BottomBar/List/RandomizeButton")
 rng_panel = NodePath("../Control/RNGPanel")
 list_of_panels = [NodePath("../Maps")]
 window_panel = NodePath("../WindowPanel")
-tool_box = NodePath("../Maps/ToolBox")
+tool_box = NodePath("../Maps/BottomBar/List/ToolBox")
 metadata/_custom_type_script = "uid://dbuy3j6tycmbr"

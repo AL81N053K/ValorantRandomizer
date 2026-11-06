@@ -12,6 +12,9 @@ font_size = 128
 [sub_resource type="LabelSettings" id="LabelSettings_mqkpf"]
 font_size = 32
 
+[sub_resource type="LabelSettings" id="LabelSettings_bhunq"]
+font_size = 24
+
 [node name="IntroPanel" type="MarginContainer" unique_id=527656157]
 anchors_preset = 15
 anchor_right = 1.0
@@ -41,7 +44,7 @@ vertical_alignment = 1
 [node name="Info" type="Label" parent="Content" unique_id=79213122]
 layout_mode = 2
 theme_override_font_sizes/font_size = 64
-text = "Click the left side to reveal the menu"
+text = "Click the top left MENU button to reveal randomizers"
 horizontal_alignment = 1
 
 [node name="VersionControl" type="Control" parent="." unique_id=1291223720 node_paths=PackedStringArray("label")]
@@ -52,13 +55,30 @@ label = NodePath("Version")
 
 [node name="Version" type="Label" parent="VersionControl" unique_id=1386084789]
 layout_mode = 1
-anchors_preset = 12
+anchors_preset = 3
+anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -23.0
-grow_horizontal = 2
+offset_left = -163.0
+offset_top = -42.0
+offset_right = -10.0
+offset_bottom = -10.0
+grow_horizontal = 0
 grow_vertical = 0
 text = "Version %s"
 label_settings = SubResource("LabelSettings_mqkpf")
 horizontal_alignment = 2
+
+[node name="Label" type="Label" parent="VersionControl" unique_id=1694600503]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_top = -34.0
+offset_right = 1055.0
+offset_bottom = -10.0
+grow_vertical = 0
+text = "This program is not affiliated with or created by Riot Games. | Created by AL81N053K | Godot Engine"
+label_settings = SubResource("LabelSettings_bhunq")
